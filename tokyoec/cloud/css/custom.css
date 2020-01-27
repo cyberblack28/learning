@@ -1,0 +1,113 @@
+/* フォントファミリー */
+body,h1,h2,h3,h4,h5,h6,p,li,dt,dd {
+  font-family:Avenir , "Open Sans" , "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "メイリオ" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
+}
+
+/* 共通項目 */
+
+body {
+  font-size: 186%;
+}
+
+.text_align_right {
+  text-align: right;
+}
+
+.text_align_left {
+  text-align: left;
+}
+
+.text_align_center {
+  text-align: center;
+}
+
+.text_indent_01 {
+  margin: 0;
+  padding: 0;
+  text-indent: 1em;
+  line-height: 1.5em;
+}
+
+.text_indent_02 {
+  text-indent: 1em;
+  line-height: 1.5em;
+}
+
+.white_spacing {
+  white-space: nowrap;
+}
+
+.hspace {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+hr {
+  border-top: solid 1px #727f7e;
+}
+
+/* 印刷時のURL消す処理 */
+@media print {
+ a[href]:after {
+ content: "" !important;
+ }
+
+ abbr[title]:after {
+ content: "" !important;
+ }
+}
+
+/* HEADER */
+.header_area {
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+/* CONTETS */
+.contents_area {
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+.contents_area li {
+ padding: 10px;
+}
+
+.contents_area p {
+ padding-top: 10px;
+ color:rgb(255, 255, 255);
+}
+
+.text_color_p {
+  color: rgb(0, 0, 0);
+}
+
+.text_color_red {
+  color: rgb(236, 17, 17);
+}
+
+.h4_title {
+  margin-top: 25px;
+  font-weight: bold;
+  padding: 7px;
+  border-bottom: 1px solid;
+  border-left: 5px solid;
+}
+
+.onepoint {
+  padding: 0px 10px 0px 10px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+/* FOOTER */
+.footer_area {
+  margin-left: 3%;
+  margin-right: 3%;
+}

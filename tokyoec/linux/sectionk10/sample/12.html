@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>初めてのJavaScript</title>
+	</head>
+
+	<body>
+
+ 		<p>年齢</p>
+
+        	<select id="age" name="age">
+            		<option value="">お選びください</option>
+            		<option value="10">10歳以下</option>
+            		<option value="30">11-30歳</option>
+            		<option value="50">31-50歳</option>
+            		<option value="51">51歳以上</option>
+        	</select>
+
+        	<script>
+            		document.getElementById('age').onchange = function() { var age = document.getElementById('age').value;
+        
+            		switch (age) {
+            			case '10':
+                			alert('10歳以下の方は、半額です');
+                			break;
+           			case '30':
+                			alert('11-30歳以下の方は割引はありません');
+                			break;
+            			case '50':
+                			alert('31-50歳の方は10%の割引です');
+                			break;
+            			case '51':
+                			alert('51歳の方は30%の割引です');
+                			break;
+            			}
+        		}
+        	</script>
+
+	</body>
+
+</html>

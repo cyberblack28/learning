@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>演習1 ファイル、パーミッション、ユーザ</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header class="header_area">
+      <h1>東京電子専門学校 Linux 演習課題</h1>
+    </header>
+
+    <hr>
+
+    <div class="contents_area">
+      <h2>2.ユーザ、グループとアクセス権管理</h2>
+
+      <h3>演習1 ファイル、パーミッション、ユーザ</h3>
+
+      <h4 class="h4_title">1.suコマンドとパーミッションの変更</h4>
+
+      <p><span class="text_color_p">最初に、スーパーユーザであるrootユーザに、suコマンドで切り替える方法を確認します。その後、rootユーザとしてファイルを作成し、パーミッションを変更する方法を確認します。</span></p>
+
+      <ol>
+        <li>studentとしてログインしている状態で、端末を開きます。idコマンドを実行し、現在のユーザを確認してください。<p>id</p>※「uid＝1000(student) gid=1000(student) groups=1000（studnet）」と表示されるはずです。現在はstudentとしてログインしていることが確認できます。</li>
+        <li>suコマンドを使って、rootユーザに切り替えてください。<p>su -</p>パスワード：<br>※パスワードは設定したパスワードを入力します（入力しても、画面上は何も表示されません）<br>パスワード入力が正しく行われれば、ユーザが切り替わります。</li>
+        <li>idコマンドを実行し、現在のユーザを確認してください。<p>id</p>※「uid＝0(root) gid=0(root) groups=0(root)」と表示され、現在はrootとしてログインしていることが確認できます。</li>
+        <li>rootユーザのまま、カレントディレクトリを/usr/tmp/に変更します。<br>以降の操作は、指示が無い限りはrootユーザで行ってください。<p>cd /usr/tmp</p></li>
+        <li>touchコマンドで、test1.txtおよびtest2.txtという空のファイルを、カレントディレクトリに作成してください。その後、lsコマンドでtest1.txtとtest2.txtのパーミッションを確認してください。<br>rootにはrw（読み取りと書き込み）、その他のユーザにはr（読み取りのみ）が割り当てられています。<p>touch test{1..2}.txt<br>ls -l test*</p></li>
+        <li>現在の端末ウインドウはそのまま閉じずに、新たにもう一つ端末ウインドウを開いてください。<br>新たに開いた端末ウインドウは、studentのまま（rootには切り替えない）にします。<br>新しく開いたsutdentの端末で、/usr/tmp/test1.txtをvimコマンドで開いてみましょう。<br>すると、上書き保存ができない状態で、ファイルが開きます。文字を入力して保存できないことを確認してください。<p>vim /usr/tmp/test1.txt<br>［i］か［a］で入力モードに切り替えます。<br>何か文字を入力して、[Esc]キー[:wq]</p>readonlyのメッセージが表示されて保存できないことを確認できます。</li>
+        <li>保存せずにvimを終了しましょう。<p>[:q!]</p></li>
+        <li>test1.txtとtest2.txtのパーミッションを、以下の要件に従い変更します。
+          <ul>
+            <li>test1.txtおよびtest2.txtに、studentが文字を追加し、上書き保存できるようにしてください</li>
+            <li>オーナー（所有者）であるroot関連のパーミッションは変更しないでください</li>
+            <li>test1.txtのパーミッションはシンボルモードで変更してください</li>
+            <li>test2.txtのパーミッションは数値モードで変更してください</li>
+          </ul>
+          <p>開いたrootの端末ウインドウで、以下を実行します。<br>chmod o+w test1.txt<br>chmod 646 test2.txt<br>ls -l test*</p>
+        </li>
+        <li>新たに開いたstudentの端末ウインドウで、/usr/tmp/test1.txtをテキストエディタで開きます。<br>今度は、ファイルを上書き保存できるはずです。適当な文字を入力後、上書き保存動作を行い、確認してください。同様に、test2.txtも確認してください。<p>vim /usr/tmp/test1.txt<br>［i］か［a］で入力モードに切り替えます。<br>何か文字を入力して、[Esc]キー[:wq]</p><p>vim /usr/tmp/test2.txt<br>［i］か［a］で入力モードに切り替えます。<br>何か文字を入力して、[Esc]キー[:wq]</p></li>
+      </ol>
+
+      <h4 class="h4_title">2.ユーザの作成とUID、所属グループの確認</h4>
+
+      <ol>
+        <li>rootユーザの状態で、次の作業を行ってください。
+          <ul>
+            <li>student02というユーザを作成します</li>
+            <li>student02にpasswordというパスワードを設定します</li>
+            <li>idコマンドを使ってstudent02が存在していることを確認します</li>
+            <li>上記の管理作業が完了したら、rootからstudnetに戻ります。</li>
+          </ul>
+          <p><span class="text_color_p">※パスワードは、セキュリティレベルの低いパスワードを設定しようとしているため、警告は表示されます。rootであればこのようなセキュリティレベルの低いパスワードも設定可能です（非推奨ですが演習ということで行います）。</span></p>
+          <p>useradd student02<br>passwd student02<br>※「新しいパスワード：」と表示されたら、passwordと入力し、［Enter］キーを押します（画面上は変化がありません）<br>※「新しいパスワードを再入力してください：」と表示されたら、もう一度passwordと入力し、［Enter］キーを押します。<br>id student02<br>exit</p>
+        </li>
+        <li>端末上でsuコマンドを使ってstudent02に切り替えてください。<p>su student02<br>パスワード：　　　　 ※passwordと入力します（入力しても、画面上は何も表示されません）</p></li>
+        <li>student02として任意のパスワードに変更してください。変更後のパスワードは、忘れないように、どこかに記入しておきましょう。<p>passwd<br>現在のUNIXパスワード：　　 ※現在のパスワード（password）を入力します<br>新しいパスワード：　　　　 ※新しいパスワードを入力します<br>新しいパスワード：　　　　 ※確認のため、もう一度新しいパスワードを入力します</p>一般ユーザは、rootとは異なり、自分のパスワードしか変更できません。また、パスワードの変更時には、現在使用中のパスワードの入力が必要で、セキュリティレベルの低いパスワードは受け付けてもらえません（警告的なメッセージが表示されますが、無視して設定することも可能なものもあります。）。なお、パスワードの変更を中断する場合は、［Ctrl］+［C］キーを押します。 </li>
+        <li>student02としての作業が完了したため、studentに戻ります。<p>exit</p></li>
+      </ol>
+
+      <h4 class="h4_title">3.グループ作成とsudoコマンド</h4>
+
+      <p><span class="text_color_p">user01、user02をメンバーとするグループgrp01を新規に作成し、このグループのメンバーであればsudoコマンドを使って、管理が行えるようにします。</span></p>
+
+      <ol>
+        <li>rootユーザに変更してください。<p>su - ※パスワードは設定したパスワードを入力します（入力しても、画面上は何も表示されません）</p></li>
+        <li>user01、user02を作成してください。パスワードはユーザ名と同じにしてください。<p>useradd user01<br>useradd user02<br>passwd user01 ※パスワードはuser01と2回入力<br>passwd user02 ※パスワードはuser02と2回入力</p></li>
+        <li>idコマンドでuser01とuser02ができていることを確認します。<p>id user01<br>id user02</p></li>
+        <li>grp01グループを作成してください。<p>groupadd grp01</p></li>
+        <li>user01とuser02をgrp01グループに所属させてください。<p>gpasswd -M user01,user02 grp01</p></li>
+        <li>idコマンドでuser01とuser02がgrp01に所属していることを確認します。groupsにgrp01が表示されます。<p>id user01<br>id user02</p></li>
+        <li>visudoコマンドを使用して、最終行に「%grp01 ALL=(ALL) ALL」と入力します。<p>visudo<br>[shift]+[g]キーで最終行まで移動します。<br>[a]または[i]で入力モードに切り替えて、「%grp01 ALL=(ALL) ALL」と入力します。<br>[ESC][:][w][q]を順に押して保存終了します。</p></li>
+        <li>端末を閉じ、studentをGUI画面でログアウトしてください。</li>
+        <li>user01でGUIログインしてください。</li>
+        <li>端末を起動して、「sudo useradd user03」を実行してください。<br>※パスワードの入力を求められるので、user01のパスワードを入力してください。<p>sudo useradd user03</p></li>
+        <li>同じやり方でuser03にパスワードを設定してみましょう。パスワードはuser03とします。<p>sudo passwd user03<br>※パスワードはuser03と2回入力</p></li>
+        <li>idコマンドでuser03を確認してください。<br>※user03の情報が表示されれば、useraddコマンドがsudoで実行できたと見なします。<p>id user03</p></li>
+        <li>端末を閉じ、user01をGUI画面でログアウトしてください。</li>
+        <li>user03でGUIログインしてください。</li>
+        <li>端末を起動して、「sudo useradd user04」を実行してください。<br>※パスワードの入力を求められるので、user03のパスワードを入力してください。<br><strong>「user03は、sudoersファイル内にありません。この事象は記録・報告されます。」</strong>というメッセージが表示されます。<br>user03にはsudoコマンドでuseraddコマンドを実行できないことを確認しましょう。<p>sudo useradd user04</p></li>
+      </ol>
+
+      <p class="text_align_center"><a href="../zenki.html">前期トップへ戻る</a></p>
+
+      <p class="text_align_center"><a href="../index.html">トップへ戻る</a></p>
+
+    </div>
+
+    <hr>
+
+    <footer class="footer_area">
+      <p class="text_align_center">&copy; Yutaka Ichikawa</p>
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+  </body>
+</html>

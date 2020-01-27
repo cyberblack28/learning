@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>演習6 シェルスクリプトを書く</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header class="header_area">
+      <h1>東京電子専門学校 Linux 演習課題</h1>
+    </header>
+
+    <hr>
+
+    <div class="contents_area">
+      <h2>4.シェル</h2>
+
+      <h3>演習6 シェルスクリプトを書く</h3>
+
+      <h4 class="h4_title">1.シェル変数の演習</h4>
+
+      <ol>
+        <li>カレントディレクトリをホームディレクトリに変更してください。これまでの演習で使用したsample_web.logがあることを確認してください。<p>cd<br>pwd<br>ls</p></li>
+        <li>training06_1.shというファイル名でシェルスクリプトファイルを作成し、iPadまたはiPhoneを使ってアクセスしてきたユーザ数（iPadまたはiPhoneという文字列を含む行の行数）が次のメッセージとともに表示されるようにしてください。〇〇には件数が入ります。<p><span class="text_color_p"><strong>＜表示結果＞<br>iPadからのアクセス数は○○件です。※スクリプトが正しければ、○○には592と表示<br>iPhoneからのアクセス数は○○件です。※スクリプトが正しければ、○○には647と表示</strong></span></p><p>vim training06_1.sh<br>#!/bin/bash<br>iPad=$(grep iPad ~/sample_web.log | wc -l)<br>iPhone=$(grep iPhone ~/sample_web.log | wc -l)<br>echo iPadからのアクセス数は $iPad件です<br>echo iPhoneからのアクセス数は $iPhone件です<br>[:][w][q]でvimを保存終了<br>chmod +x training06_1.sh または chmod 775 training06_1.sh<br>bash training06_1.sh</p></li>
+      </ol>
+
+      <h4 class="h4_title">2.位置パラメータの演習</h4>
+
+      <ol>
+        <li>カレントディレクトリをホームディレクトリに変更してください。これまでの演習で使用したsample_web.logがあることを確認してください。<p>cd<br>pwd<br>ls</p></li>
+        <li>training06_1.shをtraining06_2.shとしてコピーしてください。<p>cp -p training06_1.sh training06_2.sh</p></li>
+        <li>training06_1.shの2箇所を位置パラメータ$1に変更して、「bash training06_2.sh ~/sample_web.log」を実行して、training06_1.shと同じ結果になることを確認してください。<p>vim training06_2.sh<br>iPad=$(grep iPad ~/sample_web.log | wc -l)<br>iPhone=$(grep iPhone ~/sample_web.log | wc -l)<br>↓以下に変更<br>iPad=$(grep iPad $1 | wc -l)<br>iPhone=$(grep iPhone $1 | wc -l)<br>[:][w][q]<br>bash training06_2.sh ~/sample_web.log</p></li>
+      </ol>
+
+      <h4 class="h4_title">3.if文の演習</h4>
+
+      <ol>
+        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
+        <li>training06_3.shという名前のシェルスクリプトファイルを作成し、本日が2017年6月22日なら、2017-06-22.txtのように、年-月-日.txtのファイルを作成、すでに同じ名前のファイルが存在する場合はファイルは作成せずに、かわりに「ファイルは既に存在します。」というメッセージを表示させるスクリプトを作成してください。1回目はファイルの作成、2回目はメッセージ表示となるので、スクリプトを2回実行しましょう。<p>vim training06_3.sh<br>#!/bin/bash<br>today=$(date '+%Y-%m-%d')<br>if [ -e $today.txt ] ; then<br>echo "ファイルは既に存在します。"<br>else<br>touch ~/$today.txt<br>fi<br>[:][w][q]<br>chmod +x training06_3.sh または chmod 755 training06_3.sh<br>bash training06_3.sh<br>ls -l(1回目)<br>ls -l(2回目)</p></li>
+      </ol>
+
+      <h4 class="h4_title">4.for文の演習</h4>
+
+      <ol>
+        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
+        <li>training06_4.shという名前のシェルスクリプトファイルを作成し、前回の日付ファイルの名前に-1から-5の連番を付与し、5個のファイルが作成されるスクリプトを作成しましょう。<p>vim training06_4.sh<br>#!/bin/bash<br>today=$(date '+%Y-%m-%d')<br>for i in $(seq 1 5)<br>do<br>touch $today-$i.txt<br>done<br>[:][w][q]<br>chmod +x training06_4.sh または chmod 755 training06_4.sh<br>bash training06_4.sh<br>ls -l</p></li>
+      </ol>
+
+      <h4 class="h4_title">5.while文の演習</h4>
+
+      <ol>
+        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
+        <li>training06_5.shという名前のシェルスクリプトファイルを作成し、file1.txt、file2.txt・・・file10.txtのように、fileの後ろに1から10の連番を付けて10個のファイルが作成できるスクリプトを作成及び実行してください。<p>vim training06_5.sh<br>#!/bin/bash<br>i=1<br>while [ $i -le 10 ]<br>do<br> touch file$i.txt<br>i=$((i+1))<br>done<br>[:][w][q]<br>chmod +x training06_5.sh または chmod 755 training06_5.sh<br>bash training06_5.sh<br>ls -l</p></li>
+      </ol>
+
+      <h4 class="h4_title">6.case文の演習</h4>
+
+      <ol>
+        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
+        <li>training06_6.shという名前のシェルスクリプトファイルを作成し、位置パラメータを利用して、引数が01の場合はGoogle、02の場合はMicrosoft、03の場合はAmazon、それ以外はNo matchと表示されるスクリプトをcase文を用いて作成してください。<p>vim training06_6.sh<br>#!/bin/bash<br>case $1 in<br>01)<br>echo "Google";;<br>02)<br>echo "Microsoft";;<br>03)<br>echo "Amazon";;<br>*)<br>echo "No match";;<br>esac<br>[:][w][q]<br>chmod +x training06_6.sh または chmod 755 training06_6.sh<br>bash training06_6.sh</p></li>
+      </ol>
+
+      <h4 class="h4_title">7.シェル関数の演習</h4>
+
+      <ol>
+        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
+        <li>training06_7.shという名前のシェルスクリプトファイルを作成し、todayというシェル関数を作成して、日付とカレンダーが表示されるスクリプトを作成してください。<p>vim training06_7.sh<br>#!/bin/bash<br>function today ()<br>{<br>date<br>cal<br>}<br>today<br>[:][w][q]<br>chmod +x training06_7.sh または chmod 755 training06_7.sh<br>bash training06_7.sh</p></li>
+      </ol>
+
+      <h4 class="h4_title">8.シェルスクリプトでfizzbuzz（応用演習）</h4>
+
+      <ol>
+        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
+        <li>100までを基準に、3で割り切れる場合はfizzと表示、5で割り切れる場合はbuzzと表示、両方割り切れる場合はfizzbuzzと表示されるシェルスクリプトファイルを作成してください。ファイル名はfizzbuzz.shとします。for文とif文を利用してみましょう。<p>vim fizzbuzz.sh<br>#!/bin/bash<br>for ((i=1;i&lt;=100; i++))<br>do<br>if (($i % 15 == 0)); then<br>echo fizzbuzz<br>elif (($i % 3 == 0)); then<br>echo fizz<br>elif (($i % 5 == 0)); then<br>echo buzz<br>else<br>echo $i<br>fi<br>done<br>[:][w][q]<br>chmod +x fizzbuzz.sh または chmod 755 fizzbuzz.sh<br>bash fizzbuzz.sh</p></li>
+      </ol>
+
+      <p class="text_align_center"><a href="../zenki.html">前期トップへ戻る</a></p>
+
+      <p class="text_align_center"><a href="../index.html">トップへ戻る</a></p>
+
+    </div>
+
+    <hr>
+
+    <footer class="footer_area">
+      <p class="text_align_center">&copy; Yutaka Ichikawa</p>
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.Googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+  </body>
+</html>

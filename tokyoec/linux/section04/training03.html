@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>演習3 grepコマンドと正規表現</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header class="header_area">
+      <h1>東京電子専門学校 Linux 演習課題</h1>
+    </header>
+
+    <hr>
+
+    <div class="contents_area">
+      <h2>4.シェル</h2>
+
+      <h3>演習3 grepコマンドと正規表現</h3>
+
+      <h4 class="h4_title">1.grepコマンドと正規表現を組み合わせて/etc/passwdを確認する</h4>
+
+      <ol>
+        <li>/etc/passwdファイルの中で、userという文字列を含む行のみを表示してください。<p>grep user /etc/passwd</p></li>
+        <li>1で実行したコマンドは、「行内にuserという文字列を含む行」がすべて表示されます。次は、/etc/passwdファイルの中で、行頭がuserで始まる行のみを表示してください。<p>grep '^user' /etc/passwd</p></li>
+        <li>2で実行したコマンドは、ユーザ名以外の情報（UIDやGID、ホームディレクトリのパス、デフォルトのシェル）が表示されます。パイプラインを使って、他のコマンドと組み合わせて、ユーザ名とホームディレクトリのみを表示するように変更してください。<p>grep '^user' /etc/passwd | cut -d : -f 1,6</p></li>
+        <li>ログインシェルがbashであるユーザを表示してください。行末がbashという観点で考えてみましょう。<p>grep -n 'bash$' /etc/passwd</p></li>
+      </ol>
+
+      <h4 class="h4_title">2.grepコマンドと正規表現を組み合わせてWebサーバのログファイルを確認する</h4>
+
+      <ol>
+        <li>サンプル用のログファイルをダウンロードして、解凍します。<br>wget http://www.0004s.com/4s/sample_web.zip<br>unzip sample_web.zip<br>sample_web.logファイルがあること確認してください。</li>
+        <li>sample_web.logの行数を確認してください。<p>wc -l sample_web.log　※20001行あります。</p></li>
+        <li>Mac OSユーザのアクセス件数を調べてください(3092件あります)。Mac OSという文字列を含む行の行数をカウントします。<p>grep -c 'Mac OS' sample_web.log</p></li>
+        <li>Mac OSユーザで、かつSafariユーザのアクセス件数を調べてください(1239件あります)。<br>Mac OSという文字列を含む行をgrepし、その結果に対してさらにSafariを含む行をgrepし、行数をカウントします。<p>grep 'Mac OS' sample_web.log | grep -c Safari</p></li>
+        <li>2016年3月17日の10時台のアクセスについて、次の質問に解答してください。<br>アクセス数<br>10時台の最初にアクセスがあった時間<br>10時台の最後にアクセスがあった時間<p>grep '17/Mar/2016:10:' sample_web.log | wc -l ※3470件<br>grep '17/Mar/2016:10:' sample_web.log | head -n 1 ※10：08：15（10時08分15秒）<br>grep '17/Mar/2016:10:' sample_web.log | tail -n 1 ※10：40：29（10時40分29秒）</p></li>
+        <li>ログファイル内のアクセスので、Googlebot（ウェブクロール用bot。検索のための情報収集を行っている）以外からのアクセス数を確認してください。<p>grep -v Googlebot sample_web.log | wc -l ※18657件</p></li>
+      </ol>
+
+      <p class="text_align_center"><a href="../zenki.html">前期トップへ戻る</a></p>
+
+      <p class="text_align_center"><a href="../index.html">トップへ戻る</a></p>
+
+    </div>
+
+    <hr>
+
+    <footer class="footer_area">
+      <p class="text_align_center">&copy; Yutaka Ichikawa</p>
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>初めてのJavaScript</title>
+	</head>
+
+	<body>
+
+	<ul>
+
+ 	<script>
+ 		var menus = {
+                        		'https://aws.amazon.com/jp/':'AWS',
+                        		'https://cloud.google.com/?hl=ja':'GCP',
+                        		'https://azure.microsoft.com/ja-jp/':'Azure',
+                        		'https://www.ibm.com/cloud-computing/':'IBM Cloud'
+		}
+
+		for (var m in menus) {
+			document.write('<li><a href="' + m + '" title="' + m + 'に移動します" target="_blank">' + menus[m] + '</a></li>');
+		}
+	</script>
+
+	</ul>
+
+	</body>
+
+</html>

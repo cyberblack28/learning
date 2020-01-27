@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>初めてのJavaScript</title>
+    </head>
+
+    <body>
+        
+            <script>
+            var count = 0;
+            function countup() {
+                document.getElementById( "output" ).innerHTML = ++count;
+            }
+
+            function reset() {
+                location.reload()
+            }
+            </script>
+            
+            <p><button onclick="countup();">カウントアップ</button> <button onclick="reset();">リセット</button><br><span id="output">0</span></p>
+
+    </body>
+
+</html>
