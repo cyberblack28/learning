@@ -42,7 +42,7 @@
       <h4 class="h4_title">2.grepコマンドと正規表現を組み合わせてWebサーバのログファイルを確認する</h4>
 
       <ol>
-        <li>サンプル用のログファイルをダウンロードして、解凍します。<br>wget https://cyberblack28.github.io/learning/tokyoec/linux/sample_web.zip<br>unzip sample_web.zip<br>sample_web.logファイルがあること確認してください。</li>
+        <li>サンプル用のログファイルをダウンロードして、解凍します。<br>wget https://cyberblack28.github.io/learning/tokyoec/linux/zip/sample_web.zip<br>unzip sample_web.zip<br>sample_web.logファイルがあること確認してください。</li>
         <li>sample_web.logの行数を確認してください。<p>wc -l sample_web.log　※20001行あります。</p></li>
         <li>Mac OSユーザのアクセス件数を調べてください(3092件あります)。Mac OSという文字列を含む行の行数をカウントします。<p>grep -c 'Mac OS' sample_web.log</p></li>
         <li>Mac OSユーザで、かつSafariユーザのアクセス件数を調べてください(1239件あります)。<br>Mac OSという文字列を含む行をgrepし、その結果に対してさらにSafariを含む行をgrepし、行数をカウントします。<p>grep 'Mac OS' sample_web.log | grep -c Safari</p></li>
