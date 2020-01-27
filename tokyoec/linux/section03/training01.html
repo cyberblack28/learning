@@ -36,7 +36,8 @@
 
       <ol>
         <li>rootユーザに変更してください。<p>su -</p></li>
-        <li>stressのRPMパッケージをインストールします。<br>wget https://cyberblack28.github.io/learning/tokyoec/linux/zip/stress-1.0.2-1.el7.rf.x86_64.rpm<br>rpm -Uvh stress-1.0.2-1.el7.rf.x86_64.rpm<br>rpm -qa | grep stress<br>※stress-1.0.2-1.el7.rf.x86_64と表示されればインストール完了です。</li>
+        <li>stressのRPMパッケージをインストールします。(CentOS7の場合)<br>wget https://cyberblack28.github.io/learning/tokyoec/linux/zip/stress-1.0.2-1.el7.rf.x86_64.rpm<br>rpm -Uvh stress-1.0.2-1.el7.rf.x86_64.rpm<br>rpm -qa | grep stress<br>※stress-1.0.2-1.el7.rf.x86_64と表示されればインストール完了です。</li>
+        <li>stressのRPMパッケージをインストールします。(CentOS8の場合)<br>wget https://cyberblack28.github.io/learning/tokyoec/linux/zip/stress-1.0.4-23.el8.x86_64.rpm<br>rpm -Uvh stress-1.0.4-23.el8.x86_64.rpm<br>rpm -qa | grep stress<br>※stress-1.0.2-1.el7.rf.x86_64と表示されればインストール完了です。</li>
         <li>4つのstressのプロセスを動かして、仮想マシンにで負荷をかけます。以下のstressコマンドを実行します。<br>stress --cpu 3</li>
         <li>3.で実行したstressコマンドが、フォアグラウンドジョブとして実行されているため、端末ウインドウではほかのコマンドが入力できません。キー入力を行えるようにするため、バックグラウンドジョブに変更してください。<p>[Ctrl]+[z]<br>jobs<br>bg %1</p></li>
         <li>バックグラウンドジョブになっていること確認してください。<p>jobs ※stress --cpu 3&が実行中なら正OKです。</p></li>
