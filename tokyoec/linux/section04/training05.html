@@ -98,9 +98,8 @@ $ ls -l
 #!/bin/bash
 
 touch ~/script_dir/test.txt
-----------------[Esc + :wq]で保存終了---------------------------------------------
-
-$ chmod +x shellscript.sh
+----------------[Esc + :wq]で保存終了---------------------------------------------</code></pre>
+<pre><code>$ chmod +x shellscript.sh
 $ ls -l
 合計 4
 -rwxrwxr-x. 1 student student 41  1月 27 23:14 shellscript.sh
@@ -127,8 +126,8 @@ $ ls -l
 <pre><code>$ ls -l
 合計 4
 -rwxrwxr-x. 1 student student 41  1月 27 23:14 shellscript.sh
--rw-rw-r--. 1 student student  0  1月 27 23:08 test.txt
-$ ./shellscript.sh
+-rw-rw-r--. 1 student student  0  1月 27 23:08 test.txt</code></pre>
+<pre><code>$ ./shellscript.sh
 $ ls -l
 -rwxrwxr-x. 1 student student 41  1月 27 23:14 shellscript.sh
 -rw-rw-r--. 1 student student  0  1月 27 23:22 test.txt</code></pre>
@@ -170,8 +169,8 @@ $ ls -l
  1月 27 22:30:01 localhost.localdomain anacron[2717]: Job `cron.monthly' started
  1月 27 22:30:01 localhost.localdomain anacron[2717]: Job `cron.monthly' terminated
  1月 27 22:30:01 localhost.localdomain anacron[2717]: Normal exit (3 jobs run)
- 1月 27 23:01:54 localhost.localdomain CROND[3797]: (root) CMD (run-parts /etc/cron.hourly)
-$ crontab -e
+ 1月 27 23:01:54 localhost.localdomain CROND[3797]: (root) CMD (run-parts /etc/cron.hourly)</code></pre>
+ <pre><code>$ crontab -e
 
 ----------------以下を右クリックコピーしてTeraTerm上でペースト----------------------
 */1 * * * * ~/script_dir/shellscript.sh
@@ -198,10 +197,10 @@ $ crontab -e
 <pre><code>$ ls -l
 合計 4
 -rwxrwxr-x. 1 student student 41  1月 27 23:14 shellscript.sh
--rw-rw-r--. 1 student student  0  1月 27 23:31 test.txt
-$ su -
-パスワード:tokyoec
-# cat /var/log/cron | tail -n 10
+-rw-rw-r--. 1 student student  0  1月 27 23:31 test.txt</code></pre>
+<pre><code>$ su -
+パスワード:tokyoec</code></pre>
+<pre><code># cat /var/log/cron | tail -n 10
 an 27 22:30:01 localhost anacron[2717]: Normal exit (3 jobs run)
 Jan 27 23:01:54 localhost CROND[3797]: (root) CMD (run-parts /etc/cron.hourly)
 Jan 27 23:01:54 localhost run-parts[3797]: (/etc/cron.hourly) starting 0anacron

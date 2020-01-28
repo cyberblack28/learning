@@ -33,22 +33,422 @@
       <h4 class="h4_title">1.標準入力、標準出力、標準エラー出力の確認</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>catコマンドとリダイレクト機能を使って、cloud.txtというファイルをホームディレクトリに作成してください。<br>ファイルの内容は次の3行です。作成後、catコマンドで確認してください。<br>aws<br>gcp<br>azure<p>cat > cloud.txt<br>aws<br>gcp<br>azure<br>[Ctrl]+[D]<br>cat cloud.txt</p></li>
-        <li>catコマンドとリダイレクト機能を使って、2.で作成したcloud.txtの4行目以降に、次の3行を追記してください。また、catコマンドで追記できたことを確認してください。<br>digital ocean<br>Bluemix Infrastructure<br>packet<p>cat >> cloud.txt<br>digital ocean<br>Bluemix Infrastructure<br>packet<br>[Ctrl]+[D]<br>cat cloud.txt</p></li>
-        <li>cloud.txtの内容を画面表示してください。このとき、cloudベンダーの名称がアルファベットの順と逆順に並べ替えられた状態で表示してください。<p>cat cloud.txt | sort<br>cat cloud.txt | sort -r</p></li>
-        <li>findコマンドを使って、/etc から拡張子が.txtのファイルを検索してください。パーミッションがないため、「許可がありません」と表示されるファイルがあります。なので、リダイレクト機能を利用して、エラー内容が表示されないようにしてみましょう。<p>find /etc -name '*.txt'<br>find /etc -name '*.txt' 2>/dev/null</p></li>
-        <li>5の検索結果をエラー出力も含めて、画面とfind_results.txtという名前のテキストファイルに出力してください。catコマンドでfind_results.txtを確認してみましょう。<p>find /etc -name '*.txt' 2>&1 | tee find_results.txt<br>cat find_results.txt</p></li>
+        <li>カレントディレクトリをホームディレクトリに変更してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>catコマンドとリダイレクト機能を使って、cloud.txtというファイルをホームディレクトリに作成してください。<br>ファイルの内容は次の3行です。作成後、catコマンドで確認してください。<br>aws<br>gcp<br>azure
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cat > cloud.txt
+aws //[enterキー]
+gcp //[enterキー]
+azure //[enterキー]
+//[Ctrl]+[D]終了</code></pre>
+<pre><code>$ cat cloud.txt
+aws
+gcp
+azure</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>catコマンドとリダイレクト機能を使って、2.で作成したcloud.txtの4行目以降に、次の3行を追記してください。また、catコマンドで追記できたことを確認してください。<br>oracle cloud<br>IBM cloud<br>digital ocean
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cat >> cloud.txt
+oracle cloud //[enterキー]
+IBM cloud //[enterキー]
+digital ocean //[enterキー]
+//[Ctrl]+[D]終了</code></pre>
+<pre><code>$ cat cloud.txt
+aws
+gcp
+azure
+oracle cloud
+IBM cloud
+digital ocean</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>cloud.txtの内容を画面表示してください。このとき、cloudベンダーの名称がアルファベットの順と逆順に並べ替えられた状態で表示してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cat cloud.txt | sort
+IBM cloud
+aws
+azure
+digital ocean
+gcp
+oracle cloud</code></pre>
+<pre><code>$ cat cloud.txt | sort -r
+oracle cloud
+gcp
+digital ocean
+azure
+aws
+IBM cloud</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>findコマンドを使って、/etc から拡張子が.txtのファイルを検索してください。パーミッションがないため、「許可がありません」と表示されるファイルがあります。なので、リダイレクト機能を利用して、エラー内容が表示されないようにしてみましょう。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ find /etc -name '*.txt'
+/etc/pki/nssdb/pkcs11.txt
+find: ‘/etc/pki/rsyslog’: 許可がありません
+find: ‘/etc/grub.d’: 許可がありません
+find: ‘/etc/lvm/archive’: 許可がありません
+find: ‘/etc/lvm/backup’: 許可がありません
+find: ‘/etc/lvm/cache’: 許可がありません
+find: ‘/etc/dhcp’: 許可がありません
+find: ‘/etc/nftables’: 許可がありません
+find: ‘/etc/cups/ssl’: 許可がありません
+find: ‘/etc/sssd’: 許可がありません
+find: ‘/etc/polkit-1/rules.d’: 許可がありません
+find: ‘/etc/polkit-1/localauthority’: 許可がありません
+/etc/brltty/Input/ba/all.txt
+/etc/brltty/Input/bd/all.txt
+/etc/brltty/Input/bl/18.txt
+/etc/brltty/Input/bl/40_m20_m40.txt
+/etc/brltty/Input/ec/all.txt
+/etc/brltty/Input/ec/spanish.txt
+/etc/brltty/Input/eu/all.txt
+/etc/brltty/Input/lb/all.txt
+/etc/brltty/Input/lt/all.txt
+/etc/brltty/Input/mb/all.txt
+/etc/brltty/Input/mn/all.txt
+/etc/brltty/Input/tn/all.txt
+/etc/brltty/Input/tt/all.txt
+/etc/brltty/Input/vd/all.txt
+/etc/brltty/Input/vr/all.txt
+/etc/brltty/Input/vs/all.txt
+/etc/brltty/Input/xw/all.txt
+find: ‘/etc/audit’: 許可がありません
+find: ‘/etc/libvirt’: 許可がありません
+find: ‘/etc/firewalld’: 許可がありません
+find: ‘/etc/sudoers.d’: 許可がありません</code></pre>
+<pre><code>$ find /etc -name '*.txt' 2>/dev/null
+/etc/pki/nssdb/pkcs11.txt
+/etc/brltty/Input/ba/all.txt
+/etc/brltty/Input/bd/all.txt
+/etc/brltty/Input/bl/18.txt
+/etc/brltty/Input/bl/40_m20_m40.txt
+/etc/brltty/Input/ec/all.txt
+/etc/brltty/Input/ec/spanish.txt
+/etc/brltty/Input/eu/all.txt
+/etc/brltty/Input/lb/all.txt
+/etc/brltty/Input/lt/all.txt
+/etc/brltty/Input/mb/all.txt
+/etc/brltty/Input/mn/all.txt
+/etc/brltty/Input/tn/all.txt
+/etc/brltty/Input/tt/all.txt
+/etc/brltty/Input/vd/all.txt
+/etc/brltty/Input/vr/all.txt
+/etc/brltty/Input/vs/all.txt
+/etc/brltty/Input/xw/all.txt</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->          
+        </li>
+        <li>5の検索結果をエラー出力も含めて、画面とfind_results.txtという名前のテキストファイルに出力してください。catコマンドでfind_results.txtを確認してみましょう。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse6" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ find /etc -name '*.txt' 2>&1 | tee find_results.txt
+/etc/pki/nssdb/pkcs11.txt
+find: ‘/etc/pki/rsyslog’: 許可がありません
+find: ‘/etc/grub.d’: 許可がありません
+find: ‘/etc/lvm/archive’: 許可がありません
+find: ‘/etc/lvm/backup’: 許可がありません
+find: ‘/etc/lvm/cache’: 許可がありません
+find: ‘/etc/dhcp’: 許可がありません
+find: ‘/etc/nftables’: 許可がありません
+find: ‘/etc/cups/ssl’: 許可がありません
+find: ‘/etc/sssd’: 許可がありません
+find: ‘/etc/polkit-1/rules.d’: 許可がありません
+find: ‘/etc/polkit-1/localauthority’: 許可がありません
+/etc/brltty/Input/ba/all.txt
+/etc/brltty/Input/bd/all.txt
+/etc/brltty/Input/bl/18.txt
+/etc/brltty/Input/bl/40_m20_m40.txt
+/etc/brltty/Input/ec/all.txt
+/etc/brltty/Input/ec/spanish.txt
+/etc/brltty/Input/eu/all.txt
+/etc/brltty/Input/lb/all.txt
+/etc/brltty/Input/lt/all.txt
+/etc/brltty/Input/mb/all.txt
+/etc/brltty/Input/mn/all.txt
+/etc/brltty/Input/tn/all.txt
+/etc/brltty/Input/tt/all.txt
+/etc/brltty/Input/vd/all.txt
+/etc/brltty/Input/vr/all.txt
+/etc/brltty/Input/vs/all.txt
+/etc/brltty/Input/xw/all.txt
+find: ‘/etc/audit’: 許可がありません
+find: ‘/etc/libvirt’: 許可がありません
+find: ‘/etc/firewalld’: 許可がありません
+find: ‘/etc/sudoers.d’: 許可がありません</code></pre>
+<pre><code>$ cat find_results.txt
+/etc/pki/nssdb/pkcs11.txt
+find: ‘/etc/pki/rsyslog’: 許可がありません
+find: ‘/etc/grub.d’: 許可がありません
+find: ‘/etc/lvm/archive’: 許可がありません
+find: ‘/etc/lvm/backup’: 許可がありません
+find: ‘/etc/lvm/cache’: 許可がありません
+find: ‘/etc/dhcp’: 許可がありません
+find: ‘/etc/nftables’: 許可がありません
+find: ‘/etc/cups/ssl’: 許可がありません
+find: ‘/etc/sssd’: 許可がありません
+find: ‘/etc/polkit-1/rules.d’: 許可がありません
+find: ‘/etc/polkit-1/localauthority’: 許可がありません
+/etc/brltty/Input/ba/all.txt
+/etc/brltty/Input/bd/all.txt
+/etc/brltty/Input/bl/18.txt
+/etc/brltty/Input/bl/40_m20_m40.txt
+/etc/brltty/Input/ec/all.txt
+/etc/brltty/Input/ec/spanish.txt
+/etc/brltty/Input/eu/all.txt
+/etc/brltty/Input/lb/all.txt
+/etc/brltty/Input/lt/all.txt
+/etc/brltty/Input/mb/all.txt
+/etc/brltty/Input/mn/all.txt
+/etc/brltty/Input/tn/all.txt
+/etc/brltty/Input/tt/all.txt
+/etc/brltty/Input/vd/all.txt
+/etc/brltty/Input/vr/all.txt
+/etc/brltty/Input/vs/all.txt
+/etc/brltty/Input/xw/all.txt
+find: ‘/etc/audit’: 許可がありません
+find: ‘/etc/libvirt’: 許可がありません
+find: ‘/etc/firewalld’: 許可がありません
+find: ‘/etc/sudoers.d’: 許可がありません</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">2.主なフィルタコマンドの確認</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>catコマンドとリダイレクト機能を使って、programming.txtというファイルをホームディレクトリに作成してください。<br>ファイルの内容は次の8行です。作成後、catコマンドで確認してください。<br>ruby<br>ruby<br>javascript<br>shellscript<br>shellscript<br>shellscript<br>python<br>go<p>cat > programming.txt<br>ruby<br>ruby<br>javascript<br>shellscript<br>shellscript<br>shellscript<br>python<br>go<br>[Ctrl]+[D]<br>cat programming.txt</p></li>
-        <li>programming.txtから重複行を排除し、昇順（アルファベット順）に並び替えて表示してください。<p>uniq programming.txt | sort</p></li>
-        <li>programming.txtから重複行を排除し、逆順（アルファベット順）に並び替えて、上位2行を表示してください。<p>uniq programming.txt | sort -r | head -n 2</p></li>
-        <li>programming.txtから重複行を排除し、逆順に並び替えて、画面表示と同時にファイルtee.txtに保存してください。<p>uniq programming.txt | sort -r | tee tee.txt<br>cat tee.txt</p></li>
+        <li>カレントディレクトリをホームディレクトリに変更してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse7" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>catコマンドとリダイレクト機能を使って、programming.txtというファイルをホームディレクトリに作成してください。<br>ファイルの内容は次の8行です。作成後、catコマンドで確認してください。<br>ruby<br>ruby<br>javascript<br>shellscript<br>shellscript<br>shellscript<br>python<br>go
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse8" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cat > programming.txt
+ruby //[enterキー]
+ruby //[enterキー]
+javascript //[enterキー]
+shellscript //[enterキー]
+shellscript //[enterキー]
+shellscript //[enterキー]
+python //[enterキー]
+go //[enterキー]
+//[Ctrl]+[D]終了</code></pre>
+<pre><code>cat programming.txt
+ruby
+ruby
+javascript
+shellscript
+shellscript
+shellscript
+python
+go</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>programming.txtから重複行を排除し、昇順（アルファベット順）に並び替えて表示してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse9">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse9" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ uniq programming.txt | sort
+go
+javascript
+python
+ruby
+shellscript</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>programming.txtから重複行を排除し、逆順（アルファベット順）に並び替えて、上位2行を表示してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse10">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse10" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ uniq programming.txt | sort -r | head -n 2
+shellscript
+ruby</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>programming.txtから重複行を排除し、逆順に並び替えて、画面表示と同時にファイルtee.txtに保存してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse11">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse11" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ uniq programming.txt | sort -r | tee tee.txt
+shellscript
+ruby
+python
+javascript
+go</code></pre>
+<pre><code>$ cat tee.txt
+shellscript
+ruby
+python
+javascript
+go</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
       </ol>
 
       <p class="text_align_center"><a href="../zenki.html">前期トップへ戻る</a></p>
