@@ -107,3 +107,24 @@ hr {
   margin-left: 3%;
   margin-right: 3%;
 }
+
+/* accordion */
+.panel-heading {
+  cursor: pointer;
+}
+.accordion-toggle a:after {
+  font-family: 'Glyphicons Halflings';
+  content:"\e113";
+  float: right;
+  color: inherit;
+}
+.accordion-toggle a.collapsed:after {
+  font-family: 'Glyphicons Halflings';
+  content:"\e114";
+  float: right;
+  color: inherit;
+}
+
+.accorion-position {
+  margin-top: 20px;
+}

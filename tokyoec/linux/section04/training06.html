@@ -33,58 +33,719 @@
       <h4 class="h4_title">1.シェル変数の演習</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。これまでの演習で使用したsample_web.logがあることを確認してください。<p>cd<br>pwd<br>ls</p></li>
-        <li>training06_1.shというファイル名でシェルスクリプトファイルを作成し、iPadまたはiPhoneを使ってアクセスしてきたユーザ数（iPadまたはiPhoneという文字列を含む行の行数）が次のメッセージとともに表示されるようにしてください。〇〇には件数が入ります。<p><span class="text_color_p"><strong>＜表示結果＞<br>iPadからのアクセス数は○○件です。※スクリプトが正しければ、○○には592と表示<br>iPhoneからのアクセス数は○○件です。※スクリプトが正しければ、○○には647と表示</strong></span></p><p>vim training06_1.sh<br>#!/bin/bash<br>iPad=$(grep iPad ~/sample_web.log | wc -l)<br>iPhone=$(grep iPhone ~/sample_web.log | wc -l)<br>echo iPadからのアクセス数は $iPad件です<br>echo iPhoneからのアクセス数は $iPhone件です<br>[:][w][q]でvimを保存終了<br>chmod +x training06_1.sh または chmod 775 training06_1.sh<br>bash training06_1.sh</p></li>
+        <li>カレントディレクトリをホームディレクトリに変更してください。これまでの演習で使用したsample_web.logがあることを確認してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student
+$ ls
+sample_web.log  ダウンロード  デスクトップ  ビデオ  画像
+sample_web.zip  テンプレート  ドキュメント  音楽    公開</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>training06_1.shというファイル名でシェルスクリプトファイルを作成し、iPadまたはiPhoneを使ってアクセスしてきたユーザ数（iPadまたはiPhoneという文字列を含む行の行数）が次のメッセージとともに表示されるようにしてください。〇〇には件数が入ります。<p><span class="text_color_p"><strong>＜表示結果＞<br>iPadからのアクセス数は○○件です。※スクリプトが正しければ、○○には592と表示<br>iPhoneからのアクセス数は○○件です。※スクリプトが正しければ、○○には647と表示</strong></span></p>
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ vim training06_1.sh
+
+----------------以下を右クリックコピーしてTeraTerm上でペースト----------------------
+#!/bin/bash
+
+iPad=$(grep iPad ~/sample_web.log | wc -l)
+iPhone=$(grep iPhone ~/sample_web.log | wc -l)
+
+echo iPadからのアクセス数は $iPad件です。
+echo iPhoneからのアクセス数は $iPhone件です。
+----------------[Esc + :wq]で保存終了---------------------------------------------
+
+$ chmod +x training06_1.sh
+$ bash training06_1.sh
+iPadからのアクセス数は 592件です。
+iPhoneからのアクセス数は 647件です。</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">2.位置パラメータの演習</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。これまでの演習で使用したsample_web.logがあることを確認してください。<p>cd<br>pwd<br>ls</p></li>
-        <li>training06_1.shをtraining06_2.shとしてコピーしてください。<p>cp -p training06_1.sh training06_2.sh</p></li>
-        <li>training06_1.shの2箇所を位置パラメータ$1に変更して、「bash training06_2.sh ~/sample_web.log」を実行して、training06_1.shと同じ結果になることを確認してください。<p>vim training06_2.sh<br>iPad=$(grep iPad ~/sample_web.log | wc -l)<br>iPhone=$(grep iPhone ~/sample_web.log | wc -l)<br>↓以下に変更<br>iPad=$(grep iPad $1 | wc -l)<br>iPhone=$(grep iPhone $1 | wc -l)<br>[:][w][q]<br>bash training06_2.sh ~/sample_web.log</p></li>
+        <li>カレントディレクトリをホームディレクトリに変更してください。これまでの演習で使用したsample_web.logがあることを確認してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student
+$ ls
+sample_web.log  training06_1.sh  テンプレート  ドキュメント  音楽  公開
+sample_web.zip  ダウンロード     デスクトップ  ビデオ        画像</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>training06_1.shをtraining06_2.shとしてコピーしてください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cp -p training06_1.sh training06_2.sh
+$ ls
+sample_web.log  training06_1.sh  ダウンロード  デスクトップ  ビデオ  画像
+sample_web.zip  training06_2.sh  テンプレート  ドキュメント  音楽    公開</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>training06_1.shの2箇所を位置パラメータ$1に変更して、「bash training06_2.sh ~/sample_web.log」を実行して、training06_1.shと同じ結果になることを確認してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ vim training06_2.sh
+
+----------------以下を右クリックコピーしてTeraTerm上でペースト----------------------
+#!/bin/bash
+  
+iPad=$(grep iPad $1 | wc -l)
+iPhone=$(grep iPhone $1 | wc -l)
+  
+echo iPadからのアクセス数は $iPad件です。
+echo iPhoneからのアクセス数は $iPhone件です。
+----------------[Esc + :wq]で保存終了---------------------------------------------
+
+$ bash training06_2.sh ~/sample_web.log
+iPadからのアクセス数は 592件です。
+iPhoneからのアクセス数は 647件です。</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">3.if文の演習</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>training06_3.shという名前のシェルスクリプトファイルを作成し、本日が2017年6月22日なら、2017-06-22.txtのように、年-月-日.txtのファイルを作成、すでに同じ名前のファイルが存在する場合はファイルは作成せずに、かわりに「ファイルは既に存在します。」というメッセージを表示させるスクリプトを作成してください。1回目はファイルの作成、2回目はメッセージ表示となるので、スクリプトを2回実行しましょう。<p>vim training06_3.sh<br>#!/bin/bash<br>today=$(date '+%Y-%m-%d')<br>if [ -e $today.txt ] ; then<br>echo "ファイルは既に存在します。"<br>else<br>touch ~/$today.txt<br>fi<br>[:][w][q]<br>chmod +x training06_3.sh または chmod 755 training06_3.sh<br>bash training06_3.sh<br>ls -l(1回目)<br>ls -l(2回目)</p></li>
+        <li>カレントディレクトリをホームディレクトリに変更してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse6" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>training06_3.shという名前のシェルスクリプトファイルを作成し、本日が2020年1月27日なら、2020-01-27.txtのように、年-月-日.txtのファイルを作成、すでに同じ名前のファイルが存在する場合はファイルは作成せずに、かわりに「ファイルは既に存在します。」というメッセージを表示させるスクリプトを作成してください。1回目はファイルの作成、2回目はメッセージ表示となるので、スクリプトを2回実行しましょう。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse7" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ vim training06_3.sh
+
+----------------以下を右クリックコピーしてTeraTerm上でペースト----------------------
+#!/bin/bash
+
+today=$(date '+%Y-%m-%d')
+
+if [ -e $today.txt ] ; then
+  echo "ファイルは既に存在します。"
+else
+  touch ~/$today.txt
+fi
+----------------[Esc + :wq]で保存終了---------------------------------------------
+
+$ chmod +x training06_3.sh
+$ bash training06_3.sh
+$ ls -l
+合計 4724
+-rw-rw-r--. 1 student student       0  1月 27 21:44 2020-01-27.txt
+-rw-rw-r--. 1 student student 4398816  3月 17  2016 sample_web.log
+-rw-rw-r--. 1 student student  425285  1月 27 02:05 sample_web.zip
+-rw-rw-r--. 1 student student     212  1月 27 21:35 training06_1.sh
+-rw-rw-r--. 1 student student     184  1月 27 21:35 training06_2.sh
+-rwxrwxr-x. 1 student student     146  1月 27 21:44 training06_3.sh
+drwxr-xr-x. 2 student student       6  1月 21 00:23 ダウンロード
+drwxr-xr-x. 2 student student       6  1月 21 00:23 テンプレート
+drwxr-xr-x. 2 student student       6  1月 21 00:23 デスクトップ
+drwxr-xr-x. 2 student student       6  1月 21 00:23 ドキュメント
+drwxr-xr-x. 2 student student       6  1月 21 00:23 ビデオ
+drwxr-xr-x. 2 student student       6  1月 21 00:23 音楽
+drwxr-xr-x. 2 student student       6  1月 21 00:23 画像
+drwxr-xr-x. 2 student student       6  1月 21 00:23 公開
+$ bash training06_3.sh
+ファイルは既に存在します。</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">4.for文の演習</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>training06_4.shという名前のシェルスクリプトファイルを作成し、前回の日付ファイルの名前に-1から-5の連番を付与し、5個のファイルが作成されるスクリプトを作成しましょう。<p>vim training06_4.sh<br>#!/bin/bash<br>today=$(date '+%Y-%m-%d')<br>for i in $(seq 1 5)<br>do<br>touch $today-$i.txt<br>done<br>[:][w][q]<br>chmod +x training06_4.sh または chmod 755 training06_4.sh<br>bash training06_4.sh<br>ls -l</p></li>
+        <li>カレントディレクトリをホームディレクトリに変更してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse8" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>training06_4.shという名前のシェルスクリプトファイルを作成し、前回の日付ファイルの名前に-1から-5の連番を付与し、5個のファイルが作成されるスクリプトを作成しましょう。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse9">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse9" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ vim training06_4.sh
+
+----------------以下を右クリックコピーしてTeraTerm上でペースト----------------------
+#!/bin/bash
+
+today=$(date '+%Y-%m-%d')
+
+for i in $(seq 1 5)
+  do
+    touch $today-$i.txt
+  done
+----------------[Esc + :wq]で保存終了---------------------------------------------
+
+$ chmod +x training06_4.sh
+$ bash training06_4.sh
+$ ls -l
+合計 4728
+-rw-rw-r--. 1 student student       0  1月 27 21:59 2020-01-27-1.txt
+-rw-rw-r--. 1 student student       0  1月 27 21:59 2020-01-27-2.txt
+-rw-rw-r--. 1 student student       0  1月 27 21:59 2020-01-27-3.txt
+-rw-rw-r--. 1 student student       0  1月 27 21:59 2020-01-27-4.txt
+-rw-rw-r--. 1 student student       0  1月 27 21:59 2020-01-27-5.txt
+-rw-rw-r--. 1 student student       0  1月 27 21:44 2020-01-27.txt
+-rw-rw-r--. 1 student student 4398816  3月 17  2016 sample_web.log
+-rw-rw-r--. 1 student student  425285  1月 27 02:05 sample_web.zip
+-rw-rw-r--. 1 student student     212  1月 27 21:35 training06_1.sh
+-rw-rw-r--. 1 student student     184  1月 27 21:35 training06_2.sh
+-rwxrwxr-x. 1 student student     146  1月 27 21:44 training06_3.sh
+-rwxrwxr-x. 1 student student      96  1月 27 21:59 training06_4.sh
+drwxr-xr-x. 2 student student       6  1月 21 00:23 ダウンロード
+drwxr-xr-x. 2 student student       6  1月 21 00:23 テンプレート
+drwxr-xr-x. 2 student student       6  1月 21 00:23 デスクトップ
+drwxr-xr-x. 2 student student       6  1月 21 00:23 ドキュメント
+drwxr-xr-x. 2 student student       6  1月 21 00:23 ビデオ
+drwxr-xr-x. 2 student student       6  1月 21 00:23 音楽
+drwxr-xr-x. 2 student student       6  1月 21 00:23 画像
+drwxr-xr-x. 2 student student       6  1月 21 00:23 公開</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">5.while文の演習</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>training06_5.shという名前のシェルスクリプトファイルを作成し、file1.txt、file2.txt・・・file10.txtのように、fileの後ろに1から10の連番を付けて10個のファイルが作成できるスクリプトを作成及び実行してください。<p>vim training06_5.sh<br>#!/bin/bash<br>i=1<br>while [ $i -le 10 ]<br>do<br> touch file$i.txt<br>i=$((i+1))<br>done<br>[:][w][q]<br>chmod +x training06_5.sh または chmod 755 training06_5.sh<br>bash training06_5.sh<br>ls -l</p></li>
+        <li>カレントディレクトリをホームディレクトリに変更してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse10">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse10" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>training06_5.shという名前のシェルスクリプトファイルを作成し、file1.txt、file2.txt・・・file10.txtのように、fileの後ろに1から10の連番を付けて10個のファイルが作成できるスクリプトを作成及び実行してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse11">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse11" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ vim training06_5.sh
+
+----------------以下を右クリックコピーしてTeraTerm上でペースト----------------------
+#!/bin/bash
+
+i=1
+
+while [ $i -le 10 ]
+  do
+    touch file$i.txt
+    i=$((i+1))
+  done
+----------------[Esc + :wq]で保存終了---------------------------------------------
+
+$ chmod +x training06_5.sh
+$ bash training06_5.sh
+$ ls -l
+合計 4732
+-rw-rw-r--. 1 student student       0  1月 27 21:59 2020-01-27-1.txt
+-rw-rw-r--. 1 student student       0  1月 27 21:59 2020-01-27-2.txt
+-rw-rw-r--. 1 student student       0  1月 27 21:59 2020-01-27-3.txt
+-rw-rw-r--. 1 student student       0  1月 27 21:59 2020-01-27-4.txt
+-rw-rw-r--. 1 student student       0  1月 27 21:59 2020-01-27-5.txt
+-rw-rw-r--. 1 student student       0  1月 27 21:44 2020-01-27.txt
+-rw-rw-r--. 1 student student       0  1月 27 22:07 file1.txt
+-rw-rw-r--. 1 student student       0  1月 27 22:07 file10.txt
+-rw-rw-r--. 1 student student       0  1月 27 22:07 file2.txt
+-rw-rw-r--. 1 student student       0  1月 27 22:07 file3.txt
+-rw-rw-r--. 1 student student       0  1月 27 22:07 file4.txt
+-rw-rw-r--. 1 student student       0  1月 27 22:07 file5.txt
+-rw-rw-r--. 1 student student       0  1月 27 22:07 file6.txt
+-rw-rw-r--. 1 student student       0  1月 27 22:07 file7.txt
+-rw-rw-r--. 1 student student       0  1月 27 22:07 file8.txt
+-rw-rw-r--. 1 student student       0  1月 27 22:07 file9.txt
+-rw-rw-r--. 1 student student 4398816  3月 17  2016 sample_web.log
+-rw-rw-r--. 1 student student  425285  1月 27 02:05 sample_web.zip
+-rw-rw-r--. 1 student student     212  1月 27 21:35 training06_1.sh
+-rw-rw-r--. 1 student student     184  1月 27 21:35 training06_2.sh
+-rwxrwxr-x. 1 student student     146  1月 27 21:44 training06_3.sh
+-rwxrwxr-x. 1 student student      96  1月 27 21:59 training06_4.sh
+-rwxrwxr-x. 1 student student      86  1月 27 22:06 training06_5.sh
+drwxr-xr-x. 2 student student       6  1月 21 00:23 ダウンロード
+drwxr-xr-x. 2 student student       6  1月 21 00:23 テンプレート
+drwxr-xr-x. 2 student student       6  1月 21 00:23 デスクトップ
+drwxr-xr-x. 2 student student       6  1月 21 00:23 ドキュメント
+drwxr-xr-x. 2 student student       6  1月 21 00:23 ビデオ
+drwxr-xr-x. 2 student student       6  1月 21 00:23 音楽
+drwxr-xr-x. 2 student student       6  1月 21 00:23 画像
+drwxr-xr-x. 2 student student       6  1月 21 00:23 公開</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">6.case文の演習</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>training06_6.shという名前のシェルスクリプトファイルを作成し、位置パラメータを利用して、引数が01の場合はGoogle、02の場合はMicrosoft、03の場合はAmazon、それ以外はNo matchと表示されるスクリプトをcase文を用いて作成してください。<p>vim training06_6.sh<br>#!/bin/bash<br>case $1 in<br>01)<br>echo "Google";;<br>02)<br>echo "Microsoft";;<br>03)<br>echo "Amazon";;<br>*)<br>echo "No match";;<br>esac<br>[:][w][q]<br>chmod +x training06_6.sh または chmod 755 training06_6.sh<br>bash training06_6.sh</p></li>
+        <li>カレントディレクトリをホームディレクトリに変更してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse12">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse12" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>training06_6.shという名前のシェルスクリプトファイルを作成し、位置パラメータを利用して、引数が01の場合はGoogle、02の場合はMicrosoft、03の場合はAmazon、それ以外はNo matchと表示されるスクリプトをcase文を用いて作成してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse13">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse13" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ vim training06_6.sh
+
+----------------以下を右クリックコピーしてTeraTerm上でペースト----------------------
+#!/bin/bash
+
+case $1 in
+  01)
+    echo "Google";;
+  02)
+    echo "Microsoft";;
+  03)
+    echo "Amazon";;
+  *)
+    echo "No match";;
+esac
+----------------[Esc + :wq]で保存終了---------------------------------------------
+
+$ chmod +x training06_6.sh
+$ bash training06_6.sh 01
+Google
+$ bash training06_6.sh 02
+Microsoft
+$ bash training06_6.sh 03
+Amazon
+$ bash training06_6.sh 04
+No match</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">7.シェル関数の演習</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>training06_7.shという名前のシェルスクリプトファイルを作成し、todayというシェル関数を作成して、日付とカレンダーが表示されるスクリプトを作成してください。<p>vim training06_7.sh<br>#!/bin/bash<br>function today ()<br>{<br>date<br>cal<br>}<br>today<br>[:][w][q]<br>chmod +x training06_7.sh または chmod 755 training06_7.sh<br>bash training06_7.sh</p></li>
+        <li>カレントディレクトリをホームディレクトリに変更してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse14">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse14" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>training06_7.shという名前のシェルスクリプトファイルを作成し、todayというシェル関数を作成して、日付とカレンダーが表示されるスクリプトを作成してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse15">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse15" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ vim training06_7.sh
+
+----------------以下を右クリックコピーしてTeraTerm上でペースト----------------------
+#!/bin/bash
+
+function today(){
+  date
+  cal
+}
+  
+today
+----------------[Esc + :wq]で保存終了---------------------------------------------
+
+$ chmod +x training06_7.sh
+$ bash training06_7.sh
+2020年  1月 27日 月曜日 22:22:28 EST
+      1月 2020
+日 月 火 水 木 金 土
+          1  2  3  4
+ 5  6  7  8  9 10 11
+12 13 14 15 16 17 18
+19 20 21 22 23 24 25
+26 27 28 29 30 31</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">8.シェルスクリプトでfizzbuzz（応用演習）</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>100までを基準に、3で割り切れる場合はfizzと表示、5で割り切れる場合はbuzzと表示、両方割り切れる場合はfizzbuzzと表示されるシェルスクリプトファイルを作成してください。ファイル名はfizzbuzz.shとします。for文とif文を利用してみましょう。<p>vim fizzbuzz.sh<br>#!/bin/bash<br>for ((i=1;i&lt;=100; i++))<br>do<br>if (($i % 15 == 0)); then<br>echo fizzbuzz<br>elif (($i % 3 == 0)); then<br>echo fizz<br>elif (($i % 5 == 0)); then<br>echo buzz<br>else<br>echo $i<br>fi<br>done<br>[:][w][q]<br>chmod +x fizzbuzz.sh または chmod 755 fizzbuzz.sh<br>bash fizzbuzz.sh</p></li>
+        <li>カレントディレクトリをホームディレクトリに変更してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse16">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse16" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>100までを基準に、3で割り切れる場合はfizzと表示、5で割り切れる場合はbuzzと表示、両方割り切れる場合はfizzbuzzと表示されるシェルスクリプトファイルを作成してください。ファイル名はfizzbuzz.shとします。for文とif文を利用してみましょう。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse17">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse17" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ vim fizzbuzz.sh
+
+----------------以下を右クリックコピーしてTeraTerm上でペースト----------------------
+#!/bin/bash
+  
+for ((i=1;i&lt;=100; i++))
+do
+  if (($i % 15 == 0)); then
+    echo fizzbuzz
+  elif (($i % 3 == 0)); then
+    echo fizz
+  elif (($i % 5 == 0)); then
+    echo buzz
+  else
+    echo $i
+  fi
+done
+----------------[Esc + :wq]で保存終了---------------------------------------------
+
+$ chmod +x fizzbuzz.sh
+$ bash fizzbuzz.sh
+1
+2
+fizz
+4
+buzz
+fizz
+7
+8
+fizz
+buzz
+11
+fizz
+13
+14
+fizzbuzz
+16
+17
+fizz
+19
+buzz
+fizz
+22
+23
+fizz
+buzz
+26
+fizz
+28
+29
+fizzbuzz
+31
+32
+fizz
+34
+buzz
+fizz
+37
+38
+fizz
+buzz
+41
+fizz
+43
+44
+fizzbuzz
+46
+47
+fizz
+49
+buzz
+fizz
+52
+53
+fizz
+buzz
+56
+fizz
+58
+59
+fizzbuzz
+61
+62
+fizz
+64
+buzz
+fizz
+67
+68
+fizz
+buzz
+71
+fizz
+73
+74
+fizzbuzz
+76
+77
+fizz
+79
+buzz
+fizz
+82
+83
+fizz
+buzz
+86
+fizz
+88
+89
+fizzbuzz
+91
+92
+fizz
+94
+buzz
+fizz
+97
+98
+fizz
+buzz</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
       </ol>
 
       <p class="text_align_center"><a href="../zenki.html">前期トップへ戻る</a></p>
