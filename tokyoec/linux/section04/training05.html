@@ -33,13 +33,217 @@
       <h4 class="h4_title">1.シェルスクリプトの作成と自動実行</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>ホームディレクトリにscript_dirというディレクトリを作成し、test.txtというファイル名で空のファイルを作成してください。<p>mkdir script_dir<br>cd script_dir<br>touch test.txt</p></li>
-        <li>script_dir内に以下の内容でshellscript.shというスクリプトファイルを作成してください。<br>実行できるようにshellscript.shに実行権限を付与してください。<br>#!/bin/bash<br>touch ~/script_dir/test.txt<p>vim shellscript.sh<br>以下の2行をスクリプト内に記述し、保存終了します。<br>#!/bin/bash<br>touch ~/script_dir/test.txt<br>スクリプトが実行できるように、実行権限を付与します。<br>chmod +x shellscript.sh<br>または<br>chmod 775 shellscript.sh<br>ls -l</p></li>
-        <li>lsコマンドでtest.txtの作成時間を確認し、現在のLinux時刻よりも過去1分以上過去であることを確認してください。<br>確認後、shellscript.shを実行してください。<br>実行後、再度lsコマンドでtest.txtの時刻が、スクリプトを実行した時間になっていることを確認してください。<p>ls -l<br>./shellscript.sh<br>ls -l</p></li>
-        <li>次に、crondを利用して、1分おきに自動実行されるように構成してください。<br>「systemctl status crond」を実行してActive:active(running)と表示されていることを確認します。<br>crontabコマンドで、cronの設定ファイルを編集して、1分おきに自動実行される設定をしてください。<br>設定後2分程待ちましょう。<p>systemctl status crond<br>crontab -e<br>エディタが開くので、1行目に「*/1 * * * * ~/script_dir/shellscript.sh」と入力し、保存終了します。</p></li>
-        <li>自動実行が正しく行われているかは、lsコマンドでtest.txtのタイムスタンプの確認とrootユーザに変更して、「/var/log/cron」ファイルをcatコマンドでパイプを利用して、末尾10行を表示して確認してみましょう。<p>ls -l<br>su -<br>cat /var/log/cron | tail -n 10</p></li>
-        <li>確認完了後、crontabで設定を削除しておきましょう。</li>
+        <li>カレントディレクトリをホームディレクトリに変更してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>ホームディレクトリにscript_dirというディレクトリを作成し、test.txtというファイル名で空のファイルを作成してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ mkdir script_dir
+$ cd script_dir
+$ touch test.txt
+$ ls -l
+合計 0
+-rw-rw-r--. 1 student student 0  1月 27 23:08 test.txt</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->          
+        </li>
+        <li>script_dir内に以下の内容でshellscript.shというスクリプトファイルを作成してください。<br>実行できるようにshellscript.shに実行権限を付与してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ vim shellscript.sh
+
+----------------以下を右クリックコピーしてTeraTerm上でペースト----------------------
+#!/bin/bash
+
+touch ~/script_dir/test.txt
+----------------[Esc + :wq]で保存終了---------------------------------------------
+
+$ chmod +x shellscript.sh
+$ ls -l
+合計 4
+-rwxrwxr-x. 1 student student 41  1月 27 23:14 shellscript.sh
+-rw-rw-r--. 1 student student  0  1月 27 23:08 test.txt</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ --> 
+        </li>
+        <li>lsコマンドでtest.txtの作成時間を確認し、現在のLinux時刻よりも過去1分以上過去であることを確認してください。<br>確認後、shellscript.shを実行してください。<br>実行後、再度lsコマンドでtest.txtの時刻が、スクリプトを実行した時間になっていることを確認してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ ls -l
+合計 4
+-rwxrwxr-x. 1 student student 41  1月 27 23:14 shellscript.sh
+-rw-rw-r--. 1 student student  0  1月 27 23:08 test.txt
+$ ./shellscript.sh
+$ ls -l
+-rwxrwxr-x. 1 student student 41  1月 27 23:14 shellscript.sh
+-rw-rw-r--. 1 student student  0  1月 27 23:22 test.txt</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>次に、crondを利用して、1分おきに自動実行されるように構成してください。<br>「systemctl status crond」を実行してActive:active(running)と表示されていることを確認します。<br>crontabコマンドで、cronの設定ファイルを編集して、1分おきに自動実行される設定をしてください。<br>設定後2分程待ちましょう。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ systemctl status crond
+● crond.service - Command Scheduler
+   Loaded: loaded (/usr/lib/systemd/system/crond.service; enabled; vendor preset: enabled)
+   Active: active (running) since Mon 2020-01-27 20:28:06 EST; 2h 57min ago
+ Main PID: 1109 (crond)
+    Tasks: 1 (limit: 23983)
+   Memory: 2.1M
+   CGroup: /system.slice/crond.service
+           mq1109 /usr/sbin/crond -n
+
+ 1月 27 21:50:01 localhost.localdomain anacron[2717]: Job `cron.daily' started
+ 1月 27 21:50:01 localhost.localdomain run-parts[3212]: (/etc/cron.daily) finished logrotate
+ 1月 27 21:50:01 localhost.localdomain anacron[2717]: Job `cron.daily' terminated
+ 1月 27 22:01:01 localhost.localdomain CROND[3316]: (root) CMD (run-parts /etc/cron.hourly)
+ 1月 27 22:10:01 localhost.localdomain anacron[2717]: Job `cron.weekly' started
+ 1月 27 22:10:01 localhost.localdomain anacron[2717]: Job `cron.weekly' terminated
+ 1月 27 22:30:01 localhost.localdomain anacron[2717]: Job `cron.monthly' started
+ 1月 27 22:30:01 localhost.localdomain anacron[2717]: Job `cron.monthly' terminated
+ 1月 27 22:30:01 localhost.localdomain anacron[2717]: Normal exit (3 jobs run)
+ 1月 27 23:01:54 localhost.localdomain CROND[3797]: (root) CMD (run-parts /etc/cron.hourly)
+$ crontab -e
+
+----------------以下を右クリックコピーしてTeraTerm上でペースト----------------------
+*/1 * * * * ~/script_dir/shellscript.sh
+----------------[Esc + :wq]で保存終了---------------------------------------------</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>自動実行が正しく行われているかは、lsコマンドでtest.txtのタイムスタンプの確認とrootユーザに変更して、「/var/log/cron」ファイルをcatコマンドでパイプを利用して、末尾10行を表示して確認してみましょう。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse6" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ ls -l
+合計 4
+-rwxrwxr-x. 1 student student 41  1月 27 23:14 shellscript.sh
+-rw-rw-r--. 1 student student  0  1月 27 23:31 test.txt
+$ su -
+パスワード:tokyoec
+# cat /var/log/cron | tail -n 10
+an 27 22:30:01 localhost anacron[2717]: Normal exit (3 jobs run)
+Jan 27 23:01:54 localhost CROND[3797]: (root) CMD (run-parts /etc/cron.hourly)
+Jan 27 23:01:54 localhost run-parts[3797]: (/etc/cron.hourly) starting 0anacron
+Jan 27 23:01:54 localhost run-parts[3797]: (/etc/cron.hourly) finished 0anacron
+Jan 27 23:26:58 localhost crontab[4051]: (student) BEGIN EDIT (student)
+Jan 27 23:29:39 localhost crontab[4051]: (student) REPLACE (student)
+Jan 27 23:29:39 localhost crontab[4051]: (student) END EDIT (student)
+Jan 27 23:30:01 localhost CROND[4082]: (student) CMD (~/script_dir/shellscript.sh)
+Jan 27 23:31:01 localhost CROND[4104]: (student) CMD (~/script_dir/shellscript.sh)
+Jan 27 23:32:01 localhost CROND[4128]: (student) CMD (~/script_dir/shellscript.sh)
+# exit</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>確認完了後、crontabで設定を削除しておきましょう。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse7" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ crontab -e
+
+----------------以下の設定を削除---------------------------------------------------
+*/1 * * * * ~/script_dir/shellscript.sh　← ddで削除してください
+----------------[Esc + :wq]で保存終了---------------------------------------------</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
       </ol>
 
       <p class="text_align_center"><a href="../zenki.html">前期トップへ戻る</a></p>
