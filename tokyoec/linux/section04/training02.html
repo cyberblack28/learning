@@ -33,30 +33,434 @@
       <h4 class="h4_title">1.環境変数とシェル変数</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>「training/linux」があることを確認してください。無い場合は、作成してください。<p>ls training<br>mkdir -p training/linux</p></li>
-        <li>環境変数trainを作成します。trainの値には、/home/student/training/linuxディレクトリを絶対指定で指定してください。<p>train='/home/student/training/linux/'<br>export trainまたは<br>export train='/home/student/training/linux/'</p></li>
-        <li>現在のユーザが、各種コマンドで環境変数$trainをディレクトリ名のかわりに指定すると、常に/home/student/training/linuxが指定されたものと同じ動作をします。<br>たとえば、カレントディレクトリに関係なく、touch $train/sample.txtで、sample.txtという空のファイルが/home/studnet/training/linuxに作成されます。<br>ls $trainで、/home/student/training/linuxのファイルが表示されます。<br>実際にこれらのコマンドを実行し、確認してみましょう。<p><span class="text_color_p">cd /<br>touch $train/sample.txt<br>ls $train</span></p>上記のように、シェル変数や環境変数に、ディレクトリを登録しておくと、長いディレクトリパスを指定しなくても、シェル変数や環境変数を指定すれば、簡単に目的のディレクトリを利用できます。<br>また、コンピュータによって、ディレクトリパスが異なる場合でも、ディレクトリパスを直接指定せずに、シェル変数や環境変数を指定するようにプログラムやシェルスクリプトを記述することで、汎用性を高めることができます。
-          <div class="onepoint">
-            <p><span class="text_color_p">環境変数(またはシェル変数)を削除するときは、unsetコマンドを使用します。<br>$trainを削除する場合の実行例は、<br>「$ unset train」となります。変数名の前に"$"をつけない点に注意しましょう。</span></p>
+        <li>カレントディレクトリをホームディレクトリに変更してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student</code></pre>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+        <!-- /accodion/ -->
         </li>
-        <li>ホームディレクトリに移動し、applicationという名前のディレクトリを作成してください。<p>cd<br>pwd<br>mkdir application</p></li>
-        <li>シェル変数PATHに、applicationディレクトリを追加してください。<p>PATH=$PATH:/home/student/application</p></li>
-        <li>echoコマンドでPATHにapplicationが追加されていることを確認してください。<p>echo $PATH</p></li>
-        <li>環境変数trainや、シェル変数PATHとして指定したapplicationの設定は、端末を閉じると消えます。<br>別の端末を開いても、その端末には設定が引き継がれません。<br>永続化するためには、.bashrcに追加する必要があります。<br>実際に.bashrcに設定してみましょう。<p>vim ~/.bashrc<br>[Shift]+[g]で最終行にカーソルを移動して、<br>export train=/home/student/training/linux<br>PATH=$PATH:~/application<br>テキストエディタを保存終了し、端末を閉じます。<br>端末を新規に開いて、変数trainやPATHが利用できるようになったことを確認します。</p>単純にprintenvコマンドで確認してみましょう。<p>printenv PATH</p></li>
+        <li>「training/linux」があることを確認してください。無い場合は、作成してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ ls training
+ls: 'training' にアクセスできません: そのようなファイルやディレクトリはありません
+$ mkdir -p training/linux</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>環境変数trainを作成します。trainの値には、/home/student/training/linuxディレクトリを絶対指定で指定してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ train='/home/student/training/linux/'
+$ export train='/home/student/training/linux/'</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>現在のユーザが、各種コマンドで環境変数$trainをディレクトリ名のかわりに指定すると、常に/home/student/training/linuxが指定されたものと同じ動作をします。<br>たとえば、カレントディレクトリに関係なく、touch $train/sample.txtで、sample.txtという空のファイルが/home/studnet/training/linuxに作成されます。<br>ls $trainで、/home/student/training/linuxのファイルが表示されます。<br>実際にこれらのコマンドを実行し、確認してみましょう。
+<pre class="pre"><code>$ cd /
+$ touch $train/sample.txt
+$ ls $train
+sample.txt</code></pre>
+        上記のように、シェル変数や環境変数に、ディレクトリを登録しておくと、長いディレクトリパスを指定しなくても、シェル変数や環境変数を指定すれば、簡単に目的のディレクトリを利用できます。<br>また、コンピュータによって、ディレクトリパスが異なる場合でも、ディレクトリパスを直接指定せずに、シェル変数や環境変数を指定するようにプログラムやシェルスクリプトを記述することで、汎用性を高めることができます。</li>
+        <li>usetコマンドで環境変数$trainを削除します。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ unset train</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>ホームディレクトリに移動し、applicationという名前のディレクトリを作成してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student
+$ mkdir application
+application     sample_web.zip  ダウンロード  デスクトップ  ビデオ  画像
+sample_web.log  training        テンプレート  ドキュメント  音楽    公開</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>シェル変数PATHに、applicationディレクトリを追加してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse6" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ PATH=$PATH:/home/student/application</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>echoコマンドでPATHにapplicationが追加されていることを確認してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse7" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre class="pre"><code>$ echo $PATH
+/home/student/.local/bin:/home/student/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/student/application
+</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>環境変数trainや、シェル変数PATHとして指定したapplicationの設定は、端末を閉じると消えます。<br>別の端末を開いても、その端末には設定が引き継がれません。<br>永続化するためには、.bashrcに追加する必要があります。<br>実際に.bashrcに設定してみましょう。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse8" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ vim ~/.bashrc
+
+----------------[Shift]+[g]で最終行にカーソルを移動して追記------------------------
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+# User specific environment
+PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+export PATH
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+PATH=$PATH:~/application
+----------------[Esc + :wq]で保存終了---------------------------------------------</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        端末を新規に開いて、変数trainやPATHが利用できるようになったことを確認します。単純にprintenvコマンドで確認してみましょう。
+<pre class="pre"><code>$ printenv PATH
+/home/student/.local/bin:/home/student/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/student/application</code></pre>
+        </li>
       </ol>
 
       <h4 class="h4_title">2.エイリアスの登録</h4>
 
       <ol>
-        <li>登録済みのエイリアスを一覧表示してください。<p>alias</p></li>
-        <li>1.を確認すると、いままで私たちが実行していたlsコマンドは、ls --color=autoのエイリアスであることが分かります。エイリアスではない本来のlsコマンドを、現在のエイリアスを削除、変更せずに実行してください。/etcに移動して実行してください。<p>cd /etc<br>以下いずれかのコマンドを実行してみてください。<br>/bin/ls<br>command ls<br>\ls(\は実際にはバックスラッシュ)</p></li>
-        <li>カレントディレクトリをホームディレクトリに変更して、touchコマンドでalias_testというファイルを作成してください。<p>cd<br>pwd<br>touch alias_test</p></li>
-        <li>rmコマンドでalias_testを削除して、何もメッセージが表示されずに削除できることを確認してください。<p>rm alias_test</p></li>
-        <li>もう一度、alias_testファイルを作成し、rmに-iオプションを付けてalias_testファイルを削除してください。-iは、誤削除を防ぐため確認メッセージに対して y とタイプしないと削除できないようにするオプションです。<p>touch alias_test<br>rm -i alias_test</p></li>
-        <li>rm -iをエイリアス rmとして登録してください。<br>登録後、実際に登録できていることを確認します。<br>alias_testファイルを作成して、rmコマンドでiオプション無しで実行してもメッセージが表示されることを確認してください。<p>alias rm='rm -i'<br>alias<br>touch alias_test<br>rm alias_test</p></li>
-        <li>エイリアスを削除する場合は「unalias エイリアス名」となります。「unalias rm」で元に戻してください。<p>unalias rm<br>alias<br>touch alias_test<br>rm alias_test</p></li>
+        <li>登録済みのエイリアスを一覧表示してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse9">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse9" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ alias
+/home/student/.local/bin:/home/student/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/student/application
+[student@localhost ~]$ alias
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+alias l.='ls -d .* --color=auto'
+alias ll='ls -l --color=auto'
+alias ls='ls --color=auto'
+alias vi='vim'
+alias which='(alias; declare -f) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot'
+alias xzegrep='xzegrep --color=auto'
+alias xzfgrep='xzfgrep --color=auto'
+alias xzgrep='xzgrep --color=auto'
+alias zegrep='zegrep --color=auto'
+alias zfgrep='zfgrep --color=auto'
+alias zgrep='zgrep --color=auto'</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>1.を確認すると、いままで私たちが実行していたlsコマンドは、ls --color=autoのエイリアスであることが分かります。エイリアスではない本来のlsコマンドを、現在のエイリアスを削除、変更せずに実行してください。カレントディレクトリをホームディレクトリに変更して実行してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse10">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse10" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student
+$ ls
+//TeraTerm上では色がつきます。
+application     sample_web.zip  ダウンロード  デスクトップ  ビデオ  画像
+sample_web.log  training        テンプレート  ドキュメント  音楽    公開
+$ /bin/ls
+//TeraTerm上では色がつきません。
+application     sample_web.zip  ダウンロード  デスクトップ  ビデオ  画像
+sample_web.log  training        テンプレート  ドキュメント  音楽    公開
+$ command ls
+//TeraTerm上では色がつきません。
+application     sample_web.zip  ダウンロード  デスクトップ  ビデオ  画像
+sample_web.log  training        テンプレート  ドキュメント  音楽    公開
+$ \ls
+//TeraTerm上では色がつきません。
+application     sample_web.zip  ダウンロード  デスクトップ  ビデオ  画像
+sample_web.log  training        テンプレート  ドキュメント  音楽    公開
+</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>カレントディレクトリをホームディレクトリに変更して、touchコマンドでalias_testというファイルを作成してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse11">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse11" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student
+$ touch alias_test
+$ ls
+alias_test      sample_web.zip  テンプレート  ビデオ  公開
+application     training        デスクトップ  音楽
+sample_web.log  ダウンロード    ドキュメント  画像
+</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>rmコマンドでalias_testを削除して、何もメッセージが表示されずに削除できることを確認してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse12">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse12" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ rm alias_test</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>もう一度、alias_testファイルを作成し、rmに-iオプションを付けてalias_testファイルを削除してください。-iは、誤削除を防ぐため確認メッセージに対して y とタイプしないと削除できないようにするオプションです。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse13">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse13" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ touch alias_test
+$ rm -i alias_test
+//yと入力
+rm: 通常の空ファイル 'alias_test' を削除しますか?</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>rm -iをエイリアス rmとして登録してください。登録後、実際に登録できていることを確認します。alias_testファイルを作成して、rmコマンドでiオプション無しで実行してもメッセージが表示されることを確認してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse14">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse14" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ alias rm='rm -i'
+$ alias
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+alias l.='ls -d .* --color=auto'
+alias ll='ls -l --color=auto'
+alias ls='ls --color=auto'
+alias rm='rm -i'
+alias vi='vim'
+alias which='(alias; declare -f) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot'
+alias xzegrep='xzegrep --color=auto'
+alias xzfgrep='xzfgrep --color=auto'
+alias xzgrep='xzgrep --color=auto'
+alias zegrep='zegrep --color=auto'
+alias zfgrep='zfgrep --color=auto'
+alias zgrep='zgrep --color=auto'
+$ touch alias_test
+$ rm alias_test
+//yと入力
+rm: 通常の空ファイル 'alias_test' を削除しますか?</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>エイリアスを削除する場合は「unalias エイリアス名」となります。「unalias rm」で元に戻してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse15">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse15" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ unalias rm
+$ alias
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+alias l.='ls -d .* --color=auto'
+alias ll='ls -l --color=auto'
+alias ls='ls --color=auto'
+alias vi='vim'
+alias which='(alias; declare -f) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot'
+alias xzegrep='xzegrep --color=auto'
+alias xzfgrep='xzfgrep --color=auto'
+alias xzgrep='xzgrep --color=auto'
+alias zegrep='zegrep --color=auto'
+alias zfgrep='zfgrep --color=auto'
+alias zgrep='zgrep --color=auto'
+$ touch alias_test
+$ rm alias_test</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
       </ol>
 
       <p class="text_align_center"><a href="../zenki.html">前期トップへ戻る</a></p>

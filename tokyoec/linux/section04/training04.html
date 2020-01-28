@@ -33,10 +33,122 @@
       <h4 class="h4_title">1.sedによる文字列の置き換え</h4>
 
       <ol>
-        <li>vimコマンドで、company.txtという名前で以下の内容が記載されているファイルを作成します。<br>Google<br>Google<br>Google<br>Google<br>Apple<br>Apple<br>Microsoft<br>Microsoft<p>vim company.txt<br>[i]or[a]で挿入モードにします。<br>Google<br>Google<br>Google<br>Google<br>Apple<br>Apple<br>Microsoft<br>Microsoft<br>[:][w][q]でvimを保存終了します。</p></li>
-        <li>GoogleをIBMに置換してください。<p>sed 's/Google/IBM/g' company.txt</p></li>
-        <li>正規表現を利用して、Aで始まりeで終わる文字列をFacebookに置換してください。<p>sed 's/A.*e/Facebook/g' company.txt</p></li>
-        <li>2,3は標準出力に結果が表示されるだけなので、元ファイルの内容は変更されません。-iオプションを利用して、ファイルを上書きしてみます。Mで始まりtで終わる文字列をPivotalに置換してください。<p>sed -i 's/M.*t/Pivotal/g' company.txt<br>cat company.txt</p></li>
+        <li>vimコマンドで、company.txtという名前で以下の内容が記載されているファイルを作成します。<br>Google<br>Google<br>Google<br>Google<br>Apple<br>Apple<br>Microsoft<br>Microsoft
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ vim company.txt
+
+----------------以下を右クリックコピーしてTeraTerm上でペースト----------------------
+Google
+Google
+Google
+Google
+Apple
+Apple
+Microsoft
+Microsoft
+----------------[Esc + :wq]で保存終了---------------------------------------------</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>GoogleをIBMに置換してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ sed 's/Google/IBM/g' company.txt
+IBM
+IBM
+IBM
+IBM
+Apple
+Apple
+Microsoft
+Microsoft</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>正規表現を利用して、Aで始まりeで終わる文字列をFacebookに置換してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ sed 's/A.*e/Facebook/g' company.txt
+Google
+Google
+Google
+Google
+Facebook
+Facebook
+Microsoft
+Microsoft</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+        <li>2,3は標準出力に結果が表示されるだけなので、元ファイルの内容は変更されません。-iオプションを利用して、ファイルを上書きしてみます。Mで始まりtで終わる文字列をRedHatに置換してください。
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ sed -i 's/M.*t/RedHat/g' company.txt
+$ cat company.txt
+Google
+Google
+Google
+Google
+Apple
+Apple
+RedHat
+RedHat</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
       </ol>
 
       <p class="text_align_center"><a href="../zenki.html">前期トップへ戻る</a></p>
