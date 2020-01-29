@@ -33,25 +33,411 @@
       <h4 class="h4_title">1.tarコマンド演習</h4>
 
       <ol>
-        <li>ホームディレクトリ（/home/student）に移動して、カレントディレクトリを確認してください。<p>cd<br>pwd</p></li>
-        <li>「tar_training」ディレクトリを作成してください。<p>mkdir tar_training</p></li>
-        <li>touchコマンドを利用して「tar_training」ディレクトリの中にfile01.txt,file02.txt,file03.txt,file04.txt,file05.txt」ファイルを作成します。<p>touch tar_training/file01.txt tar_training/file02.txt tar_training/file03.txt tar_training/file04.txt tar_training/file05.txtまたはtouch tar_training/{file01.txt,file02.txt,file03.txt,file04.txt,file05.txt}<br>ls</p></li>
-        <li>tarコマンドを利用して、「tar_training」ディレクトリをアーカイブと同時に圧縮して、「tar_training.tar.gz」ファイルができたことを確認します。<p>tar czf tar_training.tar.gz tar_training<br>ls</p></li>
-        <li>「tar_training」ディレクトリを削除し、削除できたことを確認してください。<p>rm -r tar_training<br>ls</p></li>
-        <li>「tar_training.tar.gz」ファイルを展開して、展開できたことを確認してください。<p>tar xzf tar_training.tar.gz<br>ls</p></li>
+        <li>ホームディレクトリ（/home/student）に移動して、カレントディレクトリを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>「tar_training」ディレクトリを作成してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ mkdir tar_training
+$ ls
+tar_training  テンプレート  ドキュメント  音楽  公開
+ダウンロード  デスクトップ  ビデオ        画像</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>touchコマンドを利用して「tar_training」ディレクトリの中にfile01.txt,file02.txt,file03.txt,file04.txt,file05.txt」ファイルを作成します。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ touch tar_training/file01.txt tar_training/file02.txt tar_training/file03.txt tar_training/file04.txt tar_training/file05.txt
+$ ls tar_training
+file01.txt  file02.txt  file03.txt  file04.txt  file05.txt</code></pre>
+<pre><code>$ touch tar_training/{file01.txt,file02.txt,file03.txt,file04.txt,file05.txt}
+$ ls tar_training
+file01.txt  file02.txt  file03.txt  file04.txt  file05.txt</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>tarコマンドを利用して、「tar_training」ディレクトリをアーカイブと同時に圧縮して、「tar_training.tar.gz」ファイルができたことを確認します。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ tar czf tar_training.tar.gz tar_training
+$ ls
+tar_training         ダウンロード  デスクトップ  ビデオ  画像
+tar_training.tar.gz  テンプレート  ドキュメント  音楽    公開</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>「tar_training」ディレクトリを削除し、削除できたことを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ rm -r tar_training
+$ ls
+tar_training.tar.gz  テンプレート  ドキュメント  音楽  公開
+ダウンロード         デスクトップ  ビデオ        画像</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>「tar_training.tar.gz」ファイルを展開して、展開できたことを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse6" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ tar xzf tar_training.tar.gz
+$ ls
+tar_training         ダウンロード  デスクトップ  ビデオ  画像
+tar_training.tar.gz  テンプレート  ドキュメント  音楽    公開</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>「tar_training.tar.gz」ファイル、「tar_training」ディレクトリ、「training」ディレクトリを削除して、削除できたことを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse7" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ rm -r tar_training.tar.gz tar_training
+$ ls
+ダウンロード  デスクトップ  ビデオ  画像
+テンプレート  ドキュメント  音楽    公開</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">2.zipコマンド演習</h4>
 
       <ol>
-        <li>ホームディレクトリ（/home/student）に移動して、カレントディレクトリを確認してください。<p>cd<br>pwd</p></li>
-        <li>「zip_training」ディレクトリを作成してください。<p>mkdir zip_training</p></li>
-        <li>touchコマンドを利用して「zip_training」ディレクトリの中にfile01.txt,file02.txt,file03.txt,file04.txt,file05.txt」ファイルを作成します。<p>touch zip_training/file01.txt zip_training/file02.txt zip_training/file03.txt zip_training/file04.txt zip_training/file05.txtまたはtouch zip_training/{file01.txt,file02.txt,file03.txt,file04.txt,file05.txt}<br>ls</p></li>
-        <li>zipコマンドを利用して、「zip_training」ディレクトリを圧縮して、「zip_training.zip」ファイルができたことを確認します。<p>zip -r zip_training.zip zip_training<br>ls</p></li>
-        <li>「zip_training」ディレクトリを削除し、削除できたことを確認してください。<p>rm -r zip_training<br>ls</p></li>
-        <li>「zip_training.zip」ファイルを展開して、展開できたことを確認してください。<p>unzip zip_training.zip<br>ls</p></li>
-        <li>「zip_training」ディレクトリをパスワード付けて圧縮してください。<p>zip -er zip_training.zip zip_training<br>※任意のパスワードを2回入力<br>ls</p></li>
-        <li>パスワードの付いた「zip_training.zip」ファイルを設定したパスワードで解凍してください。<p>unzip zip_training.zip<br>※設定したパスワードを入力<br>ls</p></li>
+        <li>ホームディレクトリ（/home/student）に移動して、カレントディレクトリを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse8" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ cd
+$ pwd
+/home/student</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>「zip_training」ディレクトリを作成してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse9">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse9" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ mkdir zip_training
+$ ls
+zip_training  テンプレート  ドキュメント  音楽  公開
+ダウンロード  デスクトップ  ビデオ        画像</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>touchコマンドを利用して「zip_training」ディレクトリの中にfile01.txt,file02.txt,file03.txt,file04.txt,file05.txt」ファイルを作成します。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse10">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse10" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ touch zip_training/file01.txt zip_training/file02.txt zip_training/file03.txt zip_training/file04.txt zip_training/file05.txt
+$ ls zip_training
+file01.txt  file02.txt  file03.txt  file04.txt  file05.txt</code></pre>
+<pre><code>$ touch zip_training/{file01.txt,file02.txt,file03.txt,file04.txt,file05.txt}
+$ ls zip_training
+file01.txt  file02.txt  file03.txt  file04.txt  file05.txt</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>zipコマンドを利用して、「zip_training」ディレクトリを圧縮して、「zip_training.zip」ファイルができたことを確認します。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse11">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse11" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ zip -r zip_training.zip zip_training
+zip -r zip_training.zip zip_training
+adding: zip_training/ (stored 0%)
+adding: zip_training/file01.txt (stored 0%)
+adding: zip_training/file02.txt (stored 0%)
+adding: zip_training/file03.txt (stored 0%)
+adding: zip_training/file04.txt (stored 0%)
+adding: zip_training/file05.txt (stored 0%)
+$ ls
+zip_training      ダウンロード  デスクトップ  ビデオ  画像
+zip_training.zip  テンプレート  ドキュメント  音楽    公開</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>「zip_training」ディレクトリを削除し、削除できたことを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse12">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse12" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ rm -r zip_training
+$ ls
+zip_training.zip  テンプレート  ドキュメント  音楽  公開
+ダウンロード      デスクトップ  ビデオ        画像</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>「zip_training.zip」ファイルを展開して、展開できたことを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse13">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse13" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ unzip zip_training.zip
+  Archive:  zip_training.zip
+  creating: zip_training/
+extracting: zip_training/file01.txt
+extracting: zip_training/file02.txt
+extracting: zip_training/file03.txt
+extracting: zip_training/file04.txt
+extracting: zip_training/file05.txt
+$ ls
+zip_training      ダウンロード  デスクトップ  ビデオ  画像
+zip_training.zip  テンプレート  ドキュメント  音楽    公開</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>「zip_training」ディレクトリをパスワード付けて圧縮してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse14">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse14" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ zip -er zip_training.zip zip_training
+Enter password:linux
+Verify password:linux
+updating: zip_training/ (stored 0%)
+updating: zip_training/file01.txt (stored 0%)
+updating: zip_training/file02.txt (stored 0%)
+updating: zip_training/file03.txt (stored 0%)
+updating: zip_training/file04.txt (stored 0%)
+updating: zip_training/file05.txt (stored 0%)
+$ ls
+zip_training      ダウンロード  デスクトップ  ビデオ  画像
+zip_training.zip  テンプレート  ドキュメント  音楽    公開</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>パスワードの付いた「zip_training.zip」ファイルを設定したパスワードで解凍してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse15">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse15" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ unzip zip_training.zip
+Archive:  zip_training.zip
+[zip_training.zip] zip_training/file01.txt password:
+replace zip_training/file01.txt? [y]es, [n]o, [A]ll, [N]one, [r]ename: A //Aと入力
+  extracting: zip_training/file01.txt
+  extracting: zip_training/file02.txt
+  extracting: zip_training/file03.txt
+  extracting: zip_training/file04.txt
+  extracting: zip_training/file05.txt
+$ ls
+zip_training      ダウンロード  デスクトップ  ビデオ  画像
+zip_training.zip  テンプレート  ドキュメント  音楽    公開</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->         
+        </li>
+        <li>「zip_training」ディレクトリ、「zip_training.zip」ファイルを削除してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse16">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse16" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ rm -r zip_training zip_training.zip
+$ ls
+ダウンロード  デスクトップ  ビデオ  画像
+テンプレート  ドキュメント  音楽    公開</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->         
+        </li>
       </ol>
 
       <p class="text_align_center"><a href="../zenki.html">前期トップへ戻る</a></p>
