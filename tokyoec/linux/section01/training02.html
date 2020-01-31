@@ -33,7 +33,12 @@
       <h4 class="h4_title">1.ファイルを検索する</h4>
 
       <ol>
-        <li>「su -」コマンドを実行して、rootユーザのパスワードを入力してrootユーザに変更してください。<br>※パスワードは入力してもコンソール上に表示はされません。
+        <li>rootユーザに変更する手順は以下となります。rootユーザーに変更します。<br>※パスワードは入力してもコンソール上に表示はされません。
+<pre class="pre"><code>$ su -
+パスワード:tokyoec
+#</code></pre>
+        </li>
+        <li>findコマンドでルートディレクトリを起点にhostsファイルがどこにあるのか検索してください。
         <!-- accodion -->
         <div class="accorion-position">
           <div class="panel-group">
@@ -44,28 +49,6 @@
                 </h4>
               </div>
               <div id="collapse1" class="panel-collapse collapse">
-                <div class="panel-body">
-<pre><code>$ su -
-パスワード:tokyoec
-#</code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /accodion/ -->
-        </li>
-        <li>findコマンドでルートディレクトリを起点にhostsファイルがどこにあるのか検索してください。
-        <!-- accodion -->
-        <div class="accorion-position">
-          <div class="panel-group">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title accordion-toggle">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Answer</a>
-                </h4>
-              </div>
-              <div id="collapse2" class="panel-collapse collapse">
                 <div class="panel-body">
 <pre><code># find / -name hosts
 /etc/hosts
@@ -84,10 +67,10 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title accordion-toggle">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Answer</a>
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Answer</a>
                 </h4>
               </div>
-              <div id="collapse3" class="panel-collapse collapse">
+              <div id="collapse2" class="panel-collapse collapse">
                 <div class="panel-body">
 <pre><code># find /var/log -name messages
 /var/log/messages</code></pre>
@@ -105,10 +88,10 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title accordion-toggle">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Answer</a>
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Answer</a>
                 </h4>
               </div>
-              <div id="collapse4" class="panel-collapse collapse">
+              <div id="collapse3" class="panel-collapse collapse">
                 <div class="panel-body">
 <pre><code># cd /
 # find ./ -name messages
@@ -128,10 +111,10 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title accordion-toggle">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Answer</a>
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Answer</a>
                 </h4>
               </div>
-              <div id="collapse5" class="panel-collapse collapse">
+              <div id="collapse4" class="panel-collapse collapse">
                 <div class="panel-body">
 <pre><code># exit
 $</code></pre>
@@ -154,10 +137,10 @@ $</code></pre>
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title accordion-toggle">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Answer</a>
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Answer</a>
                 </h4>
               </div>
-              <div id="collapse6" class="panel-collapse collapse">
+              <div id="collapse5" class="panel-collapse collapse">
                 <div class="panel-body">
 <pre><code>$ cal --help
 使い方:
@@ -202,10 +185,10 @@ cal [options] &lt;timestamp|monthname&gt;
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title accordion-toggle">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Answer</a>
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Answer</a>
                 </h4>
               </div>
-              <div id="collapse7" class="panel-collapse collapse">
+              <div id="collapse6" class="panel-collapse collapse">
                 <div class="panel-body">
 <pre><code>$ man cal
   CAL(1)                                                                User Commands                                                                CAL(1)
@@ -470,10 +453,10 @@ cal [options] &lt;timestamp|monthname&gt;
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title accordion-toggle">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Answer</a>
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Answer</a>
                 </h4>
               </div>
-              <div id="collapse8" class="panel-collapse collapse">
+              <div id="collapse7" class="panel-collapse collapse">
                 <div class="panel-body">
 <pre><code>$ which pwd
 /usr/bin/pwd</code></pre>
@@ -491,10 +474,10 @@ cal [options] &lt;timestamp|monthname&gt;
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title accordion-toggle">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse9">Answer</a>
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Answer</a>
                 </h4>
               </div>
-              <div id="collapse9" class="panel-collapse collapse">
+              <div id="collapse8" class="panel-collapse collapse">
                 <div class="panel-body">
 <pre><code>$ ls /usr/bin/pwd
 /usr/bin/pwd</code></pre>

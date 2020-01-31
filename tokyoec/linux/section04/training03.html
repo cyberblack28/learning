@@ -221,10 +221,10 @@ drwxr-xr-x. 2 student student       6  1月 21 00:23 公開</code></pre>
         </div>
         <!-- /accodion/ -->
         <li>2016年3月17日の10時台のアクセスについて、次の質問に解答してください。
-        <ol>
-          <li>アクセス数</li>
-          <li>10時台の最初にアクセスがあった時間</li>
-          <li>10時台の最後にアクセスがあった時間</li>
+        <ol type="a">
+          <li>アクセス数を検索してください。</li>
+          <li>10時台の最初にアクセスがあった時間を検索してください。</li>
+          <li>10時台の最後にアクセスがあった時間を検索してください。</li>
         </ol>
         <!-- accodion -->
         <div class="accorion-position">
@@ -237,14 +237,14 @@ drwxr-xr-x. 2 student student       6  1月 21 00:23 公開</code></pre>
               </div>
               <div id="collapse8" class="panel-collapse collapse">
                <div class="panel-body">
-<pre><code>//1.アクセス数
+<pre><code>//a.アクセス数を検索してください。
 $ grep '17/Mar/2016:10:' sample_web.log | wc -l
 3470</code></pre>
-<pre><code>//2.10時台の最初にアクセスがあった時間
+<pre><code>//b.10時台の最初にアクセスがあった時間を検索してください。
 $ grep '17/Mar/2016:10:' sample_web.log | head -n 1
 36.33.129.83 - - [17/Mar/2016:10:08:15 +0900] "GET /item/sports/520 HTTP/1.1" 200 77 "http://www.google.com/search?ie=UTF-8&q=google&sclient=psy-ab&q=Sports+Office&oq=Sports+Office&aq=f&aqi=g-vL1&aql=&pbx=1&bav=on.2,or.r_gc.r_pw.r_qf.,cf.osb&biw=4862&bih=63" "Mozilla/5.0 (Windows NT 6.0; rv:10.0.1) Gecko/20100101 Firefox/10.0.1"
 </code></pre>
-<pre><code>//3.10時台の最後にアクセスがあった時間
+<pre><code>//c.10時台の最後にアクセスがあった時間を検索してください。
 $ grep '17/Mar/2016:10:' sample_web.log | tail -n 1
 60.33.46.128 - - [17/Mar/2016:10:40:29 +0900] "GET /category/electronics HTTP/1.1" 200 47 "-" "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)"
 </code></pre>
