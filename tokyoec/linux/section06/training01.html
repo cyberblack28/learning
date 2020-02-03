@@ -33,87 +33,1236 @@
       <h4 class="h4_title">1.net-toolsパッケージの確認</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>rootユーザに変更してください。<p>su -</p></li>
-        <li>net-toolsパッケージがインストールされているかどうかを確認してください。grepコマンドも利用してみましょう。<p>rpm -qa | grep net-tools</p></li>
-        <li>インストールされていない場合は、yumコマンドでインストールしてください。<p>yum install -y net-tools</p></li>
-        <li>インストールされたことを確認してください。<p>rpm -qa | grep net-tools</p></li>
-        <li>studentユーザに戻ってください。<p>exit</p></li>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec2020
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>net-toolsパッケージがインストールされているかどうかを確認してください。grepコマンドも利用してみましょう。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># rpm -qa | grep net-tools
+net-tools-2.0-0.51.20160912git.el8.x86_64
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>studentユーザに戻ってください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># exit
+$</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">2.ifconfigコマンド</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>rootユーザに変更してください。<p>su -</p></li>
-        <li>ifconfigコマンドを実行してインターフェイス情報を確認してください。<p>ifconfig</p></li>
-        <li>enp0s3に絞って、設定されているIPアドレス（IPv4,IPv6）、サブネットマスク、ブロードキャストアドレスを確認してください。<p>ifconfig enp0s3</p></li>
-        <li>ifconfigコマンドを使って、enp0s3を無効にしてください。<p>ifconfig enp0s3 down</p></li>
-        <li>無効になっていることを確認してください。<p>ifconfig enp0s3 ※IPアドレスが表示されないことを確認します。</p></li>
-        <li>ifconfigコマンドを使って、enp0s3を有効にしてください。<p>ifconfig enp0s3 up</p></li>
-        <li>有効になっていることを確認してください。<p>ifconfig enp0s3 ※IPアドレスが表示されることを確認します。</p></li>
-        <li>ifdownコマンドを使って、enp0s3を無効にしてください。<p>ifdown enp0s3</p></li>
-        <li>無効になっていることを確認してください。<p>ifconfig enp0s3 ※IPアドレスが表示されないことを確認します。</p></li>
-        <li>ifupコマンドを使って、enp0s3を有効にしてください。<p>ifup enp0s3</p></li>
-        <li>有効になっていることを確認してください。<p>ifconfig enp0s3 ※IPアドレスが表示されることを確認します。</p></li>
-        <li>studentユーザに戻ってください。<p>exit</p></li>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec2020
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>ifconfigコマンドを実行してインターフェイス情報を確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ifconfig
+  enp0s3: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+    inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+    inet6 fe80::acad:70d1:c57a:b0db  prefixlen 64  scopeid 0x20&lt;link&gt;
+    ether 08:00:27:a3:26:3e  txqueuelen 1000  (Ethernet)
+    RX packets 586  bytes 166010 (162.1 KiB)
+    RX errors 0  dropped 0  overruns 0  frame 0
+    TX packets 617  bytes 53485 (52.2 KiB)
+    TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp0s8: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+    inet 192.168.56.18  netmask 255.255.255.0  broadcast 192.168.56.255
+    inet6 fe80::48a6:996b:e86d:23d0  prefixlen 64  scopeid 0x20&lt;link&gt;
+    ether 08:00:27:b0:bb:33  txqueuelen 1000  (Ethernet)
+    RX packets 3013  bytes 223654 (218.4 KiB)
+    RX errors 0  dropped 0  overruns 0  frame 0
+    TX packets 2589  bytes 1695609 (1.6 MiB)
+    TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
+    inet 127.0.0.1  netmask 255.0.0.0
+    inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;
+    loop  txqueuelen 1000  (Local Loopback)
+    RX packets 0  bytes 0 (0.0 B)
+    RX errors 0  dropped 0  overruns 0  frame 0
+    TX packets 0  bytes 0 (0.0 B)
+    TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
+    inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+    ether 52:54:00:ed:d7:d5  txqueuelen 1000  (Ethernet)
+    RX packets 0  bytes 0 (0.0 B)
+    RX errors 0  dropped 0  overruns 0  frame 0
+    TX packets 0  bytes 0 (0.0 B)
+    TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>enp0s3に絞って、設定されているIPアドレス（IPv4,IPv6）、サブネットマスク、ブロードキャストアドレスを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse6" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ifconfig enp0s3
+enp0s3: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+  inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+  inet6 fe80::acad:70d1:c57a:b0db  prefixlen 64  scopeid 0x20&lt;
+  ether 08:00:27:a3:26:3e  txqueuelen 1000  (Ethernet)
+  RX packets 593  bytes 166550 (162.6 KiB)
+  RX errors 0  dropped 0  overruns 0  frame 0
+  TX packets 624  bytes 54025 (52.7 KiB)
+  TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>ifconfigコマンドを使って、enp0s3を無効にしてください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse7" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ifconfig enp0s3 down
+# ifconfig enp0s3
+enp0s3: flags=4098&lt;BROADCAST,MULTICAST&gt;  mtu 1500
+  inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+  ether 08:00:27:a3:26:3e  txqueuelen 1000  (Ethernet)
+  RX packets 598  bytes 166940 (163.0 KiB)
+  RX errors 0  dropped 0  overruns 0  frame 0
+  TX packets 629  bytes 54415 (53.1 KiB)
+  TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+//flagsの箇所にUPという表示がなくなっているので停止しています。</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>ifconfigコマンドを使って、enp0s3を有効にしてください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse8" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ifconfig enp0s3 up
+# ifconfig enp0s3
+enp0s3: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+  inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+  inet6 fe80::acad:70d1:c57a:b0db  prefixlen 64  scopeid 0x20&lt;
+  ether 08:00:27:a3:26:3e  txqueuelen 1000  (Ethernet)
+  RX packets 611  bytes 168450 (164.5 KiB)
+  RX errors 0  dropped 0  overruns 0  frame 0
+  TX packets 675  bytes 59990 (58.5 KiB)
+  TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+//flagsの箇所にUPという表示があるので起動しています。</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>ifdownコマンドを使って、enp0s3を無効にしてください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse9">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse9" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ifdown enp0s3
+接続 'enp0s3' が正常に非アクティブ化されました (D-Bus アクティブパス: /org/freedesktop/NetworkManager/ActiveConnection/6)
+# ifconfig enp0s3
+enp0s3: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+  ether 08:00:27:a3:26:3e  txqueuelen 1000  (Ethernet)
+  RX packets 764  bytes 221841 (216.6 KiB)
+  RX errors 0  dropped 0  overruns 0  frame 0
+  TX packets 996  bytes 95471 (93.2 KiB)
+  TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+//UPと表示されていますが、IPアドレスが表示されなくなり無効化されています。</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>ifupコマンドを使って、enp0s3を有効にしてください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse10">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse10" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ifup enp0s3
+接続が正常にアクティベートされました (D-Bus アクティブパス: /org/freedesktop/NetworkManager/ActiveConnection/7)
+# ifconfig enp0s3
+enp0s3: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+  inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+  inet6 fe80::acad:70d1:c57a:b0db  prefixlen 64  scopeid 0x20&lt;
+  ether 08:00:27:a3:26:3e  txqueuelen 1000  (Ethernet)
+  RX packets 773  bytes 223397 (218.1 KiB)
+  RX errors 0  dropped 0  overruns 0  frame 0
+  TX packets 1032  bytes 99900 (97.5 KiB)
+  TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        <li>studentユーザに戻ってください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse11">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse11" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># exit
+$</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">3.ipコマンドとrouteコマンド</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>rootユーザに変更してください。<p>su -</p></li>
-        <li>ipコマンドを使って、インターフェイス情報を確認してください。<p>ip a<br>ip addr<br>ip addr show<br>ip addr list<br>ip address</p></li>
-        <li>enp0s3に絞って、設定されているIPアドレス（IPv4,IPv6）、サブネットマスク、ブロードキャストアドレスを確認してください。<p>ip a show/list enp0s3<br>ip addr show/list enp0s3<br>ip address show/list enp0s3</p></li>
-        <li>ipコマンドを使って、ルーティングテーブルを確認してください。<p>ip r<br>ip route<br>ip route show/list</p></li>
-        <li>routeコマンドを使って、ルーティングテーブルを確認してください。<p>route</p></li>
-        <li>studentユーザに戻ってください。<p>exit</p></li>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse12">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse12" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec2020
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>ipコマンドを使って、インターフェイス情報を確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse13">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse13" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ip a
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope &lt; lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope &lt;
+       valid_lft forever preferred_lft forever
+2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:a3:26:3e brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 85146sec preferred_lft 85146sec
+    inet6 fe80::acad:70d1:c57a:b0db/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+3: enp0s8: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:b0:bb:33 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.56.18/24 brd 192.168.56.255 scope global noprefixroute enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::48a6:996b:e86d:23d0/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+4: virbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether 52:54:00:ed:d7:d5 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
+       valid_lft forever preferred_lft forever
+5: virbr0-nic: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc fq_codel master virbr0 state DOWN group default qlen 1000
+    link/ether 52:54:00:ed:d7:d5 brd ff:ff:ff:ff:ff:ff</code></pre>
+<pre><code># ip addr
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope &lt; lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope &lt;
+       valid_lft forever preferred_lft forever
+2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:a3:26:3e brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 85025sec preferred_lft 85025sec
+    inet6 fe80::acad:70d1:c57a:b0db/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+3: enp0s8: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:b0:bb:33 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.56.18/24 brd 192.168.56.255 scope global noprefixroute enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::48a6:996b:e86d:23d0/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+4: virbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether 52:54:00:ed:d7:d5 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
+       valid_lft forever preferred_lft forever
+5: virbr0-nic: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc fq_codel master virbr0 state DOWN group default qlen 1000
+    link/ether 52:54:00:ed:d7:d5 brd ff:ff:ff:ff:ff:</code></pre>
+<pre><code># ip addr show
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope &lt; lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope &lt;
+       valid_lft forever preferred_lft forever
+2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:a3:26:3e brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 85025sec preferred_lft 85025sec
+    inet6 fe80::acad:70d1:c57a:b0db/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+3: enp0s8: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:b0:bb:33 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.56.18/24 brd 192.168.56.255 scope global noprefixroute enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::48a6:996b:e86d:23d0/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+4: virbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether 52:54:00:ed:d7:d5 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
+       valid_lft forever preferred_lft forever
+5: virbr0-nic: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc fq_codel master virbr0 state DOWN group default qlen 1000
+    link/ether 52:54:00:ed:d7:d5 brd ff:ff:ff:ff:ff:</code></pre>
+<pre><code># ip addr list
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope &lt; lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope &lt;
+       valid_lft forever preferred_lft forever
+2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:a3:26:3e brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 85025sec preferred_lft 85025sec
+    inet6 fe80::acad:70d1:c57a:b0db/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+3: enp0s8: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:b0:bb:33 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.56.18/24 brd 192.168.56.255 scope global noprefixroute enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::48a6:996b:e86d:23d0/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+4: virbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether 52:54:00:ed:d7:d5 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
+       valid_lft forever preferred_lft forever
+5: virbr0-nic: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc fq_codel master virbr0 state DOWN group default qlen 1000
+    link/ether 52:54:00:ed:d7:d5 brd ff:ff:ff:ff:ff:</code></pre>
+<pre><code># ip address
+  1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+      link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+      inet 127.0.0.1/8 scope &lt; lo
+         valid_lft forever preferred_lft forever
+      inet6 ::1/128 scope &lt;
+         valid_lft forever preferred_lft forever
+  2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+      link/ether 08:00:27:a3:26:3e brd ff:ff:ff:ff:ff:ff
+      inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+         valid_lft 85025sec preferred_lft 85025sec
+      inet6 fe80::acad:70d1:c57a:b0db/64 scope link noprefixroute
+         valid_lft forever preferred_lft forever
+  3: enp0s8: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+      link/ether 08:00:27:b0:bb:33 brd ff:ff:ff:ff:ff:ff
+      inet 192.168.56.18/24 brd 192.168.56.255 scope global noprefixroute enp0s8
+         valid_lft forever preferred_lft forever
+      inet6 fe80::48a6:996b:e86d:23d0/64 scope link noprefixroute
+         valid_lft forever preferred_lft forever
+  4: virbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+      link/ether 52:54:00:ed:d7:d5 brd ff:ff:ff:ff:ff:ff
+      inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
+         valid_lft forever preferred_lft forever
+  5: virbr0-nic: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc fq_codel master virbr0 state DOWN group default qlen 1000
+      link/ether 52:54:00:ed:d7:d5 brd ff:ff:ff:ff:ff:</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>enp0s3に絞って、設定されているIPアドレス（IPv4,IPv6）、サブネットマスク、ブロードキャストアドレスを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse14">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse14" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ip a show enp0s3
+2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:a3:26:3e brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+        valid_lft 86039sec preferred_lft 86039sec
+    inet6 fe80::acad:70d1:c57a:b0db/64 scope link noprefixroute
+        valid_lft forever preferred_lft forever
+
+//以下同じコマンド結果となります。
+//ip a show enp0s3,ip addr show enp0s3,ip address show enp0s3
+//ip a list enp0s3,ip addr list enp0s3,ip address list enp0s3</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ --> 
+        </li>
+        <li>ipコマンドを使って、ルーティングテーブルを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse15">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse15" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ip r
+default via 10.0.2.2 dev enp0s3 proto dhcp metric 102
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 metric 102
+192.168.56.0/24 dev enp0s8 proto kernel scope link src 192.168.56.18 metric 101
+192.168.122.0/24 dev virbr0 proto kernel scope link src 192.168.122.1 linkdown</code></pre>
+
+<pre><code># ip route
+default via 10.0.2.2 dev enp0s3 proto dhcp metric 102
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 metric 102
+192.168.56.0/24 dev enp0s8 proto kernel scope link src 192.168.56.18 metric 101
+192.168.122.0/24 dev virbr0 proto kernel scope link src 192.168.122.1 linkdown</code></pre>
+
+<pre><code># ip route show
+default via 10.0.2.2 dev enp0s3 proto dhcp metric 102
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 metric 102
+192.168.56.0/24 dev enp0s8 proto kernel scope link src 192.168.56.18 metric 101
+192.168.122.0/24 dev virbr0 proto kernel scope link src 192.168.122.1 linkdown</code></pre>
+
+<pre><code># ip route list
+default via 10.0.2.2 dev enp0s3 proto dhcp metric 102
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 metric 102
+192.168.56.0/24 dev enp0s8 proto kernel scope link src 192.168.56.18 metric 101
+192.168.122.0/24 dev virbr0 proto kernel scope link src 192.168.122.1 linkdown</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>routeコマンドを使って、ルーティングテーブルを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse16">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse16" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         _gateway        0.0.0.0         UG    102    0        0 enp0s3
+10.0.2.0        0.0.0.0         255.255.255.0   U     102    0        0 enp0s3
+192.168.56.0    0.0.0.0         255.255.255.0   U     101    0        0 enp0s8
+192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>studentユーザに戻ってください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse17">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse17" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># exit
+$</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">4.hostnameコマンドとhostnamectlコマンド</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>rootユーザに変更してください。<p>su -</p></li>
-        <li>hostnameコマンドを使って、ホスト名を確認してください<p>hostname</p></li>
-        <li>hostnameコマンドを使って、一時的にホスト名を「students.com」に変更してください。変更できたことを確認してください。<p>hostname students.com</p></li>
-        <li>仮想マシンを再起動して、再起動後にホスト名が元に戻っていることを確認してください。<p>reboot<br>hostname ※再起動後に実行する</p></li>
-        <li>rootユーザに変更してください。<p>su -</p></li>
-        <li>hostnamectlコマンドを使って、恒久的にホスト名を「students.com」となるようにしてください。<p>hostnamectl set-hostname students.com</p></li>
-        <li>hostnamectlコマンドを使って、「students.com」に変更できたことを確認してください。<p>hostnamectl status<br>※Static hostnameの箇所が「students.com」になっているはずです。</p></li>
-        <li>hostnameコマンドで一時的に、ホスト名を「test.students.com」に変更して、hostnamectlコマンドでホスト名を確認してください。<p>hostname test.students.com<br>hostnamectl status<br>※Static hostnameの箇所が「students.com」、Transient hostnameの箇所が「test.students.com」になっているはずです。</p></li>
-        <li>studentユーザに戻ってください。<p>exit</p></li>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse18">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse18" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec2020
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>hostnameコマンドを使って、ホスト名を確認してください
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse19">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse19" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># hostname
+localhost.localdomain</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>hostnameコマンドを使って、一時的にホスト名を「students.com」に変更してください。変更できたことを確認してください。※OSを再起動すると「localhost.localdomain」に戻ります。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse20">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse20" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># hostname students.com
+# hostname
+students.com</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>hostnamectlコマンドを使って、恒久的にホスト名を「tokyoec.com」となるようにしてください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse21">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse21" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># hostnamectl set-hostname tokyoec.com</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>hostnamectlコマンドを使って、「tokyoec.com」に変更できたことを確認してください。<p>※Static hostnameの箇所が「tokyoec.com」となります。</p>
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse22">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse22" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># hostnamectl status
+Static hostname: tokyoec.com
+      Icon name: computer-vm
+        Chassis: vm
+      Machine ID: ec3013fcd5694968ae0536d059095897
+        Boot ID: a1293bfbb48d47c8b5be2501db0fc989
+  Virtualization: oracle
+Operating System: CentOS Linux 8 (Core)
+    CPE OS Name: cpe:/o:centos:centos:8
+          Kernel: Linux 4.18.0-147.3.1.el8_1.x86_64
+    Architecture: x86-64</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>hostnameコマンドで一時的に、ホスト名を「test.students.com」に変更して、hostnamectlコマンドでホスト名を確認してください。※Static hostnameの箇所が「tokyoec.com」、Transient hostnameの箇所が「test.students.com」となります。OSを再起動すると「tokyoec.com」となります。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse23">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse23" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># hostname test.students.com
+# hostnamectl status
+Static hostname: tokyoec.com
+Transient hostname: test.students.com
+         Icon name: computer-vm
+           Chassis: vm
+        Machine ID: ec3013fcd5694968ae0536d059095897
+           Boot ID: a1293bfbb48d47c8b5be2501db0fc989
+    Virtualization: oracle
+  Operating System: CentOS Linux 8 (Core)
+       CPE OS Name: cpe:/o:centos:centos:8
+            Kernel: Linux 4.18.0-147.3.1.el8_1.x86_64
+      Architecture: x86-64
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>studentユーザに戻ってください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse24">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse24" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># exit
+$</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">5.netstatコマンドとssコマンド</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>rootユーザに変更してください。<p>su -</p></li>
-        <li>netstatコマンドを使って、全てアクティブなソケットで、ホスト・ポート・ユーザなどの名前を解決せずに、数字アドレスでTCPソケットに限定して確認してください。<p>netstat -tan</p></li>
-        <li>netstatコマンドを使って、ルーティングテーブルを確認してください。<p>netstat -r　※routeコマンド同じ結果となります。</p></li>
-        <li>ssコマンドを使って、全てアクティブなソケットで、ホスト・ポート・ユーザなどの名前を解決せずに、数字アドレスでTCPソケットに限定して確認してください。<p>ss -alnt</p></li>
-        <li>studentユーザに戻ってください。<p>exit</p></li>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse25">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse25" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec2020
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>netstatコマンドを使って、全てアクティブなソケットで、ホスト・ポート・ユーザなどの名前を解決せずに、数字アドレスでTCPソケットに限定して確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse26">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse26" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># netstat -tan
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 0.0.0.0:5355            0.0.0.0:*               LISTEN
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN
+tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN
+tcp        0     36 192.168.56.18:22        192.168.56.1:57467      ESTABLISHED
+tcp6       0      0 :::5355                 :::*                    LISTEN
+tcp6       0      0 :::111                  :::*                    LISTEN
+tcp6       0      0 :::22                   :::*                    LISTEN
+tcp6       0      0 ::1:631                 :::*                    LISTEN</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>netstatコマンドを使って、ルーティングテーブルを確認してください。※routeコマンド同じ結果となります。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse27">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse27" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># netstat -r
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+default         _gateway        0.0.0.0         UG        0 0          0 enp0s3
+10.0.2.0        0.0.0.0         255.255.255.0   U         0 0          0 enp0s3
+192.168.56.0    0.0.0.0         255.255.255.0   U         0 0          0 enp0s8
+192.168.122.0   0.0.0.0         255.255.255.0   U         0 0          0 virbr0</code></pre>
+
+<pre><code># route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+default         _gateway        0.0.0.0         UG        0 0          0 enp0s3
+10.0.2.0        0.0.0.0         255.255.255.0   U         0 0          0 enp0s3
+192.168.56.0    0.0.0.0         255.255.255.0   U         0 0          0 enp0s8
+192.168.122.0   0.0.0.0         255.255.255.0   U         0 0          0 virbr0</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>ssコマンドを使って、全てアクティブなソケットで、ホスト・ポート・ユーザなどの名前を解決せずに、数字アドレスでTCPソケットに限定して確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse28">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse28" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ss -alnt
+State    Recv-Q    Send-Q        Local Address:Port        Peer Address:Port
+LISTEN   0         128                 0.0.0.0:5355             0.0.0.0:*
+LISTEN   0         128                 0.0.0.0:111              0.0.0.0:*
+LISTEN   0         32            192.168.122.1:53               0.0.0.0:*
+LISTEN   0         128                 0.0.0.0:22               0.0.0.0:*
+LISTEN   0         5                 127.0.0.1:631              0.0.0.0:*
+LISTEN   0         128                    [::]:5355                [::]:*
+LISTEN   0         128                    [::]:111                 [::]:*
+LISTEN   0         128                    [::]:22                  [::]:*
+LISTEN   0         5                     [::1]:631                 [::]:*</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>studentユーザに戻ってください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse29">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse29" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># exit
+$</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">6.pingコマンド</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>rootユーザに変更してください。<p>su -</p></li>
-        <li>pingコマンドを使って、www.google.co.jpに対して、オプション指定で10回、ICMPパケットを送信してください。<p>ping -c 5 www.google.co.jp</p></li>
-        <li>pingコマンドを使って、www.google.co.jpに対して、オプション指定で3秒間隔、ICMPパケットを送信してください。確認後、[Ctrl]+[C]で停止します。<p>ping -i 3 www.google.co.jp<br>[Ctrl]+[C]</p></li>
-        <li>studentユーザに戻ってください。<p>exit</p></li>
-        <li>Windowsのコマンドプロンプト起動して、www.google.co.jpに対して、連続でICMPパケットを送信してください。確認後、[Ctrl]+[C]で停止します。<p>ping -t www.google.co.jp<br>[Ctrl]+[C]</p></li>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse30">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse30" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec2020
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>pingコマンドを使って、www.google.co.jpに対して、オプション指定で5回、ICMPパケットを送信してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse31">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse31" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ping -c 5 www.google.co.jp
+PING www.google.co.jp (172.217.161.67) 56(84) bytes of data.
+64 bytes from nrt20s09-in-f3.1e100.net (172.217.161.67): icmp_seq=1 ttl=54 time=15.2 ms
+64 bytes from nrt20s09-in-f3.1e100.net (172.217.161.67): icmp_seq=2 ttl=54 time=4.98 ms
+64 bytes from nrt20s09-in-f3.1e100.net (172.217.161.67): icmp_seq=3 ttl=54 time=31.4 ms
+64 bytes from nrt20s09-in-f3.1e100.net (172.217.161.67): icmp_seq=4 ttl=54 time=17.3 ms
+64 bytes from nrt20s09-in-f3.1e100.net (172.217.161.67): icmp_seq=5 ttl=54 time=15.4 ms
+
+--- www.google.co.jp ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 10ms
+rtt min/avg/max/mdev = 4.983/16.855/31.381/8.452 ms</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>pingコマンドを使って、www.google.co.jpに対して、オプション指定で3秒間隔、ICMPパケットを送信してください。5回目位で[Ctrl]+[C]で停止してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse32">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse32" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ping -i 3 www.google.co.jp
+PING www.google.co.jp (172.217.161.67) 56(84) bytes of data.
+64 bytes from nrt20s09-in-f3.1e100.net (172.217.161.67): icmp_seq=1 ttl=54 time=5.83 ms
+64 bytes from nrt20s09-in-f3.1e100.net (172.217.161.67): icmp_seq=2 ttl=54 time=11.1 ms
+64 bytes from nrt20s09-in-f3.1e100.net (172.217.161.67): icmp_seq=3 ttl=54 time=13.6 ms
+64 bytes from nrt20s09-in-f3.1e100.net (172.217.161.67): icmp_seq=4 ttl=54 time=7.74 ms
+64 bytes from nrt20s09-in-f3.1e100.net (172.217.161.67): icmp_seq=5 ttl=54 time=23.8 ms
+^C
+--- www.google.co.jp ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 27ms
+rtt min/avg/max/mdev = 5.826/12.412/23.800/6.293 ms</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>studentユーザに戻ってください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse33">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse33" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># exit
+$</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li><strong>Windowsのコマンドプロンプト起動して</strong>、www.google.co.jpに対して、連続でICMPパケットを送信してください。確認後、[Ctrl]+[C]で停止してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse34">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse34" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ ping -t www.google.co.jp
+
+www.google.co.jp [172.217.26.3]に ping を送信しています 32 バイトのデータ:
+172.217.26.3 からの応答: バイト数 =32 時間 =5ms TTL=55
+172.217.26.3 からの応答: バイト数 =32 時間 =11ms TTL=55
+172.217.26.3 からの応答: バイト数 =32 時間 =10ms TTL=55
+172.217.26.3 からの応答: バイト数 =32 時間 =3ms TTL=55
+172.217.26.3 からの応答: バイト数 =32 時間 =4ms TTL=55
+172.217.26.3 からの応答: バイト数 =32 時間 =3ms TTL=55
+
+172.217.26.3 の ping 統計:
+    パケット数: 送信 = 6、受信 = 6、損失 = 0 (0% の損失)、
+ラウンド トリップの概算時間 (ミリ秒):
+    最小 = 3ms、最大 = 11ms、平均 = 6ms
+Ctrl+C
+^C</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">7.tracerouteコマンドとtracertコマンド</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください。<p>cd<br>pwd</p></li>
-        <li>www.google.co.jpに対してtracerouteコマンドを実行してください。<p>traceroute www.google.co.jp</p></li>
-        <li>Windowsのコマンドプロンプトを起動して、www.google.co.jpに対してtracertコマンドを実行してください。<p>tracert www.google.co.jp</p></li>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse35">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse35" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec2020
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>tracerouteコマンドのインストール
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse36">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse36" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># dnf -y install traceroute
+メタデータの期限切れの最終確認: 0:02:10 時間前の 2020年02月03日 04時39分20秒 に 実施しました。
+依存関係が解決しました。
+================================================================================
+ パッケージ         Arch           バージョン              リポジトリー   サイズ
+================================================================================
+インストール:
+ traceroute         x86_64         3:2.1.0-6.el8           BaseOS          67 k
+
+トランザクションの概要
+================================================================================
+インストール  1 パッケージ
+
+ダウンロードサイズの合計: 67 k
+インストール済みのサイズ: 109 k
+パッケージのダウンロード:
+traceroute-2.1.0-6.el8.x86_64.rpm               667 kB/s |  67 kB     00:00
+--------------------------------------------------------------------------------
+合計                                             98 kB/s |  67 kB     00:00
+トランザクションの確認を実行中
+トランザクションの確認に成功しました。
+トランザクションのテストを実行中
+トランザクションのテストに成功しました。
+トランザクションを実行中
+  準備             :                                                        1/1
+  インストール中   : traceroute-3:2.1.0-6.el8.x86_64                        1/1
+  scriptletの実行中: traceroute-3:2.1.0-6.el8.x86_64                        1/1
+  検証             : traceroute-3:2.1.0-6.el8.x86_64                        1/1
+
+インストール済み:
+  traceroute-3:2.1.0-6.el8.x86_64
+
+完了しました!</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>www.google.co.jpに対してtracerouteコマンドを実行してください。※結果は環境によって異なります。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse37">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse37" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># traceroute www.google.co.jp
+traceroute to www.google.co.jp (172.217.161.35), 30 hops max, 60 byte packets
+ 1  _gateway (10.0.2.2)  1.092 ms  1.035 ms  1.004 ms
+ 2  _gateway (10.0.2.2)  4.211 ms  4.103 ms  4.037 ms</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>studentユーザに戻ってください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse38">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse38" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># exit
+$</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li><strong>Windowsのコマンドプロンプトを起動して</strong>、www.google.co.jpに対してtracertコマンドを実行してください。※結果は環境によって異なります。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse39">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse39" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ tracert www.google.co.jp
+
+www.google.co.jp [172.217.175.35] へのルートをトレースしています
+経由するホップ数は最大 30 です:
+
+  1    &lt;1 ms    &lt;1 ms    &lt;1 ms  192.168.50.254
+  2     *        *        *     要求がタイムアウトしました。
+  3     *        *        *     要求がタイムアウトしました。
+  4     *        *        *     要求がタイムアウトしました。
+  5     *        *        *     要求がタイムアウトしました。
+  6     *        *        *     要求がタイムアウトしました。
+  7     *        *        *     要求がタイムアウトしました。
+  8     *        *        *     要求がタイムアウトしました。
+  9     *        *        *     要求がタイムアウトしました。
+ 10     3 ms     3 ms     3 ms  nrt20s19-in-f3.1e100.net [172.217.175.35]
+
+トレースを完了しました。</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <p class="text_align_center"><a href="../zenki.html">前期トップへ戻る</a></p>
