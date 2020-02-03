@@ -35,30 +35,350 @@
       <p><span class="text_color_p">stressコマンドを利用して、フォアグラウンドとバックグラウンドのジョブの切替を確認します。</span></p>
 
       <ol>
-        <li>rootユーザに変更してください。<p>su -</p></li>
-        <li>stressのRPMパッケージをインストールします。(CentOS7の場合)<br>wget https://cyberblack28.github.io/learning/tokyoec/linux/zip/stress-1.0.2-1.el7.rf.x86_64.rpm<br>rpm -Uvh stress-1.0.2-1.el7.rf.x86_64.rpm<br>rpm -qa | grep stress<br>※stress-1.0.2-1.el7.rf.x86_64と表示されればインストール完了です。
-        <hr>stressのRPMパッケージをインストールします。(CentOS8の場合)<br>wget https://cyberblack28.github.io/learning/tokyoec/linux/zip/stress-1.0.4-23.el8.x86_64.rpm<br>rpm -Uvh stress-1.0.4-23.el8.x86_64.rpm<br>rpm -qa | grep stress<br>※stress-1.0.2-1.el7.rf.x86_64と表示されればインストール完了です。</li>
-        <li>4つのstressのプロセスを動かして、仮想マシンにで負荷をかけます。以下のstressコマンドを実行します。<br>stress --cpu 3</li>
-        <li>3.で実行したstressコマンドが、フォアグラウンドジョブとして実行されているため、端末ウインドウではほかのコマンドが入力できません。キー入力を行えるようにするため、バックグラウンドジョブに変更してください。<p>[Ctrl]+[z]<br>jobs<br>bg %1</p></li>
-        <li>バックグラウンドジョブになっていること確認してください。<p>jobs ※stress --cpu 3&が実行中なら正OKです。</p></li>
-        <li>stressコマンドを終了させます。一度、フォアグラウンドジョブに戻した後、[Ctrl] + [c]で終了させて下さい。<p>fg %1<br>[Ctrl]+[c]</p></li>
-        <li>stressコマンドが終了したことを確認してください。<p>jobs ※ジョブ一覧に、何も表示されなければOKです。</p></li>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec2020
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>stressのRPMパッケージをインストールします。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># wget https://cyberblack28.github.io/learning/tokyoec/linux/zip/stress-1.0.4-23.el8.x86_64.rpm
+--2020-02-02 20:23:05--  https://cyberblack28.github.io/learning/tokyoec/linux/zip/stress-1.0.4-23.el8.x86_64.rpm
+cyberblack28.github.io (cyberblack28.github.io) をDNSに問いあわせています... 185.199.108.153, 185.199.109.153, 185.199.110.153, ...
+cyberblack28.github.io (cyberblack28.github.io)|185.199.108.153|:443 に接続して います... 接続しました。
+HTTP による接続要求を送信しました、応答を待っています... 200 OK
+長さ: 39652 (39K) [application/x-redhat-package-manager]
+`stress-1.0.4-23.el8.x86_64.rpm' に保存中
+  
+stress-1.0.4-23.el8 100%[===================>]  38.72K  77.5KB/s 時間 0.5s
+  
+2020-02-02 20:23:06 (77.5 KB/s) - `stress-1.0.4-23.el8.x86_64.rpm' へ保存完了 [39652/39652]
+# rpm -Uvh stress-1.0.4-23.el8.x86_64.rpm
+警告: stress-1.0.4-23.el8.x86_64.rpm: ヘッダー V4 RSA/SHA256 Signature、鍵 ID e755cc63: NOKEY
+Verifying...                          ################################# [100%]
+準備しています...              ################################# [100%]
+更新中 / インストール中...
+   1:stress-1.0.4-23.el8              ################################# [100%]
+# rpm -qa | grep stress
+stress-1.0.4-23.el8.x86_64
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>4つのstressのプロセスを動かして、仮想マシンにで負荷をかけます。以下のstressコマンドを実行します。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># stress --cpu 3
+stress: info: [30808] dispatching hogs: 3 cpu, 0 io, 0 vm, 0 hdd</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>3.で実行したstressコマンドが、フォアグラウンドジョブとして実行されているため、端末ウインドウではほかのコマンドが入力できません。キー入力を行えるようにするため、バックグラウンドジョブに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># stress --cpu 3
+stress: info: [30808] dispatching hogs: 3 cpu, 0 io, 0 vm, 0 hdd
+//[Ctrl]+[z]キーを入力
+^Z
+[1]+  停止                  stress --cpu 3</code></pre>
+<pre><code># jobs
+# bg %1
+[1]+ stress --cpu 3 &</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>バックグラウンドジョブになっていること確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># jobs
+[1]+  実行中               stress --cpu 3 &
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>stressコマンドを終了させます。一度、フォアグラウンドジョブに戻した後、[Ctrl] + [c]で終了させて下さい。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse6" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># fg %1
+//[Ctrl]+[c]を入力
+stress --cpu 3
+^C
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>stressコマンドが終了したことを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse7" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># jobs //何も表示されなければ正常に終了しています。</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">2.ジョブとプロセスの確認</h4>
 
-      <p><span class="text_color_p">stressコマンドを使って、ジョブとプロセスの違い、psコマンドやkillコマンドについて確認します。</span></p>
+      <p>stressコマンドを使って、ジョブとプロセスの違い、psコマンドやkillコマンドについて確認します。</p>
 
       <ol>
-        <li>バックグラウンドジョブとして、stress --cpu 3コマンドを実行し、確認してください。<br>※プロンプトが戻らない場合は、[Enter]キー何度か押してください。<p>stress --cpu 3 &<br>[Enter]キーを押すとプロンプトがfgとして戻ります。<br>jobs</p></li>
-        <li>stress --cpu 3は、ジョブとしては1つです。psコマンドで、プロセス単位でみたときのstress --cpu 3を確認します。<br>オプション無しで、psコマンドを実行し、stressのプロセス数を確認してみましょう。<p>ps</p>※ psコマンドを実行すると、右端にstressと表示されている行が4行表示されるはずです。<br>これは、stressのプロセスとしては4つ動作していることを表しています。<br>stress --cpu 3は、stressのプロセスを3つ起動するコマンドですが、プロセスが1つ多くあります。内訳は、親プロセス1 + 子プロセス3になります。</li>
-        <li>psコマンドにafオプションを付けて、ツリー構造でstressプロセスの親子関係を確認してみましょう。<p>ps -af</p></li>
-        <li>killコマンドを使って、すべてのstressのプロセスを強制終了してください。※子プロセスからkillしてください。<br>killコマンド内で指定するプロセスID（PID）は、ps -afコマンドで確認してください。<p>kill プロセスID<br>ps ※最後にpsコマンドを実行し、stressのプロセスが無くなったことを確認します。</p></li>
-      </ol>
+        <li>バックグラウンドジョブとして、「stress --cpu 3」コマンドを実行し、確認してください。<br>※プロンプトが戻らない場合は、[Enter]キー何度か押してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse8" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># stress --cpu 3 &
+[1] 31056
+# stress: info: [31056] dispatching hogs: 3 cpu, 0 io, 0 vm, 0 hdd
+//[Enter]キーを押してプロンプトをfgにします。
+#</code></pre>
+<pre><code># jobs
+[1]+  実行中               stress --cpu 3 &</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>stress --cpu 3は、ジョブとしては1つです。psコマンドで、プロセス単位でみたときのstress --cpu 3を確認します。<br>オプション無しで、psコマンドを実行し、stressのプロセス数を確認してみましょう。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse9">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse9" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ps
+  PID TTY          TIME CMD
+ 2424 pts/0    00:00:00 su
+ 2430 pts/0    00:00:00 bash
+31056 pts/0    00:00:00 stress
+31057 pts/0    00:02:17 stress
+31058 pts/0    00:02:17 stress
+31059 pts/0    00:02:17 stress
+31119 pts/0    00:00:00 ps
 
-      <div class="onepoint">
-        <p><span class="text_color_p">親子関係にあるプロセスを停止する場合は、最初に子プロセス、その次に親プロセスを止めます。親プロセスから停止すると、子プロセスがゾンビプロセスとして、動作していないのに消滅せずにOS上に残ってしまう場合があります。必ずそうなるとは限りませんが、安全策として子プロセスから停止するようにしましょう。</span></p>
-      </div>
+//psコマンドを実行すると、右端にstressと表示されている行が4行表示されるはずです。これは、stressのプロセスとしては4つ動作していることを表しています。
+「stress --cpu 3」は、stressのプロセスを3つ起動するコマンドですが、プロセスが1つ多くあります。内訳は、親プロセス1 + 子プロセス3になります。</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>pstreeコマンドにpオプションを付けて、ツリー構造でstressプロセスの親子関係を確認してみましょう。「pstree -p | grep stress」
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse10">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse10" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># pstree -p | grep stress
+  |                                                                           `-stress(31395)-+-stress(31396)
+  |                                                                                           |-stress(31397)
+  |                                                                                           `-stress(31398)</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>killコマンドを使って、すべてのstressのプロセスを強制終了してください。<br>pstreeコマンドで確認した結果の内、31395が親プロセスそれ以外が子プロセス（31396,31397,31398）になります。まず、3個の子プロセスの内どれか1個を強制終了してください。※プロセスIDは固定ではないので本内容とは異なる場合があります。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse11">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse11" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># kill 31397
+stress: FAIL: [31395] (415) &lt;-- worker 31397 got signal 15
+stress: WARN: [31395] (417) now reaping child worker processes
+stress: FAIL: [31395] (451) failed run completed in 429s
+//[Enter]キーを入力
+[1]+  終了 1                stress --cpu 3
+
+//子プロセスを強制終了させることによる忠告が出て、親プロセスと他の子プロセスと共に終了となります。</code></pre>
+<pre><code># ps
+PID TTY          TIME CMD
+2424 pts/0    00:00:00 su
+2430 pts/0    00:00:00 bash
+31459 pts/0    00:00:00 ps</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>もう一度、「stress --cpu 3 &」を実行、「pstree -p | grep stress」で親プロセスIDを確認して、今度は親プロセスから強制終了してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse12">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse12" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># stress --cpu 3 &
+[1] 31546
+# stress: info: [31546] dispatching hogs: 3 cpu, 0 io, 0 vm, 0 hdd
+//[Enter]キーを入力</code></pre>
+<pre><code># pstree -p | grep stress
+|                                                                           `-stress(31546)-+-stress(31547)
+|                                                                                           |-stress(31548)
+|                                                                                           `-stress(31549)
+# kill 31546
+# ps
+  PID TTY          TIME CMD
+ 2424 pts/0    00:00:00 su
+ 2430 pts/0    00:00:00 bash
+31547 pts/0    00:01:17 stress
+31548 pts/0    00:01:17 stress
+31549 pts/0    00:01:17 stress
+31579 pts/0    00:00:00 ps
+
+//親プロセスを強制終了すると、子プロセスも含めて強制終了されません。子プロセスは親プロセスがなくなると、子プロセス自体が単体のプロセスに変わります。以前はこういう仕組みがなく、子プロセスがゾンビプロセスとして残ってしまうことがありました。</code></pre>
+<pre><code>//全プロセスを終了する場合は、各プロセスIDでkillコマンドを実行します。
+# kill 31547 31548 31549
+# pstree -p | grep stress
+# ps
+PID TTY          TIME CMD
+2424 pts/0    00:00:00 su
+2430 pts/0    00:00:00 bash
+31617 pts/0    00:00:00 ps
+</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->
+        </li>
+      </ol>
 
       <p class="text_align_center"><a href="../zenki.html">前期トップへ戻る</a></p>
 
