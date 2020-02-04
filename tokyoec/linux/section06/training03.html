@@ -33,39 +33,453 @@
       <h4 class="h4_title">1.nmcliコマンド～インターフェイス編～</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください<p>cd<br>pwd</p></li>
-        <li>rootユーザに変更してください。<p>su -</p></li>
-        <li>nmcliコマンドを利用して、enp0s3の現在設定されているIPアドレスを表示してください。「grep IP4」を利用してください。<p>nmcli connection show enp0s3 | grep IP4 または nmcli c show enp0s3 | grep IP4</p></li>
-        <li>nmcliコマンドを利用して、手動設定に切り替えてenp0s3のIPアドレスを「10.0.2.0/24」に変更してください。<p>nmcli connection modify enp0s3 ipv4.method manual ipv4.address 10.0.2.0/24 または nmcli c m enp0s3 ipv4.method manual ipv4.address 10.0.2.0/24<br>nmcli connection modify enp0s3 ipv4.address 10.0.2.0/24 または nmcli c m enp0s3 ipv4.address 10.0.2.0/24</p></li>
-        <li>手動設定に切り替えたものを自動構成（DHCP）に戻してください。<p>nmcli connection modify enp0s3 ipv4.method auto または nmcli c m enp0s3 ipv4.method auto<br>nmcli connection modify enp0s3 -ipv4.address 10.0.2.0/24 または nmcli c m enp0s3 -ipv4.address 10.0.2.0/24</p></li>
-        <li>設定を反映するために、「systemctl restart NetworkManager」を実行し、enp0s3にIPアドレスが割り当てられているか確認してください。<p>systemctl restart NetworkManager<br>ip address show enp0s3</p></li>
-        <li>nmcliコマンドを利用して、接続一覧を確認してください。<p>nmcli connection show<br>nmcli c show</p></li>
-        <li>nmcliコマンドを利用して、ネットワークを無効にしてください。<p>nmcli network off<br>nmcli connection show または nmcli c show</p></li>
-        <li>nmcliコマンドを利用して、ネットワークを有効にしてください。<p>nmcli network on<br>nmcli connection show または nmcli c show</p></li>
-        <li>nmcliコマンドを利用して、enp0s3インターフェイスを無効にしてください。<p>nmcli connection down enp0s3 または nmcli c down enp0s3<br>nmcli connection show または nmcli c show</p></li>
-        <li>nmcliコマンドを利用して、enp0s3インターフェイスを有効にしてください。<p>nmcli connection up enp0s3 または nmcli c up enp0s3<br>nmcli connection show または nmcli c show</p></li>
-        <li>studentユーザに戻りましょう。<p>exit</p></li>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec2020
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>nmcliコマンドを利用して、enp0s3の現在設定されているIPアドレスを表示してください。「grep IP4」を利用してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># nmcli connection show enp0s3 | grep IP4
+IP4.ADDRESS[1]:                         10.0.2.15/24
+IP4.GATEWAY:                            10.0.2.2
+IP4.ROUTE[1]:                           dst = 0.0.0.0/0, nh = 10.0.2.2, mt = 100
+IP4.ROUTE[2]:                           dst = 10.0.2.0/24, nh = 0.0.0.0, mt = 100
+IP4.DNS[1]:                             192.168.84.41
+IP4.DNS[2]:                             192.168.84.1
+IP4.DNS[3]:                             8.8.8.8
+IP4.DNS[4]:                             192.168.230.254
+IP4.DNS[5]:                             163.139.230.164
+IP4.DOMAIN[1]:                          sied.local</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>nmcliコマンドを利用して、手動設定に切り替えてenp0s3のIPアドレスを「10.0.2.0/24」に変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># nmcli connection modify enp0s3 ipv4.method manual ipv4.address 10.0.2.0/24</code></pre>
+<pre><code># nmcli connection modify enp0s3 ipv4.address 10.0.2.0/24</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>手動設定に切り替えたものを自動構成（DHCP）に戻してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># nmcli connection modify enp0s3 ipv4.method auto</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>設定を反映するために、「systemctl restart NetworkManager」を実行し、enp0s3にIPアドレスが割り当てられているか確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># systemctl restart NetworkManager
+# ip address show enp0s3
+2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:a3:26:3e brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 86393sec preferred_lft 86393sec
+    inet6 fe80::acad:70d1:c57a:b0db/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>nmcliコマンドを利用して、接続一覧を確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse6" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># nmcli connection show
+NAME    UUID                                  TYPE      DEVICE
+enp0s3  dd400f88-eb57-4065-9f99-ebc71df3e564  ethernet  enp0s3
+enp0s8  00cb8299-feb9-55b6-a378-3fdc720e0bc6  ethernet  enp0s8
+virbr0  61f17c29-8ead-41bc-aaf7-5695636060f5  bridge    virbr0</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>nmcliコマンドを利用して、enp0s3インターフェイスを無効にしてください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse7" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># nmcli connection down enp0s3
+接続 'enp0s3' が正常に非アクティブ化されました (D-Bus アクティブパス: /org/freedesktop/NetworkManager/ActiveConnection/1)</code></pre>
+
+<pre><code># nmcli connection show
+NAME    UUID                                  TYPE      DEVICE
+enp0s8  00cb8299-feb9-55b6-a378-3fdc720e0bc6  ethernet  enp0s8
+virbr0  61f17c29-8ead-41bc-aaf7-5695636060f5  bridge    virbr0
+enp0s3  dd400f88-eb57-4065-9f99-ebc71df3e564  ethernet  --</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>nmcliコマンドを利用して、enp0s3インターフェイスを有効にしてください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse8" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># nmcli connection up enp0s3
+接続が正常にアクティベートされました (D-Bus アクティブパス: /org/freedesktop/NetworkManager/ActiveConnection/4)</code></pre>
+
+<pre><code># nmcli connection show
+  NAME    UUID                                  TYPE      DEVICE
+  enp0s3  dd400f88-eb57-4065-9f99-ebc71df3e564  ethernet  enp0s3
+  enp0s8  00cb8299-feb9-55b6-a378-3fdc720e0bc6  ethernet  enp0s8
+  virbr0  61f17c29-8ead-41bc-aaf7-5695636060f5  bridge    virbr0</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>studentユーザに戻りましょう。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse9">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse9" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># exit
+ログアウト
+$</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">2.nmcliコマンド～ホスト名編～</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください<p>cd<br>pwd</p></li>
-        <li>rootユーザに変更してください。<p>su -</p></li>
-        <li>nmcliコマンドを利用して、ホスト名を「tokyo-ec.com」に変更してください。<p>nmcli general hostname tokyo-ec.com または nmcli g hostname tokyo-ec.com<br>hostnamectl status</p></li>
-        <li>systemctlコマンドを利用してsystemd-hostnamedをrestartしてください。<p>systemctl restart systemd-hostnamed</p></li>
-        <li>hostnamectlコマンドを利用して、ホスト名情報を確認してください。<p>hostnamectl status</p></li>
-        <li>catコマンドで/etc/hostnameファイルを確認してください。<p>cat /etc/hostname</p></li>
-        <li>studentユーザに戻りましょう。<p>exit</p></li>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse10">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse10" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec2020
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>nmcliコマンドを利用して、ホスト名を「tokyo-ec.com」に変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse11">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse11" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># nmcli general hostname tokyo-ec.com
+# hostnamectl status
+   Static hostname: tokyo-ec.com
+Transient hostname: tokyoec.com
+         Icon name: computer-vm
+           Chassis: vm
+        Machine ID: ec3013fcd5694968ae0536d059095897
+           Boot ID: c193b869958c41588ad66301b47c88cd
+    Virtualization: oracle
+  Operating System: CentOS Linux 8 (Core)
+       CPE OS Name: cpe:/o:centos:centos:8
+            Kernel: Linux 4.18.0-147.3.1.el8_1.x86_64
+      Architecture: x86-64</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>systemctlコマンドを利用してsystemd-hostnamedをrestartして、hostnamectlコマンドを利用して、ホスト名情報を確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse12">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse12" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># systemctl restart systemd-hostnamed</code></pre>
+
+<pre><code># hostnamectl status
+   Static hostname: tokyo-ec.com
+         Icon name: computer-vm
+           Chassis: vm
+        Machine ID: ec3013fcd5694968ae0536d059095897
+           Boot ID: c193b869958c41588ad66301b47c88cd
+    Virtualization: oracle
+  Operating System: CentOS Linux 8 (Core)
+       CPE OS Name: cpe:/o:centos:centos:8
+            Kernel: Linux 4.18.0-147.3.1.el8_1.x86_64
+      Architecture: x86-64</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>catコマンドで/etc/hostnameファイルを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse13">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse13" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># cat /etc/hostname
+tokyo-ec.com
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>studentユーザに戻りましょう。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse14">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse14" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># exit
+ログアウト
+$</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">3.nmtuiコマンド</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください<p>cd<br>pwd</p></li>
-        <li>rootユーザに変更してください。<p>su -</p></li>
-        <li>nmtuiコマンドを実行して、[接続の編集]-[enp0s3]-[取り消し]-[back]-[終了]を選択して、一連の流れを確認してください。<p>nmtui<br>[接続の編集]-[enp0s3]-[取り消し]-[back]-[終了]</p></li>
-        <li>studentユーザに戻りましょう。<p>exit</p></li>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse15">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse15" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec2020
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>nmtuiコマンドを実行して、[接続の編集]-[enp0s3]-[取り消し]-[back]-[終了]を選択して、一連の流れを確認してください。<br>※操作は矢印キーとEnterキーで行えます。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse16">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse16" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># nmtui
+
+[接続の編集]
+
+<img src="images/01.png" alt="nmtui 接続編集" class="image_50">
+
+[enp0s3]
+
+<img src="images/02.png" alt="nmtui enp0s3" class="image_50">
+
+[取り消し]
+
+<img src="images/03.png" alt="nmtui 取り消し" class="image_50">
+
+[戻る]
+
+<img src="images/04.png" alt="nmtui 戻る" class="image_50">
+
+[終了]
+
+<img src="images/05.png" alt="nmtui 終了" class="image_50"></code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>studentユーザに戻りましょう。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse17">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse17" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># exit
+ログアウト
+$</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <p class="text_align_center"><a href="../zenki.html">前期トップへ戻る</a></p>

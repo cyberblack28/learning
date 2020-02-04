@@ -33,43 +33,648 @@
       <h4 class="h4_title">1.whoisコマンド</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください<p>cd<br>pwd</p></li>
-        <li>rootユーザに変更してください。<p>su -</p></li>
-        <li>yumコマンドを利用して、whoisコマンドをインストールしてください。<p>yum install -y whois<br>rpm -qa | grep whois</p></li>
-        <li>whoisコマンドを利用して、東京電子専門学校のドメイン情報（tokyo-ec.ac.jp）を表示してみましょう。自分でも気になるドメインがあれば、whoisで調べてみましょう。<p>whois tokyo-ec.ac.jp</p></li>
-        <li>studentユーザに戻りましょう。<p>exit</p></li>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec2020
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>以下の手順に従ってwhoisコマンドをインストールします。
+<pre class="pre"><code># yum install epel-release
+メタデータの期限切れの最終確認: 0:06:17 時間前の 2020年02月03日 20時19分21秒 に 実施しました。
+依存関係が解決しました。
+================================================================================
+ パッケージ            Arch            バージョン         リポジトリー    サイズ
+================================================================================
+インストール:
+ epel-release          noarch          8-5.el8            extras           22 k
+
+トランザクションの概要
+================================================================================
+インストール  1 パッケージ
+
+ダウンロードサイズの合計: 22 k
+インストール済みのサイズ: 30 k
+これでよろしいですか? [y/N]: y
+パッケージのダウンロード:
+epel-release-8-5.el8.noarch.rpm                  88 kB/s |  22 kB     00:00
+--------------------------------------------------------------------------------
+合計                                             25 kB/s |  22 kB     00:00
+トランザクションの確認を実行中
+トランザクションの確認に成功しました。
+トランザクションのテストを実行中
+トランザクションのテストに成功しました。
+トランザクションを実行中
+  準備             :                                                        1/1
+  インストール中   : epel-release-8-5.el8.noarch                            1/1
+  scriptletの実行中: epel-release-8-5.el8.noarch                            1/1
+  検証             : epel-release-8-5.el8.noarch                            1/1
+
+インストール済み:
+  epel-release-8-5.el8.noarch
+
+完了しました!</code></pre>
+
+<pre><code># yum config-manager --set-enabled PowerTools
+# yum repolist
+CentOS-8 - AppStream                            9.3 kB/s | 4.3 kB     00:00
+CentOS-8 - Base                                 5.1 kB/s | 3.8 kB     00:00
+CentOS-8 - Extras                               2.9 kB/s | 1.5 kB     00:00
+CentOS-8 - PowerTools                           198 kB/s | 2.0 MB     00:10
+Extra Packages for Enterprise Linux 8 - x86_64  184 kB/s | 5.5 MB     00:30
+repo id            repo の名前                                             状態
+AppStream          CentOS-8 - AppStream                                    5,001
+BaseOS             CentOS-8 - Base                                         1,784
+PowerTools         CentOS-8 - PowerTools                                   1,499
+*epel              Extra Packages for Enterprise Linux 8 - x86_64          4,643
+extras             CentOS-8 - Extras                                           3</code></pre>
+
+<pre><code># yum search whois
+メタデータの期限切れの最終確認: 0:00:39 時間前の 2020年02月03日 20時26分35秒 に 実施しました。
+=========================== 名前 & 概要 一致: whois ============================
+whois.x86_64 : Improved WHOIS client
+whois-nls.noarch : Gettext catalogs for whois tools
+[root@tokyoec ~]# yum info whois
+メタデータの期限切れの最終確認: 0:00:50 時間前の 2020年02月03日 20時26分35秒 に 実施しました。
+利用可能なパッケージ
+名前         : whois
+バージョン   : 5.5.1
+リリース     : 1.el8
+Arch         : x86_64
+サイズ       : 77 k
+ソース       : whois-5.5.1-1.el8.src.rpm
+リポジトリー : epel
+概要         : Improved WHOIS client
+URL          : http://www.linux.it/~md/software/
+ライセンス   : GPLv2+
+説明         : Searches for an object in a RFC 3912 database.
+             :
+             : This version of the WHOIS client tries to guess the right server
+             : to ask for the specified object. If no guess can be made it will
+             : connect to whois.networksolutions.com for NIC handles or
+             : whois.arin.net for IPv4 addresses and network names.</code></pre>
+
+<pre><code># yum -y install whois
+メタデータの期限切れの最終確認: 0:01:13 時間前の 2020年02月03日 20時26分35秒 に 実施しました。
+依存関係が解決しました。
+================================================================================
+ パッケージ         Arch            バージョン              リポジトリー  サイズ
+================================================================================
+インストール:
+ whois              x86_64          5.5.1-1.el8             epel           77 k
+依存関係のインストール:
+ whois-nls          noarch          5.5.1-1.el8             epel           37 k
+
+トランザクションの概要
+================================================================================
+インストール  2 パッケージ
+
+ダウンロードサイズの合計: 114 k
+インストール済みのサイズ: 343 k
+パッケージのダウンロード:
+(1/2): whois-nls-5.5.1-1.el8.noarch.rpm         120 kB/s |  37 kB     00:00
+(2/2): whois-5.5.1-1.el8.x86_64.rpm             202 kB/s |  77 kB     00:00
+--------------------------------------------------------------------------------
+合計                                             59 kB/s | 114 kB     00:01
+警告: /var/cache/dnf/epel-6519ee669354a484/packages/whois-5.5.1-1.el8.x86_64.rpm: ヘッダー V3 RSA/SHA256 Signature、鍵 ID 2f86d6a1: NOKEY
+Extra Packages for Enterprise Linux 8 - x86_64  1.6 MB/s | 1.6 kB     00:00
+GPG 鍵 0x2F86D6A1 をインポート中:
+ Userid     : "Fedora EPEL (8) &lt;epel@fedoraproject.org&gt;"
+ Fingerprint: 94E2 79EB 8D8F 25B2 1810 ADF1 21EA 45AB 2F86 D6A1
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
+鍵のインポートに成功しました
+トランザクションの確認を実行中
+トランザクションの確認に成功しました。
+トランザクションのテストを実行中
+トランザクションのテストに成功しました。
+トランザクションを実行中
+  準備             :                                                        1/1
+  インストール中   : whois-nls-5.5.1-1.el8.noarch                           1/2
+  インストール中   : whois-5.5.1-1.el8.x86_64                               2/2
+  scriptletの実行中: whois-5.5.1-1.el8.x86_64                               2/2
+  検証             : whois-5.5.1-1.el8.x86_64                               1/2
+  検証             : whois-nls-5.5.1-1.el8.noarch                           2/2
+
+インストール済み:
+  whois-5.5.1-1.el8.x86_64             whois-nls-5.5.1-1.el8.noarch
+
+完了しました!</code></pre>
+
+<pre><code># rpm -qa | grep whois
+whois-nls-5.5.1-1.el8.noarch
+whois-5.5.1-1.el8.x86_64</code></pre>
+        </li>
+        <li>whoisコマンドでtokyo-ec.ac.jpドメインを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># whois tokyo-ec.ac.jp
+  [ JPRS database provides information on network administration. Its use is    ]
+  [ restricted to network administration purposes. For further information,     ]
+  [ use 'whois -h whois.jprs.jp help'. To suppress Japanese output, add'/e'     ]
+  [ at the end of command, e.g. 'whois -h whois.jprs.jp xxx/e'.                 ]
+  
+  Domain Information: [ドメイン情報]
+  a. [ドメイン名]                 TOKYO-EC.AC.JP
+  e. [そしきめい]                 がっこうほうじん でんぱがくえん
+  f. [組織名]                     学校法人 電波学園
+  g. [Organization]               EDUCATIONAL FOUNDATION DENPA GAKUEN
+  k. [組織種別]                   学校法人
+  l. [Organization Type]          EDUCATIONAL FOUNDATION
+  m. [登録担当者]                 MY54761JP
+  n. [技術連絡担当者]             MA27235JP
+  p. [ネームサーバ]               dns-b.iij.ad.jp
+  p. [ネームサーバ]               dns-c.iij.ad.jp
+  s. [署名鍵]
+  [状態]                          Connected (2021/01/31)
+  [登録年月日]                    1997/01/24
+  [接続年月日]                    1997/01/24
+  [最終更新]                      2020/02/01 01:01:34 (JST)</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>studentユーザに戻ってください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># exit
+ログアウト
+$</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">2.nslookupコマンド</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください<p>cd<br>pwd</p></li>
-        <li>nslookupコマンドを利用して、tokyo-ec.ac.jpのグローバルIPアドレスを調べてください。自分でも気になるドメインがあれば、whoisで調べてみましょう。<p>nslookup tokyo-ec.ac.jp</p></li>
-        <li>nslookupコマンドの対話形式で、tokyo-ec.ac.jpのグローバルIPアドレスを調べてください。<p>nslookup [Enterキー]<br>＞tokyo-ec.ac.jp<br>＞exit</p></li>
+        <li>nslookupコマンドを利用して、tokyo-ec.ac.jpのグローバルIPアドレスを調べてください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ nslookup tokyo-ec.ac.jp
+Server:         192.168.84.41
+Address:        192.168.84.41#53
+
+Non-authoritative answer:
+Name:   tokyo-ec.ac.jp
+Address: 103.4.43.184</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>nslookupコマンドの対話形式で、tokyo-ec.ac.jpのグローバルIPアドレスを調べてください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ nslookup //[Enter]キー
+> tokyo-ec.ac.jp
+Server:         192.168.84.41
+Address:        192.168.84.41#53
+
+Non-authoritative answer:
+Name:   tokyo-ec.ac.jp
+Address: 103.4.43.184
+> exit
+$</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">3.digコマンド</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください<p>cd<br>pwd</p></li>
-        <li>digコマンドを利用して、tokyo-ec.ac.jpのaレコード情報を調べてください。<p>dig tokyo-ec.ac.jp a</p></li>
-        <li>digコマンドを利用して、tokyo-ec.ac.jpのmxレコード情報を調べてください。<p>dig tokyo-ec.ac.jp mx</p></li>
-        <li>digコマンドを利用して、tokyo-ec.ac.jpのnsレコード情報を調べてください。<p>dig tokyo-ec.ac.jp ns</p></li>
-        <li>digコマンドを利用して、tokyo-ec.ac.jpのsoaレコード情報を調べてください。<p>dig tokyo-ec.ac.jp soa</p></li>
-        <li>digコマンドを利用して、tokyo-ec.ac.jpの全情報を調べてください。<p>dig tokyo-ec.ac.jp any</p></li>
+        <li>digコマンドを利用して、tokyo-ec.ac.jpのaレコード情報を調べてください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse6" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ dig tokyo-ec.ac.jp a
+
+; &lt;&lt;&gt;&gt; DiG 9.11.4-P2-RedHat-9.11.4-26.P2.el8 &lt;&lt;&gt;&gt; tokyo-ec.ac.jp a
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 58746
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4000
+;; QUESTION SECTION:
+;tokyo-ec.ac.jp.                        IN      A
+
+;; ANSWER SECTION:
+tokyo-ec.ac.jp.         21288   IN      A       103.4.43.184
+
+;; Query time: 4 msec
+;; SERVER: 192.168.84.41#53(192.168.84.41)
+;; WHEN: 月  2月 03 21:00:27 EST 2020
+;; MSG SIZE  rcvd: 59</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>digコマンドを利用して、tokyo-ec.ac.jpのmxレコード情報を調べてください。
+          <!-- accodion -->
+          <div class="accorion-position">
+           <div class="panel-group">
+             <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse7" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ dig tokyo-ec.ac.jp mx
+
+; &lt;&lt;&gt;&gt; DiG 9.11.4-P2-RedHat-9.11.4-26.P2.el8 &lt;&lt;&gt;&gt; tokyo-ec.ac.jp mx
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 21880
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 9
+  
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4000
+;; QUESTION SECTION:
+;tokyo-ec.ac.jp.                        IN      MX
+  
+;; ANSWER SECTION:
+tokyo-ec.ac.jp.         21599   IN      MX      120 mx6.securemx.jp.
+tokyo-ec.ac.jp.         21599   IN      MX      100 mx.securemx.jp.
+  
+;; ADDITIONAL SECTION:
+mx6.securemx.jp.        18      IN      AAAA    2001:240:bb81::4:501
+mx6.securemx.jp.        18      IN      AAAA    2001:240:bb81::4:521
+mx6.securemx.jp.        18      IN      AAAA    2001:240:bb81::4:500
+mx6.securemx.jp.        18      IN      AAAA    2001:240:bb81::4:520
+mx.securemx.jp.         348     IN      A       210.130.202.98
+mx.securemx.jp.         348     IN      A       210.130.202.123
+mx.securemx.jp.         348     IN      A       210.130.202.122
+mx.securemx.jp.         348     IN      A       210.130.202.97
+  
+;; Query time: 29 msec
+;; SERVER: 192.168.84.41#53(192.168.84.41)
+;; WHEN: 月  2月 03 21:02:50 EST 2020
+;; MSG SIZE  rcvd: 267</code></pre>
+                </div>
+              </div>
+            </div>
+           </div>
+         </div>
+         <!-- /accodion/ -->
+        </li>
+        <li>digコマンドを利用して、tokyo-ec.ac.jpのnsレコード情報を調べてください。
+         <!-- accodion -->
+         <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse8" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ dig tokyo-ec.ac.jp ns
+
+; &lt;&lt;&gt;&gt; DiG 9.11.4-P2-RedHat-9.11.4-26.P2.el8 &lt;&lt;&gt;&gt; tokyo-ec.ac.jp ns
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 10797
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 5
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4000
+;; QUESTION SECTION:
+;tokyo-ec.ac.jp.                        IN      NS
+
+;; ANSWER SECTION:
+tokyo-ec.ac.jp.         21599   IN      NS      dns-c.iij.ad.jp.
+tokyo-ec.ac.jp.         21599   IN      NS      dns-b.iij.ad.jp.
+
+;; ADDITIONAL SECTION:
+dns-c.iij.ad.jp.        19795   IN      A       210.130.1.15
+dns-c.iij.ad.jp.        8239    IN      AAAA    2001:240:bb81::2:15
+dns-b.iij.ad.jp.        21303   IN      A       202.232.2.14
+dns-b.iij.ad.jp.        21433   IN      AAAA    2001:240:bb81::2:14
+
+;; Query time: 28 msec
+;; SERVER: 192.168.84.41#53(192.168.84.41)
+;; WHEN: 月  2月 03 21:07:20 EST 2020
+;; MSG SIZE  rcvd: 178</code></pre>
+                </div>
+              </div>
+             </div>
+            </div>
+          </div>
+         <!-- /accodion/ -->
+        </li>
+        <li>digコマンドを利用して、tokyo-ec.ac.jpのsoaレコード情報を調べてください。
+         <!-- accodion -->
+         <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+             <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse9">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse9" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ dig tokyo-ec.ac.jp soa
+
+; &lt;&lt;&gt;&gt; DiG 9.11.4-P2-RedHat-9.11.4-26.P2.el8 &lt;&lt;&gt;&gt; tokyo-ec.ac.jp soa
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 28755
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 3
+  
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4000
+;; QUESTION SECTION:
+;tokyo-ec.ac.jp.                        IN      SOA
+  
+;; ANSWER SECTION:
+tokyo-ec.ac.jp.         21598   IN      SOA     dns-b.iij.ad.jp. dns-managers.iij.ad.jp. 1553222258 3600 1800 3600000 900
+  
+;; ADDITIONAL SECTION:
+dns-b.iij.ad.jp.        20994   IN      A       202.232.2.14
+dns-b.iij.ad.jp.        21124   IN      AAAA    2001:240:bb81::2:14
+  
+;; Query time: 14 msec
+;; SERVER: 192.168.84.41#53(192.168.84.41)
+;; WHEN: 月  2月 03 21:12:27 EST 2020
+;; MSG SIZE  rcvd: 149</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+         <!-- /accodion/ -->
+        </li>
+        <li>digコマンドを利用して、tokyo-ec.ac.jpの全情報を調べてください。
+         <!-- accodion -->
+         <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+             <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse10">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse10" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ dig tokyo-ec.ac.jp any
+; &lt;&lt;&gt;&gt; DiG 9.11.4-P2-RedHat-9.11.4-26.P2.el8 &lt;&lt;&gt;&gt; tokyo-ec.ac.jp any
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 1942
+;; flags: qr rd ra; QUERY: 1, ANSWER: 9, AUTHORITY: 0, ADDITIONAL: 5
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4000
+;; QUESTION SECTION:
+;tokyo-ec.ac.jp.                        IN      ANY
+
+;; ANSWER SECTION:
+tokyo-ec.ac.jp.         19802   IN      A       103.4.43.184
+tokyo-ec.ac.jp.         20525   IN      NS      dns-b.iij.ad.jp.
+tokyo-ec.ac.jp.         20525   IN      NS      dns-c.iij.ad.jp.
+tokyo-ec.ac.jp.         20832   IN      SOA     dns-b.iij.ad.jp. dns-managers.iij.ad.jp. 1553222258 3600 1800 3600000 900
+tokyo-ec.ac.jp.         20255   IN      MX      100 mx.securemx.jp.
+tokyo-ec.ac.jp.         20255   IN      MX      120 mx6.securemx.jp.
+tokyo-ec.ac.jp.         21366   IN      TXT     "v=spf1 include:spf.securemx.jp include:spf.protection.outlook.com ~all"
+tokyo-ec.ac.jp.         21366   IN      TXT     "adobe-idp-site-verification=e01ee48f7c8ba3b6f48da00bace3a0199b86ec8fc786a6a4a62212a61bb2c833"
+tokyo-ec.ac.jp.         21366   IN      TXT     "MS=ms62492167"
+
+;; ADDITIONAL SECTION:
+dns-b.iij.ad.jp.        20228   IN      A       202.232.2.14
+dns-b.iij.ad.jp.        20358   IN      AAAA    2001:240:bb81::2:14
+dns-c.iij.ad.jp.        18721   IN      A       210.130.1.15
+dns-c.iij.ad.jp.        7165    IN      AAAA    2001:240:bb81::2:15
+
+;; Query time: 12 msec
+;; SERVER: 192.168.84.41#53(192.168.84.41)
+;; WHEN: 月  2月 03 21:25:14 EST 2020
+;; MSG SIZE  rcvd: 505</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+         <!-- /accodion/ -->
+        </li>
       </ol>
 
       <h4 class="h4_title">4.hostコマンド</h4>
 
       <ol>
-        <li>カレントディレクトリをホームディレクトリに変更してください<p>cd<br>pwd</p></li>
-        <li>hostコマンドを利用して、tokyo-ec.ac.jpのグローバルIPアドレスを調べてください。<p>host tokyo-ec.ac.jp </p></li>
-        <li>hostコマンドを利用して、tokyo-ec.ac.jpのaレコード情報を調べてください。<p>host -t a tokyo-ec.ac.jp</p></li>
-        <li>hostコマンドを利用して、tokyo-ec.ac.jpのmxレコード情報を調べてください。<p>host -t mx tokyo-ec.ac.jp</p></li>
-        <li>hostコマンドを利用して、tokyo-ec.ac.jpのnsレコード情報を調べてください。<p>host -t ns tokyo-ec.ac.jp</p></li>
-        <li>hostコマンドを利用して、tokyo-ec.ac.jpのsoaレコード情報を調べてください。<p>host -t soa tokyo-ec.ac.jp</p></li>
-        <li>hostコマンドを利用して、103.4.43.184のptrレコード情報を調べてください。<p>host -t ptr 103.4.43.184</p></li>
-        <li>hostコマンドを利用して、google.co.jpのIPv6のアドレスを調べてください。<p>host -6 google.co.jp</p></li>
+        <li>hostコマンドを利用して、tokyo-ec.ac.jpのグローバルIPアドレスを調べてください。
+         <!-- accodion -->
+         <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+             <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse11">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse11" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ host tokyo-ec.ac.jp
+tokyo-ec.ac.jp has address 103.4.43.184
+tokyo-ec.ac.jp mail is handled by 100 mx.securemx.jp.
+tokyo-ec.ac.jp mail is handled by 120 mx6.securemx.jp.</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+         <!-- /accodion/ -->
+        </li>
+        <li>hostコマンドを利用して、tokyo-ec.ac.jpのaレコード情報を調べてください。
+         <!-- accodion -->
+         <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+             <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse12">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse12" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ host -t a tokyo-ec.ac.jp
+host -t a tokyo-ec.ac.jp
+tokyo-ec.ac.jp has address 103.4.43.184</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+         <!-- /accodion/ -->
+        </li>
+        <li>hostコマンドを利用して、tokyo-ec.ac.jpのmxレコード情報を調べてください。
+         <!-- accodion -->
+         <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+             <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse13">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse13" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ host -t mx tokyo-ec.ac.jp
+tokyo-ec.ac.jp mail is handled by 120 mx6.securemx.jp.
+tokyo-ec.ac.jp mail is handled by 100 mx.securemx.jp.</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+         <!-- /accodion/ -->
+        </li>
+        <li>hostコマンドを利用して、tokyo-ec.ac.jpのnsレコード情報を調べてください。
+         <!-- accodion -->
+         <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+             <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse14">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse14" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ host -t ns tokyo-ec.ac.jp
+tokyo-ec.ac.jp name server dns-b.iij.ad.jp.
+tokyo-ec.ac.jp name server dns-c.iij.ad.jp.</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+         <!-- /accodion/ -->
+        </li>
+        <li>hostコマンドを利用して、tokyo-ec.ac.jpのsoaレコード情報を調べてください。
+         <!-- accodion -->
+         <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+             <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse15">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse15" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ host -t soa tokyo-ec.ac.jp
+tokyo-ec.ac.jp has SOA record dns-b.iij.ad.jp. dns-managers.iij.ad.jp. 1553222258 3600 1800 3600000 900</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+         <!-- /accodion/ -->
+        </li>
+        <li>hostコマンドを利用して、103.4.43.184のptrレコード情報を調べてください。
+         <!-- accodion -->
+         <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+             <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse16">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse16" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ host -t ptr 103.4.43.184
+184.43.4.103.in-addr.arpa domain name pointer h103004043184.mediagalaxy.ne.jp.</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+         <!-- /accodion/ -->
+        </li>
       </ol>
 
       <p class="text_align_center"><a href="../zenki.html">前期トップへ戻る</a></p>

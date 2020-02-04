@@ -103,6 +103,10 @@ hr {
   margin-top: 15px;
 }
 
+.image_50 {
+  width: 50%;
+}
+
 /* FOOTER */
 .footer_area {
   margin-left: 3%;
