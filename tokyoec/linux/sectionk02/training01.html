@@ -35,37 +35,281 @@
       <h4>CentOS7_PROXY_DNSの仮想マシンで実行すること</h4>
 
       <ol>
-        <li>dnsmasqの稼動確認<br>systemctl status dnsmasq.service</li>
-        <li>dnsmasqの停止<br>systemctl stop dnsmasq.service<br>systemctl status dnsmasq.service</li>
-        <li>dnsmasqの無効化<br>systemctl mask dnsmasq.service<br>systemctl status dnsmasq.service</li>
-        <li>BINDをインストール<br>yum install -y bind bind-utils</li>
-        <li>BINDの自動起動設定<br>systemctl enable named.service<br>systemctl is-enabled named.service</li>
-        <li>BINDの起動<br>systemctl start named.service<br>systemctl status named.service</li>
-        <li>「/etc/named.conf」を設定<br>cp -p /etc/named.conf /etc/named.conf.org<br>
-          vim /etc/named.conf<br>opsions設定の前に、以下の設定を行い、ネットワークグループの作成します。127.0.0.1と192.168.56.0/24を追加します。<br>
-<pre>acl localnet {
+        <li>dnsmasqサービスの稼働確認
+<!-- code -->
+<pre class="pre"><code># systemctl status dnsmasq.service
+● dnsmasq.service - DNS caching server.
+   Loaded: loaded (/usr/lib/systemd/system/dnsmasq.service; disabled; vendor pr&gt;
+   Active: inactive (dead)</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>dnsmasqの無効化
+<!-- code -->
+<pre class="pre"><code># systemctl mask dnsmasq.service
+Created symlink /etc/systemd/system/dnsmasq.service → /dev/null.</code></pre>
+<pre><code># systemctl status dnsmasq.service
+● dnsmasq.service
+   Loaded: masked (Reason: Unit dnsmasq.service is masked.)</code></pre>
+<!-- /code/ --> 
+        </li>
+        <li>BINDをインストール
+<!-- code -->
+<pre class="pre"><code># yum install -y bind bind-utils
+メタデータの期限切れの最終確認: 0:01:23 時間前の 2020年02月04日 04時03分28秒 に 実施しました。
+依存関係が解決しました。
+================================================================================
+ パッケージ          Arch        バージョン                リポジトリー   サイズ
+================================================================================
+インストール:
+ bind                x86_64      32:9.11.4-26.P2.el8       AppStream      2.1 M
+ bind-utils          x86_64      32:9.11.4-26.P2.el8       AppStream      436 k
+依存関係のインストール:
+ bind-libs           x86_64      32:9.11.4-26.P2.el8       AppStream      170 k
+ bind-libs-lite      x86_64      32:9.11.4-26.P2.el8       AppStream      1.1 M
+ bind-license        noarch      32:9.11.4-26.P2.el8       AppStream       99 k
+ python3-bind        noarch      32:9.11.4-26.P2.el8       AppStream      146 k
+
+トランザクションの概要
+================================================================================
+インストール  6 パッケージ
+
+ダウンロードサイズの合計: 4.1 M
+インストール済みのサイズ: 10 M
+パッケージのダウンロード:
+(1/6): bind-libs-9.11.4-26.P2.el8.x86_64.rpm    432 kB/s | 170 kB     00:00
+(2/6): bind-license-9.11.4-26.P2.el8.noarch.rpm 1.9 MB/s |  99 kB     00:00
+(3/6): bind-libs-lite-9.11.4-26.P2.el8.x86_64.r 1.4 MB/s | 1.1 MB     00:00
+(4/6): python3-bind-9.11.4-26.P2.el8.noarch.rpm 1.2 MB/s | 146 kB     00:00
+(5/6): bind-utils-9.11.4-26.P2.el8.x86_64.rpm   616 kB/s | 436 kB     00:00
+(6/6): bind-9.11.4-26.P2.el8.x86_64.rpm         1.7 MB/s | 2.1 MB     00:01
+--------------------------------------------------------------------------------
+合計                                            1.2 MB/s | 4.1 MB     00:03
+トランザクションの確認を実行中
+トランザクションの確認に成功しました。
+トランザクションのテストを実行中
+トランザクションのテストに成功しました。
+トランザクションを実行中
+  準備             :                                                        1/1
+  インストール中   : bind-license-32:9.11.4-26.P2.el8.noarch                1/6
+  インストール中   : bind-libs-lite-32:9.11.4-26.P2.el8.x86_64              2/6
+  インストール中   : bind-libs-32:9.11.4-26.P2.el8.x86_64                   3/6
+  インストール中   : python3-bind-32:9.11.4-26.P2.el8.noarch                4/6
+  インストール中   : bind-utils-32:9.11.4-26.P2.el8.x86_64                  5/6
+  scriptletの実行中: bind-32:9.11.4-26.P2.el8.x86_64                        6/6
+  インストール中   : bind-32:9.11.4-26.P2.el8.x86_64                        6/6
+  scriptletの実行中: bind-32:9.11.4-26.P2.el8.x86_64                        6/6
+  検証             : bind-32:9.11.4-26.P2.el8.x86_64                        1/6
+  検証             : bind-libs-32:9.11.4-26.P2.el8.x86_64                   2/6
+  検証             : bind-libs-lite-32:9.11.4-26.P2.el8.x86_64              3/6
+  検証             : bind-license-32:9.11.4-26.P2.el8.noarch                4/6
+  検証             : bind-utils-32:9.11.4-26.P2.el8.x86_64                  5/6
+  検証             : python3-bind-32:9.11.4-26.P2.el8.noarch                6/6
+
+インストール済み:
+  bind-32:9.11.4-26.P2.el8.x86_64
+  bind-utils-32:9.11.4-26.P2.el8.x86_64
+  bind-libs-32:9.11.4-26.P2.el8.x86_64
+  bind-libs-lite-32:9.11.4-26.P2.el8.x86_64
+  bind-license-32:9.11.4-26.P2.el8.noarch
+  python3-bind-32:9.11.4-26.P2.el8.noarch
+
+完了しました!</code></pre>
+<!-- /code/ --> 
+        </li>
+        <li>BINDの自動起動設定
+<!-- code -->
+<pre class="pre"><code># systemctl enable named.service
+Created symlink /etc/systemd/system/multi-user.target.wants/named.service → /usr/lib/systemd/system/named.service.</code></pre>
+<pre><code># systemctl is-enabled named.service
+enabled</code></pre>
+<!-- /code/ --> 
+        </li>
+        <li>BINDの起動
+<!-- code -->
+<pre class="pre"><code># systemctl start named.service</code></pre>
+<pre><code># systemctl status named.service
+● named.service - Berkeley Internet Name Domain (DNS)
+   Loaded: loaded (/usr/lib/systemd/system/named.service; enabled; vendor prese>
+   Active: active (running) since Tue 2020-02-04 04:09:42 EST; 9s ago
+  Process: 10175 ExecStart=/usr/sbin/named -u named -c ${NAMEDCONF} $OPTIONS (c>
+  Process: 10172 ExecStartPre=/bin/bash -c if [ ! "$DISABLE_ZONE_CHECKING" == ">
+ Main PID: 10178 (named)
+    Tasks: 4 (limit: 23983)
+   Memory: 53.7M
+   CGroup: /system.slice/named.service
+           mq10178 /usr/sbin/named -u named -c /etc/named.conf
+
+ 2月 04 04:09:42 tokyo-ec.com named[10178]: network unreachable resolving './DN>
+ 2月 04 04:09:42 tokyo-ec.com named[10178]: network unreachable resolving './NS>
+ 2月 04 04:09:42 tokyo-ec.com named[10178]: network unreachable resolving './DN>
+ 2月 04 04:09:42 tokyo-ec.com named[10178]: network unreachable resolving './NS>
+ 2月 04 04:09:42 tokyo-ec.com named[10178]: network unreachable resolving './DN>
+ 2月 04 04:09:42 tokyo-ec.com named[10178]: network unreachable resolving './NS>
+ 2月 04 04:09:42 tokyo-ec.com named[10178]: network unreachable resolving './DN>
+ 2月 04 04:09:42 tokyo-ec.com named[10178]: network unreachable resolving './NS>
+ 2月 04 04:09:43 tokyo-ec.com named[10178]: managed-keys-zone: Key 20326 for zo>
+ 2月 04 04:09:43 tokyo-ec.com named[10178]: resolver priming query complete
+//[q]キーを入力して終了</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>「/etc/named.conf」を設定
+<!-- code -->
+<pre class="pre"><code># cp -p /etc/named.conf /etc/named.conf.org</code></pre>
+<pre><code># vim /etc/named.conf
+
+--------opsions設定の前に、以下の設定を行い、ネットワークグループの作成します。127.0.0.1と192.168.56.0/24を追加します。-----------------
+//
+// named.conf
+//
+// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
+// server as a caching only nameserver (as a localhost DNS resolver only).
+//
+// See /usr/share/doc/bind*/sample/ for example named configuration files.
+//
+
+//↓追記箇所
+acl localnet {
   127.0.0.1;
   192.168.56.0/24;
-};</pre><br>optionsのlisten-on portとallow-queryの設定を変更します。<br>
-<pre>listen-on port 53 { 127.0.0.1; 192.168.56.28; };
-allow-query { localnet;};</pre><br>最終行に以下、ゾーンファイルの設定（赤字）を追加します。<br>
-<pre>zone "example.com" {
+};
+//↑追記箇所
+
+options {
+  listen-on port 53 { 127.0.0.1; };
+  listen-on-v6 port 53 { ::1; };
+  directory       "/var/named";
+  dump-file       "/var/named/data/cache_dump.db";
+  statistics-file "/var/named/data/named_stats.txt";
+  memstatistics-file "/var/named/data/named_mem_stats.txt";
+  secroots-file   "/var/named/data/named.secroots";
+  recursing-file  "/var/named/data/named.recursing";
+  allow-query     { localhost; };
+
+・
+・省略
+・
+・
+--------------------------------------------------------------------------------------------------------------------------------</code></pre>
+
+<pre><code>--------optionsのlisten-on portとallow-queryの設定を変更します。------------------------------------------------------------------
+//
+// named.conf
+//
+// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
+// server as a caching only nameserver (as a localhost DNS resolver only).
+//
+// See /usr/share/doc/bind*/sample/ for example named configuration files.
+//
+
+//↓追記箇所
+acl localnet {
+  127.0.0.1;
+  192.168.56.0/24;
+};
+//↑追記箇所
+
+options {
+  listen-on port 53 { 127.0.0.1; 192.168.56.28; };　//←変更箇所
+  listen-on-v6 port 53 { ::1; };
+  directory       "/var/named";
+  dump-file       "/var/named/data/cache_dump.db";
+  statistics-file "/var/named/data/named_stats.txt";
+  memstatistics-file "/var/named/data/named_mem_stats.txt";
+  secroots-file   "/var/named/data/named.secroots";
+  recursing-file  "/var/named/data/named.recursing";
+  allow-query     { localnet; }; //←変更箇所
+
+・
+・省略
+・
+・
+--------------------------------------------------------------------------------------------------------------------------------</code></pre>
+
+<pre><code>--------最終行に以下、ゾーンファイルの設定を追加します。------------------------------------------------------------------
+・
+・省略
+・
+・
+include "/etc/named.rfc1912.zones";
+include "/etc/named.root.key";
+
+//↓追記箇所
+zone "example.com" {
   type master;
   file "internal.zone";
 };
+
 zone "56.168.192.in-addr.arpa" {
   type master;
   file "internal.rev";
-};</pre>Esc + :wq
+}
+//↑追記箇所
+--------------------[Esc + :wq]で保存終了します。-------------------------------------------------------------------------</code></pre>
+<!-- /code/ -->
         </li>
-        <li>nmcliコマンドで「/etc/resolv.conf」に自身のIPアドレスを設定<br>nmcli con mod enp0s8 ipv4.dns 192.168.56.28</li>
-        <li>NetworkManagerを再起動して、設定を反映します。<br>systemctl restart NetworkManager<br>systemctl status NetworkManager</li>
-        <li>「/etc/resolv.conf」を確認<br>cat /etc/resolv.conf</li>
-        <li>192.168.56.28以外のIPアドレスがある場合はコメントアウト<br>vim /etc/resolv.conf<br>
-<pre># Generated by NetworkManager
-#nameserver 192.168.1.1
-#nameserver 192.168.0.1
-nameserver 192.168.56.28</pre>Esc + :wq
+        <li>nmcliコマンドで「/etc/resolv.conf」に自身のIPアドレスを設定
+<!-- code -->
+<pre class="pre"><code># nmcli con mod enp0s8 ipv4.dns 192.168.56.28</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>NetworkManagerを再起動して、設定を反映します。
+<!-- code -->
+<pre class="pre"><code># systemctl restart NetworkManager</code></pre>
+<pre><code># systemctl status NetworkManager
+● NetworkManager.service - Network Manager
+   Loaded: loaded (/usr/lib/systemd/system/NetworkManager.service; enabled; ven>
+   Active: active (running) since Tue 2020-02-04 04:47:41 EST; 7s ago
+     Docs: man:NetworkManager(8)
+ Main PID: 10522 (NetworkManager)
+    Tasks: 4 (limit: 23983)
+   Memory: 4.6M
+   CGroup: /system.slice/NetworkManager.service
+           mq10522 /usr/sbin/NetworkManager --no-daemon
+
+ 2月 04 04:47:42 tokyo-ec.com NetworkManager[10522]: <info>  [1580809662.6704] >
+ 2月 04 04:47:42 tokyo-ec.com NetworkManager[10522]: <info>  [1580809662.7107] >
+ 2月 04 04:47:42 tokyo-ec.com NetworkManager[10522]: <info>  [1580809662.7109] >
+ 2月 04 04:47:42 tokyo-ec.com NetworkManager[10522]: <info>  [1580809662.7110] >
+ 2月 04 04:47:42 tokyo-ec.com NetworkManager[10522]: <info>  [1580809662.7114] >
+ 2月 04 04:47:42 tokyo-ec.com NetworkManager[10522]: <info>  [1580809662.7464] >
+ 2月 04 04:47:42 tokyo-ec.com NetworkManager[10522]: <info>  [1580809662.7470] >
+ 2月 04 04:47:42 tokyo-ec.com NetworkManager[10522]: <info>  [1580809662.7476] >
+ 2月 04 04:47:42 tokyo-ec.com NetworkManager[10522]: <info>  [1580809662.7720] >
+ 2月 04 04:47:42 tokyo-ec.com NetworkManager[10522]: <info>  [1580809662.7727] ></code></pre>
+<!-- /code/ -->
+        </li>
+        <li>「/etc/resolv.conf」を確認
+<!-- code -->
+<pre class="pre"><code># cat /etc/resolv.conf
+# Generated by NetworkManager
+search sied.local com
+nameserver 192.168.84.41
+nameserver 192.168.84.1
+nameserver 8.8.8.8
+# NOTE: the libc resolver may not support more than 3 nameservers.
+# The nameservers listed below may not be recognized.
+nameserver 192.168.230.254
+nameserver 163.139.230.164
+nameserver 192.168.56.28</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>192.168.56.28以外のIPアドレスがある場合はコメントアウト
+<!-- code -->
+<pre class="pre"><code># vim /etc/resolv.conf
+
+--------------------192.168.56.28以外のIPアドレスがある場合はコメントアウト-------------------------------------------------
+# Generated by NetworkManager
+search sied.local com
+#nameserver 192.168.84.41 //←コメントアウト
+#nameserver 192.168.84.1 //←コメントアウト
+#nameserver 8.8.8.8 //←コメントアウト
+# NOTE: the libc resolver may not support more than 3 nameservers.
+# The nameservers listed below may not be recognized.
+#nameserver 192.168.230.254 //←コメントアウト
+#nameserver 163.139.230.164 //←コメントアウト
+nameserver 192.168.56.28
+--------------------[Esc + :wq]で保存終了します。-------------------------------------------------------------------------</code></pre>
+<!-- /code/ -->
         </li>
         <li>vim /var/named/internal.zone
 <pre>$TTL 86400
