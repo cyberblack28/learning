@@ -147,23 +147,24 @@ httpd@.service                             disabled</code></pre>
 <!-- code -->
 <pre><code># systemctl status httpd
 ● httpd.service - The Apache HTTP Server
-   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; vendor prese>
-   Active: active (running) since Wed 2020-02-05 01:23:38 EST; 14s ago
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Thu 2020-02-06 05:23:53 EST; 6s ago
      Docs: man:httpd.service(8)
- Main PID: 5985 (httpd)
-   Status: "Running, listening on: port 80"
-    Tasks: 213 (limit: 23983)
-   Memory: 24.4M
+ Main PID: 6763 (httpd)
+   Status: "Started, listening on: port 80"
+    Tasks: 213 (limit: 23984)
+   Memory: 34.8M
    CGroup: /system.slice/httpd.service
-           tq5985 /usr/sbin/httpd -DFOREGROUND
-           tq5986 /usr/sbin/httpd -DFOREGROUND
-           tq5987 /usr/sbin/httpd -DFOREGROUND
-           tq5988 /usr/sbin/httpd -DFOREGROUND
-           mq5989 /usr/sbin/httpd -DFOREGROUND
+           tq6763 /usr/sbin/httpd -DFOREGROUND
+           tq6764 /usr/sbin/httpd -DFOREGROUND
+           tq6765 /usr/sbin/httpd -DFOREGROUND
+           tq6766 /usr/sbin/httpd -DFOREGROUND
+           mq6767 /usr/sbin/httpd -DFOREGROUND
 
- 2月 05 01:23:38 tokyo-ec.com systemd[1]: Starting The Apache HTTP Server...
- 2月 05 01:23:38 tokyo-ec.com systemd[1]: Started The Apache HTTP Server.
- 2月 05 01:23:38 tokyo-ec.com httpd[5985]: Server configured, listening on: por>
+ 2月 06 05:23:53 localhost.localdomain systemd[1]: Starting The Apache HTTP Server...
+ 2月 06 05:23:53 localhost.localdomain httpd[6763]: AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using localhost.l>
+ 2月 06 05:23:53 localhost.localdomain systemd[1]: Started The Apache HTTP Server.
+ 2月 06 05:23:53 localhost.localdomain httpd[6763]: Server configured, listening on: port 80
 <span class="text_color_red">//[q]キーを入力して終了</span></code></pre>
 <!-- /code/ -->
         </li>
@@ -507,11 +508,11 @@ SSLCertificateKeyFile /etc/httpd/conf/server.key <span class="text_color_red">//
         </li>
         <li>SECLEVELの設定変更
 <!-- code -->
-<pre class="pre"><code># cp -p /etc/ssl/openssl.cnf /etc/ssl/openssl.cnf.org</code></pre>
+<pre class="pre"><code># cp -p /etc/crypto-policies/config /etc/crypto-policies/config.org</code></pre>
 <!-- /code/ -->
 
 <!-- code -->
-<pre><code># vim /etc/ssl/openssl.cnf
+<pre><code># vim /etc/crypto-policies/config
 
 ---------------------------以下の赤字の変更を行います。--------------------------------------------------------------------------------
 # This file should contain a single keyword, the crypto policy to
