@@ -30,9 +30,22 @@
 
       <h3>Webサーバの構築テキスト</h3>
 
+      <h4 class="h4_title">事前作業</h4>
+
+      <ol>
+        <li>studentユーザでログインして、rootユーザに変更します。
+<!-- code -->
+<pre class="pre"><code>$ su -
+パスワード:tokyoec
+#
+</code></pre>
+<!-- /code/ -->
+        </li>
+      </ol>
+
       <h4 class="h4_title">1.Apacheのインストール</h4>
 
-      <h4>CentOS7_WORDPRESSの仮想マシンで実行すること</h4>
+      <h4>CentOS8_WORDPRESSの仮想マシンで実行すること</h4>
 
       <ol>
         <li>httpdのインストール
@@ -472,6 +485,11 @@ Enter pass phrase for server.key: <span class="text_color_red">//←「tokyoec�
 Enter pass phrase for server.key.bak:tokyoec <span class="text_color_red">//←「tokyoec」と入力して[Enter]キー</span>
 writing RSA key</code></pre>
 <!-- /code/ -->       
+        </li>
+        <li>ssl.confのバックアップ
+<!-- code -->
+<pre><code># cp -p /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.org</code></pre>
+<!-- /code/ --> 
         </li>
         <li>ssl.confに設定
 

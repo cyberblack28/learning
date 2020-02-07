@@ -33,6 +33,29 @@
       <h4 class="h4_title">1.iptablesとip6tablesサービスの無効化</h4>
 
       <ol>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
         <li>systemctlコマンドを利用して、iptablesとip6tablesのサービスが誤って開始されないように設定してみましょう。<p>systemctl mask iptables<br>systemctl mask ip6tables</p></li>
       </ol>
 

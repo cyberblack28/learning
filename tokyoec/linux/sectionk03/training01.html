@@ -30,9 +30,22 @@
 
       <h3>PROXYサーバの構築テキスト</h3>
 
+      <h4 class="h4_title">事前作業</h4>
+
+      <ol>
+        <li>studentユーザでログインして、rootユーザに変更します。
+<!-- code -->
+<pre class="pre"><code>$ su -
+パスワード:tokyoec
+#
+</code></pre>
+<!-- /code/ -->
+        </li>
+      </ol>
+
       <h4 class="h4_title">PROXYサーバの構築テキスト</h4>
 
-      <h4>CentOS7_PROXY_DNSの仮想マシンで実行すること</h4>
+      <h4>CentOS8_PROXY_DNSの仮想マシンで実行すること</h4>
 
       <ol>
         <li>Nginxのインストール
@@ -140,24 +153,26 @@ nginx.service                              enabled</code></pre>
 <!-- /code/ -->
 <!-- code -->
 <pre><code># systemctl status nginx
-● nginx.service - The nginx HTTP and reverse proxy server
-   Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; vendor prese>
-   Active: active (running) since Wed 2020-02-05 00:28:54 EST; 11s ago
-  Process: 4362 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)
-  Process: 4360 ExecStartPre=/usr/sbin/nginx -t (code=exited, status=0/SUCCESS)
-  Process: 4359 ExecStartPre=/usr/bin/rm -f /run/nginx.pid (code=exited, status>
- Main PID: 4364 (nginx)
-    Tasks: 2 (limit: 23983)
-   Memory: 8.3M
-   CGroup: /system.slice/nginx.service
-           tq4364 nginx: master process /usr/sbin/nginx
-           mq4365 nginx: worker process
+  ● nginx.service - The nginx HTTP and reverse proxy server
+  Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; vendor preset: disabled)
+ Drop-In: /usr/lib/systemd/system/nginx.service.d
+          mqphp-fpm.conf
+  Active: active (running) since Thu 2020-02-06 21:37:01 EST; 9s ago
+ Process: 13132 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)
+ Process: 13130 ExecStartPre=/usr/sbin/nginx -t (code=exited, status=0/SUCCESS)
+ Process: 13129 ExecStartPre=/usr/bin/rm -f /run/nginx.pid (code=exited, status=0/SUCCESS)
+Main PID: 13134 (nginx)
+   Tasks: 2 (limit: 23983)
+  Memory: 4.0M
+  CGroup: /system.slice/nginx.service
+          tq13134 nginx: master process /usr/sbin/nginx
+          mq13135 nginx: worker process
 
- 2月 05 00:28:54 tokyo-ec.com systemd[1]: Starting The nginx HTTP and reverse p>
- 2月 05 00:28:54 tokyo-ec.com nginx[4360]: nginx: the configuration file /etc/n>
- 2月 05 00:28:54 tokyo-ec.com nginx[4360]: nginx: configuration file /etc/nginx>
- 2月 05 00:28:54 tokyo-ec.com systemd[1]: nginx.service: Failed to parse PID fr>
- 2月 05 00:28:54 tokyo-ec.com systemd[1]: Started The nginx HTTP and reverse pr>
+2月 06 21:37:01 localhost.localdomain systemd[1]: Starting The nginx HTTP and reverse proxy server...
+2月 06 21:37:01 localhost.localdomain nginx[13130]: nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+2月 06 21:37:01 localhost.localdomain nginx[13130]: nginx: configuration file /etc/nginx/nginx.conf test is successful
+2月 06 21:37:01 localhost.localdomain systemd[1]: nginx.service: Failed to parse PID from file /run/nginx.pid: Invalid argument
+2月 06 21:37:01 localhost.localdomain systemd[1]: Started The nginx HTTP and reverse proxy server.
 <span class="text_color_red">//[q]キーを入力して終了</span></code></pre>
 <!-- /code/ -->
         </li>

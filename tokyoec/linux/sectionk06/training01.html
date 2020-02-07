@@ -30,6 +30,19 @@
 
       <h3>MariaDBの構築テキスト</h3>
 
+      <h4 class="h4_title">事前作業</h4>
+
+      <ol>
+        <li>studentユーザでログインして、rootユーザに変更します。
+<!-- code -->
+<pre class="pre"><code>$ su -
+パスワード:tokyoec
+#
+</code></pre>
+<!-- /code/ -->
+        </li>
+      </ol>
+
       <h4 class="h4_title">1.mariadbのインストール</h4>
 
       <h4>CentOS8_WORDPRESSの仮想マシンで実行すること</h4>
@@ -168,7 +181,7 @@ Created symlink /etc/systemd/system/multi-user.target.wants/mariadb.service → 
  2月 06 03:44:50 tokyo-ec.com mysqld[4871]: 2020-02-06  3:44:50 0 [Warning] Could not increase number of max_open_files to more than 1024 (request: 4183)
  2月 06 03:44:50 tokyo-ec.com mysqld[4871]: 2020-02-06  3:44:50 0 [Warning] Changed limits: max_open_files: 1024  max_connections: 151 (was 151)  table_cach>
  2月 06 03:44:50 tokyo-ec.com systemd[1]: Started MariaDB 10.3 database server.
- <span class="text_color_red">//[q]キーを入力して終了</span></code></pre>
+ <span class="text_color_red">//[SPACE]キーでスクロールして、[q]キーを入力して終了</span></code></pre>
 <!-- /code/ -->
         </li>
         <li>mariadbのrootユーザのパスワード設定
