@@ -755,7 +755,7 @@ TASK [サービスの起動] ***************************************************
 ok: [192.168.56.29]
 
 TASK [wordpressのダウンロード] *************************************************************************************************************************************
-fatal: [192.168.56.29]: FAILED! => {"changed": false, "dest": "/tmp/wordpress.tar.gz", "elapsed": 1, "msg": "Request failed: <urlopen error [Errno 104] 接続 が相手からリセットされました>", "url": "https://ja.wordpress.org/latest-ja.tar.gz"}
+fatal: [192.168.56.29]: FAILED! => {"changed": false, "dest": "/tmp/wordpress.tar.gz", "elapsed": 1, "msg": "Request failed: &lt;urlopen error [Errno 104] 接続 が相手からリセットされました&gt;", "url": "https://ja.wordpress.org/latest-ja.tar.gz"}
 
 PLAY RECAP **************************************************************************************************************************************************
 192.168.56.29              : ok=8    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
@@ -807,7 +807,7 @@ TASK [httpサービスの起動] ***********************************************
 changed: [192.168.56.29]
 
 PLAY RECAP **************************************************************************************************************************************************
-192.168.56.29              : ok=12   changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0<code></pre>
+192.168.56.29              : ok=12   changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
 <!-- /code/ -->
         </li>
         <li>http://192.168.56.29/wordpress/にアクセス</li>
@@ -899,7 +899,7 @@ require_once( ABSPATH . 'wp-settings.php' );
 ---------------[Esc + :wq]で保存終了します。------------------------------</code></pre>
 <!-- /code/ -->
         </li>
-        </ol>
+      </ol>
 
       <p class="text_align_center"><a href="../kouki.html">後期トップへ戻る</a></p>
       
