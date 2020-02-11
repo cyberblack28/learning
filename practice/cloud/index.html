@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,38 +20,75 @@
     <![endif]-->
   </head>
   <body>
-    <header class="header_area">
-      <h1>東京電子専門学校 仮想化/クラウドコンピューティング クラウド実習</h1>
+    <header id="header">
+      <header-title></header-title>
     </header>
 
     <hr>
 
     <div class="contents_area">
+
+      <h2>1.WordPress環境構築</h2>
       <ul>
-        <li><a href="mokuji_wordpress.html">1.WordPress環境構築</a></li>
-        <li><a href="mokuji_eccube.html">2.EC-CUBE環境構築</a></li>
-        <li><a href="mokuji_ansible.html">3.Ansible環境構築</a></li>
-        <li><a href="https://qiita.com/cyberblack28/items/7ed6fbc75503bf9418b3" target="_blank">4.Docker環境構築</a></li>
-        <li><a href="https://qiita.com/cyberblack28/items/76cde5637fa1e58cc85a" target="_blank">5.DockerCompose環境構築</a></li>
-        <li>6.Kubernetes環境構築
-          <ul>
-            <li><a href="https://qiita.com/cyberblack28/private/bac211f4b9d12789a9c2" target="_blank">a.Kubernetes環境構築</a></li>
-            <li><a href="https://qiita.com/cyberblack28/private/739e40f45e6743856274" target="_blank">b.kubectlコマンド演習</a></li>
-            <li><a href="https://qiita.com/cyberblack28/private/0baa2ff5ed28402cdf2b" target="_blank">c.WordPress環境構築</a></li>
-          </ul>
-        </li>
+        <li><h3><a href="section01/training01.html">Apache Web Serverのインストール</a></h3></li>
+        <li><h3><a href="section01/training02.html">PHPのインストール</a></h3></li>
+        <li><h3><a href="section01/training03.html">MariaDBのインストール</a></h3></li>
+        <li><h3><a href="section01/training04.html">WordPressのインストール</a></h3></li>
       </ul>
+
+      <h2>2.EC-CUBE環境構築</h2>
+      <ul>
+        <li><h3><a href="section02/training01.html">Apache Web Serverのインストール</a></h3></li>
+        <li><h3><a href="section02/training02.html">PHPのインストール</a></h3></li>
+        <li><h3><a href="section02/training03.html">MariaDBのインストール</a></h3></li>
+        <li><h3><a href="section02/training04.html">EC-CUBEのインストール</a></h3></li>
+      </ul>
+
+      <h2>3.Ansible環境構築</h2>
+      <ul>
+        <li><h3><a href="section03/training00.html">sshの設定変更</a></h3></li>
+        <li><h3><a href="section03/training01.html">ansible-serverの作成</a></h3></li>
+        <li><h3><a href="section03/training02.html">Playbookの作成・WordPress環境構築</a></h3></li>
+      </ul>
+
+      <h2>4.Docker環境構築</h2>
+      <ul>
+        <li><h3><a href="https://qiita.com/cyberblack28/items/7ed6fbc75503bf9418b3" target="_blank">Docker pull commit push Dockerfile WordPress環境をつくる 新コマンド編</a></h3></li>
+      </ul>
+
+      <h2>5.DockerCompose環境構築</h2>
+      <ul>
+        <li><h3><a href="https://qiita.com/cyberblack28/items/76cde5637fa1e58cc85a" target="_blank">Docker pull commit push Dockerfile WordPress環境をつくる～Docker Compose～ 新コマンド編</a></h3></li>
+      </ul>
+
+      <h2>6.Kubernetes環境構築</h2>
+      <ul>
+        <li><h3><a href="https://qiita.com/cyberblack28/private/bac211f4b9d12789a9c2" target="_blank">Kubernetes環境構築</a></h3></li>
+        <li><h3><a href="https://qiita.com/cyberblack28/private/739e40f45e6743856274" target="_blank">kubectlコマンド演習</a></h3></li>
+        <li><h3><a href="https://qiita.com/cyberblack28/private/0baa2ff5ed28402cdf2b" target="_blank">WordPress環境構築</a></h3></li>
+      </ul>
+
+      <!--
+      <h2>7.EFK環境構築</h2>
+      <ul>
+        <li><h3><a href="section04/training01.html">EFKのコンテナー環境構築</a></h3></li>
+        <li><h3><a href="section04/training02.html">Nginxのアクセスログ確認</a></h3></li>
+        <li><h3><a href="section04/training03.html">FluentdからNginxのアクセスログ確認</a></h3></li>
+      </ul>
+      -->
+
     </div>
 
     <hr>
 
-    <footer class="footer_area">
-      <p class="text_align_center">&copy; cyberblack28</p>
+    <footer id="footer">
+      <footer-content></footer-content>
     </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

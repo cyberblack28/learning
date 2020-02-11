@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/custom.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,18 +20,18 @@
     <![endif]-->
   </head>
   <body>
-    <header class="header_area">
-      <h1>東京電子専門学校 仮想化/クラウドコンピューティング クラウド実習</h1>
+    <header id="header">
+      <header-title></header-title>
     </header>
 
     <hr>
 
     <div class="contents_area">
-      <h2>1.Apache Web Serverのインストール</h2>
+      <h2>2.EC-CUBE環境構築</h2>
 
       <h3>Apache Web Serverのインストール</h3>
 
-      <h4 class="h4_title">1.Apache Web Serverのインストール</h4>
+      <h4 class="h4_title">Apache Web Serverのインストール手順</h4>
 
       <ol>
         <li>httpdのインストール<br>yum install -y httpd</li>
@@ -39,21 +40,20 @@
         <li>httpdの起動<br>systemctl start httpd<br>systemctl status httpd</li>
       </ol>
 
-      <p class="text_align_center"><a href="../mokuji_eccube.html">目次トップへ戻る</a></p>
-
       <p class="text_align_center"><a href="../index.html">トップへ戻る</a></p>
 
     </div>
 
     <hr>
 
-    <footer class="footer_area">
-      <p class="text_align_center">&copy; cyberblack28</p>
+    <footer id="footer">
+      <footer-content></footer-content>
     </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
   </body>
 </html>
