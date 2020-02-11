@@ -1,5 +1,5 @@
 Vue.component('header-title',{
-    template : '<header class="header_area"><h1>Linux 実習課題</h1></header>'
+    template : '<header class="header_area"><h1>Linux 演習課題</h1></header>'
 })
 
 new Vue({
