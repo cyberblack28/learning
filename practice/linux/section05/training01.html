@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/custom.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,8 +20,8 @@
     <![endif]-->
   </head>
   <body>
-    <header class="header_area">
-      <h1>東京電子専門学校 Linux 演習課題</h1>
+    <header id="header">
+      <header-title></header-title>
     </header>
 
     <hr>
@@ -56,7 +57,7 @@
           </div>
           <!-- /accodion/ -->
         </li>
-        <li>lsコマンドで以前ダウンロードしたstressパッケージがあるかどうか確認してください。無い場合は、「wget https://cyberblack28.github.io/learning/tokyoec/linux/zip/stress-1.0.4-23.el8.x86_64.rpm」で再度ダウンロードしてください。
+        <li>lsコマンドで以前ダウンロードしたstressパッケージがあるかどうか確認してください。無い場合は、「wget https://www.cyberblack.net/practice/linux/zip/stress-1.0.4-23.el8.x86_64.rpm」で再度ダウンロードしてください。
           <!-- accodion -->
           <div class="accorion-position">
             <div class="panel-group">
@@ -72,10 +73,10 @@
 anaconda-ks.cfg  initial-setup-ks.cfg  stress-1.0.4-23.el8.x86_64.rpm
 </code></pre>
 
-<pre><code># wget https://cyberblack28.github.io/learning/tokyoec/linux/zip/stress-1.0.4-23.el8.x86_64.rpm
---2020-02-02 23:23:04--  https://cyberblack28.github.io/learning/tokyoec/linux/zip/stress-1.0.4-23.el8.x86_64.rpm
-cyberblack28.github.io (cyberblack28.github.io) をDNSに問いあわせています... 185.199.110.153, 185.199.108.153, 185.199.109.153, ...
-cyberblack28.github.io (cyberblack28.github.io)|185.199.110.153|:443 に接続しています... 接続しました。
+<pre><code># wget https://www.cyberblack.net/pracice/linux/zip/stress-1.0.4-23.el8.x86_64.rpm
+--2020-02-02 23:23:04--  https://www.cyberblack.net/practice/linux/zip/stress-1.0.4-23.el8.x86_64.rpm
+www.cyberblack.net (www.cyberblack.net) をDNSに問いあわせています... 185.199.110.153, 185.199.108.153, 185.199.109.153, ...
+www.cyberblack.net (www.cyberblack.net)|185.199.110.153|:443 に接続しています... 接続しました。
 HTTP による接続要求を送信しました、応答を待っています... 200 OK
 長さ: 39652 (39K) [application/x-redhat-package-manager]
 `stress-1.0.4-23.el8.x86_64.rpm.1' に保存中
@@ -3048,13 +3049,14 @@ zlib.x86_64                                                               1.2.11
 
     <hr>
 
-    <footer class="footer_area">
-      <p class="text_align_center">&copy; cyberblack28</p>
+    <footer id="footer">
+      <footer-content></footer-content>
     </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
   </body>
 </html>
