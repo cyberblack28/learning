@@ -133,7 +133,7 @@ stress: info: [30808] dispatching hogs: 3 cpu, 0 io, 0 vm, 0 hdd</code></pre>
                   <div class="panel-body">
 <pre><code># stress --cpu 3
 stress: info: [30808] dispatching hogs: 3 cpu, 0 io, 0 vm, 0 hdd
-//[Ctrl]+[z]キーを入力
+<span class="text_color_red">//[Ctrl]+[z]キーを入力</span>
 ^Z
 [1]+  停止                  stress --cpu 3</code></pre>
 <pre><code># jobs
@@ -181,7 +181,7 @@ stress: info: [30808] dispatching hogs: 3 cpu, 0 io, 0 vm, 0 hdd
                 <div id="collapse6" class="panel-collapse collapse">
                   <div class="panel-body">
 <pre><code># fg %1
-//[Ctrl]+[c]を入力
+<span class="text_color_red">//[Ctrl]+[c]を入力</span>
 stress --cpu 3
 ^C
 #
@@ -205,7 +205,7 @@ stress --cpu 3
                 </div>
                 <div id="collapse7" class="panel-collapse collapse">
                   <div class="panel-body">
-<pre><code># jobs //何も表示されなければ正常に終了しています。</code></pre>
+<pre><code># jobs <span class="text_color_red">//何も表示されなければ正常に終了しています。</span></code></pre>
                   </div>
                 </div>
               </div>
@@ -235,7 +235,7 @@ stress --cpu 3
 <pre><code># stress --cpu 3 &
 [1] 31056
 # stress: info: [31056] dispatching hogs: 3 cpu, 0 io, 0 vm, 0 hdd
-//[Enter]キーを押してプロンプトをfgにします。
+<span class="text_color_red">//[Enter]キーを押してプロンプトをfgにします。</span>
 #</code></pre>
 <pre><code># jobs
 [1]+  実行中               stress --cpu 3 &</code></pre>
@@ -268,8 +268,8 @@ stress --cpu 3
 31059 pts/0    00:02:17 stress
 31119 pts/0    00:00:00 ps
 
-//psコマンドを実行すると、右端にstressと表示されている行が4行表示されるはずです。これは、stressのプロセスとしては4つ動作していることを表しています。
-「stress --cpu 3」は、stressのプロセスを3つ起動するコマンドですが、プロセスが1つ多くあります。内訳は、親プロセス1 + 子プロセス3になります。</code></pre>
+<span class="text_color_red">//psコマンドを実行すると、右端にstressと表示されている行が4行表示されるはずです。これは、stressのプロセスとしては4つ動作していることを表しています。
+「stress --cpu 3」は、stressのプロセスを3つ起動するコマンドですが、プロセスが1つ多くあります。内訳は、親プロセス1 + 子プロセス3になります。</span></code></pre>
                   </div>
                 </div>
               </div>
@@ -316,10 +316,10 @@ stress --cpu 3
 stress: FAIL: [31395] (415) &lt;-- worker 31397 got signal 15
 stress: WARN: [31395] (417) now reaping child worker processes
 stress: FAIL: [31395] (451) failed run completed in 429s
-//[Enter]キーを入力
+<span class="text_color_red">//[Enter]キーを入力</span>
 [1]+  終了 1                stress --cpu 3
 
-//子プロセスを強制終了させることによる忠告が出て、親プロセスと他の子プロセスと共に終了となります。</code></pre>
+<span class="text_color_red">//子プロセスを強制終了させることによる忠告が出て、親プロセスと他の子プロセスと共に終了となります。</span></code></pre>
 <pre><code># ps
 PID TTY          TIME CMD
 2424 pts/0    00:00:00 su
@@ -347,7 +347,7 @@ PID TTY          TIME CMD
 <pre><code># stress --cpu 3 &
 [1] 31546
 # stress: info: [31546] dispatching hogs: 3 cpu, 0 io, 0 vm, 0 hdd
-//[Enter]キーを入力</code></pre>
+<span class="text_color_red">//[Enter]キーを入力</span></code></pre>
 <pre><code># pstree -p | grep stress
 |                                                                           `-stress(31546)-+-stress(31547)
 |                                                                                           |-stress(31548)
@@ -362,8 +362,8 @@ PID TTY          TIME CMD
 31549 pts/0    00:01:17 stress
 31579 pts/0    00:00:00 ps
 
-//親プロセスを強制終了すると、子プロセスも含めて強制終了されません。子プロセスは親プロセスがなくなると、子プロセス自体が単体のプロセスに変わります。以前はこういう仕組みがなく、子プロセスがゾンビプロセスとして残ってしまうことがありました。</code></pre>
-<pre><code>//全プロセスを終了する場合は、各プロセスIDでkillコマンドを実行します。
+<span class="text_color_red">//親プロセスを強制終了すると、子プロセスも含めて強制終了されません。子プロセスは親プロセスがなくなると、子プロセス自体が単体のプロセスに変わります。以前はこういう仕組みがなく、子プロセスがゾンビプロセスとして残ってしまうことがありました。</span></code></pre>
+<pre><code><span class="text_color_red">//全プロセスを終了する場合は、各プロセスIDでkillコマンドを実行します。</span>
 # kill 31547 31548 31549
 # pstree -p | grep stress
 # ps

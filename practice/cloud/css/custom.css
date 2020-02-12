@@ -50,6 +50,18 @@ hr {
   border-top: solid 1px #727f7e;
 }
 
+.pre {
+  margin-top: 15px;
+}
+
+.image_50 {
+  width: 50%;
+}
+
+.text_color_red {
+  color: red;
+}
+
 /* 印刷時のURL消す処理 */
 @media print {
  a[href]:after {
