@@ -34,7 +34,33 @@
       <h4 class="h4_title">Apache Web Serverのインストール手順</h4>
 
       <ol>
-        <li>httpdのインストール<br>yum install -y httpd</li>
+        <li>httpdのインストール
+        <!-- accodion -->
+        <div class="accorion-position">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title accordion-toggle">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Answer</a>
+                </h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+<pre><code>$ dnf -y install httpd
+/home/student</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /accodion/ -->          
+          
+          
+          
+          
+          
+          
+          <br>yum install -y httpd</li>
         <li>httpdのバージョン確認<br>httpd -v</li>
         <li>httpdの自動起動設定<br>systemctl enable httpd<br>systemctl list-unit-files --type=service | grep httpd</li>
         <li>httpdの起動<br>systemctl start httpd<br>systemctl status httpd</li>
