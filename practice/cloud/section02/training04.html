@@ -31,65 +31,83 @@
 
       <h3>EC-CUBEのインストール</h3>
 
-      <h4 class="h4_title">1.EC-CUBEのインストール手順</h4>
+      <h4 class="h4_title">EC-CUBEのインストール手順</h4>
 
       <ol>
-        <li>EC-CUBEのインストール<br>cd /var<br>wget http://downloads.ec-cube.net/src/eccube-3.0.16.zip</li>
-        <li>unzipコマンドのインストールと解凍<br>yum install -y unzip<br>unzip eccube-3.0.16.zip</li>
-        <li>対象ファイルをドキュメントルートに上書き<br>cd eccube-3.0.16<br>mv * ../www/<br>mv: overwrite ‘../www/html’? <span class="text_color_red">y</span> <span class="text_color_red">←yと入力してEnterキー</span><br>mv .htaccess ../www/</li>
-        <li>SELinuxの無効化<br>setenforce 0<br>getenforce</li>
-        <li>EC-CUBEの必要モジュールのインストール<br>yum install -y epel-release<br>yum install -y php-mcrypt php-pecl-apcu</li>
-        <li>ドキュメントルートの所有者の設定<br>cd /var/www<br>chown -R apache:apache *</li>
-        <li>httpd.confの設定<br>cp -p /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org<br>
-          vi /etc/httpd/conf/httpd.conf<br>
--------------------------------------------------------<br><pre>
-・<br>
-・<br>
-・<br>
-# Further relax access to the default document root:<br>
-<Directory "/var/www/html"><br><br>
-#
-# Possible values for the Options directive are "None", "All",<br>
-# or any combination of:<br>
-#   Indexes Includes FollowSymLinks SymLinksifOwnerMatch ExecCGI MultiViews<br>
-#<br>
-# Note that "MultiViews" must be named *explicitly* --- "Options All"<br>
-# doesn't give it to you.<br>
-#<br>
-# The Options directive is both complicated and important.  Please see<br>
-# http://httpd.apache.org/docs/2.4/mod/core.html#options<br>
-# for more information.<br><br>
-#
-Options Indexes FollowSymLinks<br><br>
+        <li>EC-CUBEのダウンロード
+<!-- code -->
+<pre class="pre"><code># cd /var/www/html</code></pre>
+<!-- /code/ -->
           
-#<br>
-# AllowOverride controls what directives may be placed in .htaccess files.<br>
-# It can be "All", "None", or any combination of the keywords:<br>
-#   Options FileInfo AuthConfig Limit<br>
-#<br>
-AllowOverride None <span class="text_color_red">←NoneをAllに変更</span><br>
-<span class="text_color_red">AllowOverride All</span><br>
-#<br>
-# Controls who can get stuff from this server.<br>
-#<br>
-Require all granted<br>
-</Directory><br>
-・<br>
-・<br>
-・<br></pre>
--------------------------------------------------------<br>
-Esc + :wq</li>
-        <li>httpdの再起動<br>systemctl restart httpd<br>systemctl status httpd
-          </li>
-      </ol>
+<!-- code -->
+<pre><code># wget http://downloads.ec-cube.net/src/eccube-4.0.3.zip
+--2020-02-14 10:17:45--  http://downloads.ec-cube.net/src/eccube-4.0.3.zip
+Resolving downloads.ec-cube.net (downloads.ec-cube.net)... 52.219.68.38
+Connecting to downloads.ec-cube.net (downloads.ec-cube.net)|52.219.68.38|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 43604415 (42M) [application/zip]
+Saving to: ‘eccube-4.0.3.zip’
 
-      <hr>
+100%[======================================>] 43,604,415  5.63MB/s   in 5.5s
 
-      <p><span class="text_color_red">18は、教材のP51の9～P59の17までの作業を完了してから実施すること！</span></p>
+2020-02-14 10:17:51 (7.52 MB/s) - ‘eccube-4.0.3.zip’ saved [43604415/43604415]</code></pre>
+<!-- /code/ -->  
+        </li>
+        <li>unzipコマンドのインストール、解凍、httpdの再起動
+<!-- code -->
+<pre class="pre"><code># yum -y install unzip
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * epel: ftp.jaist.ac.jp
+ * remi-safe: ftp.riken.jp
+Resolving Dependencies
+--> Running transaction check
+---> Package unzip.x86_64 0:6.0-20.el7 will be installed
+--> Finished Dependency Resolution
 
-      <ol start="18">
-        <li>install.phpの削除<br>cd /var/www/html/<br>rm install.php<br>rm: remove regular file ‘install.php’? <span class="text_color_red">y</span> <span class="text_color_red">←yと入力してEnterキー</span>
-          </li>
+Dependencies Resolved
+
+================================================================================
+ Package          Arch              Version               Repository       Size
+================================================================================
+Installing:
+ unzip            x86_64            6.0-20.el7            base            170 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 170 k
+Installed size: 365 k
+Downloading packages:
+unzip-6.0-20.el7.x86_64.rpm                                | 170 kB   00:02
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : unzip-6.0-20.el7.x86_64                                      1/1
+  Verifying  : unzip-6.0-20.el7.x86_64                                      1/1
+
+Installed:
+  unzip.x86_64 0:6.0-20.el7
+
+Complete!</code></pre>
+<!-- /code/ -->
+          
+<!-- code -->
+<pre><code># unzip eccube-4.0.3.zip
+・
+・省略
+・
+  eccube-4.0.3/vendor/zendframework/zend-code/doc/book/index.md -> ../../README.md
+#</code></pre>
+<!-- /code/ -->
+
+<!-- code -->
+<pre class="pre"><code># systemctl restart httpd</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>ブラウザを起動して「http://グローバルIPアドレス/eccube-4.0.3」にアクセス</li>
       </ol>
 
       <p class="text_align_center"><a href="../index.html">トップへ戻る</a></p>

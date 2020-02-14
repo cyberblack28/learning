@@ -173,8 +173,35 @@ Server built:   Aug  8 2019 11:41:18
 
 Feb 13 19:26:10 eccube.novalocal systemd[1]: Starting The Apache HTTP Server...
 Feb 13 19:26:10 eccube.novalocal systemd[1]: Started The Apache HTTP Server.
-Hint: Some lines were ellipsized, use -l to show in full.
-</code></pre>
+Hint: Some lines were ellipsized, use -l to show in full.</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>Apacheの設定変更
+<!-- code -->
+<pre class="pre"><code># cp -p /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org</code></pre>
+<!-- /code/ -->
+
+<!-- code -->
+<pre><code># vim /etc/httpd/conf/httpd.conf
+
+-----------------------------以下赤字の内容に設定変更-------------------------------
+・
+・省略
+・
+#
+# AllowOverride controls what directives may be placed in .htaccess files.
+# It can be "All", "None", or any combination of the keywords:
+#   Options FileInfo AuthConfig Limit
+#
+AllowOverride All <span class="text_color_red">//←「AllowOverride None」変更⇒「AllowOverride All」</span>
+・
+・省略
+・
+-----------------------------[Esc + :wq]で保存終了します。-------------------------</code></pre>
+<!-- /code/ -->
+
+<!-- code -->
+<pre><code># systemctl reload httpd</code></pre>
 <!-- /code/ -->
         </li>
       </ol>
