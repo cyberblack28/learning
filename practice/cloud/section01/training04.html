@@ -130,7 +130,7 @@ server {
     #
     <span class="text_color_red">//⇓先頭の#を削除//</span>
     location ~ \.php$ {
-        root           /usr/share/nginx/html; <span class="text_color_red">//←「html」変更⇒「/usr/local/nginx/html」</span>
+        root           /usr/share/nginx/html; <span class="text_color_red">//←「html」変更⇒「/usr/share/nginx/html」</span>
         fastcgi_pass   127.0.0.1:9000;
         fastcgi_index  index.php;
         #fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name; <span class="text_color_red">//←#を付けてコメントアウト</span>
