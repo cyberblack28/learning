@@ -726,133 +726,74 @@ and check to make sure that only the key(s) you wanted were added.
         <li>ansibleの実行
 <!-- code -->
 <pre class="pre"><code># ansible-playbook wordpress.yml
-PLAY [wordpress環境構築] ****************************************************************************************************************************************
+  PLAY [wordpress環境構築] ****************************************************************************************************************************************
 
-TASK [Gathering Facts] **************************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [Apache（httpd）のインストール] *********************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [サービスの起動] **********************************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [PHPのインストール] *******************************************************************************************************************************************
-[DEPRECATION WARNING]: Invoking "yum" only once while using a loop via squash_actions is deprecated. Instead of using a loop to supply multiple items and
-specifying `name: "{{item}}"`, please use `name: ['php', 'php-devel', 'php-pdo', 'php-mysqlnd', 'php-mbstring', 'php-json', 'php-gd']` and remove the loop.
-This feature will be removed in version 2.11. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
-ok: [192.168.56.29] => (item=['php', 'php-devel', 'php-pdo', 'php-mysqlnd', 'php-mbstring', 'php-json', 'php-gd'])
-
-TASK [タイムゾーンの設定] ********************************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [httpサービスの再起動] *****************************************************************************************************************************************
-changed: [192.168.56.29]
-
-TASK [MariaDBインストール] ****************************************************************************************************************************************
-[DEPRECATION WARNING]: Invoking "yum" only once while using a loop via squash_actions is deprecated. Instead of using a loop to supply multiple items and
-specifying `name: "{{item}}"`, please use `name: ['mariadb', 'mariadb-server']` and remove the loop. This feature will be removed in version 2.11.
-Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
-ok: [192.168.56.29] => (item=['mariadb', 'mariadb-server'])
-
-TASK [サービスの起動] **********************************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [wordpressのダウンロード] *************************************************************************************************************************************
-An exception occurred during task execution. To see the full traceback, use -vvv. The error was: socket.timeout: The read operation timed out
-fatal: [192.168.56.29]: FAILED! => {"changed": false, "elapsed": 1, "msg": "failed to create temporary content file: The read operation timed out"}
-
-PLAY RECAP **************************************************************************************************************************************************
-192.168.56.29              : ok=8    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
-
-[root@localhost ~]# ansible-playbook wordpress.yml
-
-PLAY [wordpress環境構築] ****************************************************************************************************************************************
-
-TASK [Gathering Facts] **************************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [Apache（httpd）のインストール] *********************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [サービスの起動] **********************************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [PHPのインストール] *******************************************************************************************************************************************
-[DEPRECATION WARNING]: Invoking "yum" only once while using a loop via squash_actions is deprecated. Instead of using a loop to supply multiple items and
-specifying `name: "{{item}}"`, please use `name: ['php', 'php-devel', 'php-pdo', 'php-mysqlnd', 'php-mbstring', 'php-json', 'php-gd']` and remove the loop.
-This feature will be removed in version 2.11. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
-ok: [192.168.56.29] => (item=['php', 'php-devel', 'php-pdo', 'php-mysqlnd', 'php-mbstring', 'php-json', 'php-gd'])
-
-TASK [タイムゾーンの設定] ********************************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [httpサービスの再起動] *****************************************************************************************************************************************
-changed: [192.168.56.29]
-
-TASK [MariaDBインストール] ****************************************************************************************************************************************
-[DEPRECATION WARNING]: Invoking "yum" only once while using a loop via squash_actions is deprecated. Instead of using a loop to supply multiple items and
-specifying `name: "{{item}}"`, please use `name: ['mariadb', 'mariadb-server']` and remove the loop. This feature will be removed in version 2.11.
-Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
-ok: [192.168.56.29] => (item=['mariadb', 'mariadb-server'])
-
-TASK [サービスの起動] **********************************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [wordpressのダウンロード] *************************************************************************************************************************************
-fatal: [192.168.56.29]: FAILED! => {"changed": false, "dest": "/tmp/wordpress.tar.gz", "elapsed": 1, "msg": "Request failed: &lt;urlopen error [Errno 104] 接続 が相手からリセットされました&gt;", "url": "https://ja.wordpress.org/latest-ja.tar.gz"}
-
-PLAY RECAP **************************************************************************************************************************************************
-192.168.56.29              : ok=8    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
-
-[root@localhost ~]# ansible-playbook wordpress.yml
-
-PLAY [wordpress環境構築] ****************************************************************************************************************************************
-
-TASK [Gathering Facts] **************************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [Apache（httpd）のインストール] *********************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [サービスの起動] **********************************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [PHPのインストール] *******************************************************************************************************************************************
-[DEPRECATION WARNING]: Invoking "yum" only once while using a loop via squash_actions is deprecated. Instead of using a loop to supply multiple items and
-specifying `name: "{{item}}"`, please use `name: ['php', 'php-devel', 'php-pdo', 'php-mysqlnd', 'php-mbstring', 'php-json', 'php-gd']` and remove the loop.
-This feature will be removed in version 2.11. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
-ok: [192.168.56.29] => (item=['php', 'php-devel', 'php-pdo', 'php-mysqlnd', 'php-mbstring', 'php-json', 'php-gd'])
-
-TASK [タイムゾーンの設定] ********************************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [httpサービスの再起動] *****************************************************************************************************************************************
-changed: [192.168.56.29]
-
-TASK [MariaDBインストール] ****************************************************************************************************************************************
-[DEPRECATION WARNING]: Invoking "yum" only once while using a loop via squash_actions is deprecated. Instead of using a loop to supply multiple items and
-specifying `name: "{{item}}"`, please use `name: ['mariadb', 'mariadb-server']` and remove the loop. This feature will be removed in version 2.11.
-Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
-ok: [192.168.56.29] => (item=['mariadb', 'mariadb-server'])
-
-TASK [サービスの起動] **********************************************************************************************************************************************
-ok: [192.168.56.29]
-
-TASK [wordpressのダウンロード] *************************************************************************************************************************************
-changed: [192.168.56.29]
-
-TASK [wordpressの展開] *****************************************************************************************************************************************
-changed: [192.168.56.29]
-
-TASK [wordpressの所有権をapacheに変更] ******************************************************************************************************************************
-changed: [192.168.56.29]
-
-TASK [httpサービスの起動] ******************************************************************************************************************************************
-changed: [192.168.56.29]
-
-PLAY RECAP **************************************************************************************************************************************************
-192.168.56.29              : ok=12   changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+  TASK [Gathering Facts] **************************************************************************************************************************************
+  ok: [192.168.56.29]
+  
+  TASK [Apache（httpd）のインストール] *********************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  TASK [サービスの起動] **********************************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  TASK [PHPのインストール] *******************************************************************************************************************************************
+  [DEPRECATION WARNING]: Invoking "dnf" only once while using a loop via squash_actions is deprecated. Instead of using a loop to supply multiple items and
+  specifying `name: "{{item}}"`, please use `name: ['php', 'php-devel', 'php-pdo', 'php-mysqlnd', 'php-mbstring', 'php-json', 'php-gd']` and remove the loop.
+  This feature will be removed in version 2.11. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+  changed: [192.168.56.29] => (item=['php', 'php-devel', 'php-pdo', 'php-mysqlnd', 'php-mbstring', 'php-json', 'php-gd'])
+  
+  TASK [タイムゾーンの設定] ********************************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  TASK [httpサービスの再起動] *****************************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  TASK [MariaDBインストール] ****************************************************************************************************************************************
+  [DEPRECATION WARNING]: Invoking "dnf" only once while using a loop via squash_actions is deprecated. Instead of using a loop to supply multiple items and
+  specifying `name: "{{item}}"`, please use `name: ['mariadb', 'mariadb-server', 'python3-PyMySQL']` and remove the loop. This feature will be removed in
+  version 2.11. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+  changed: [192.168.56.29] => (item=['mariadb', 'mariadb-server', 'python3-PyMySQL'])
+  
+  TASK [サービスの起動] **********************************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  TASK [WordPress用データベースの作成] **********************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  TASK [WordPress用データベースユーザの作成] *******************************************************************************************************************************
+  changed: [192.168.56.29] => (item=localhost)
+  
+  TASK [MariaDB rootパスワード設定] **********************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  TASK [wordpressのダウンロード] *************************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  TASK [wordpressの展開] *****************************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  TASK [wordpressの所有権をapacheに変更] ******************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  TASK [ディレクトリへのアクセス許可1] **************************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  TASK [ディレクトリへのアクセス許可2] **************************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  TASK [httpサービスの起動] ******************************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  TASK [firewalld(http,https)の開放] *****************************************************************************************************************************
+  changed: [192.168.56.29] => (item=http)
+  changed: [192.168.56.29] => (item=https)
+  
+  TASK [設定の反映] ************************************************************************************************************************************************
+  changed: [192.168.56.29]
+  
+  PLAY RECAP **************************************************************************************************************************************************
+  192.168.56.29              : ok=19   changed=18   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
 <!-- /code/ -->
         </li>
         <li>http://192.168.56.29/wordpress/にアクセス</li>
