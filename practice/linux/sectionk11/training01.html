@@ -695,17 +695,18 @@ and check to make sure that only the key(s) you wanted were added.
    - name: wordpressの所有権をapacheに変更
      file: path=/var/www/html/wordpress/ owner=apache group=apache recurse=yes
 
+
    - name: ディレクトリへのアクセス許可1
      sefcontext:
-     target: '/var/www/html/wordpress'
-     setype: httpd_sys_content_t
-     state: present
+       target: '/var/www/html/wordpress'
+       setype: httpd_sys_content_t
+       state: present
 
    - name: ディレクトリへのアクセス許可2
      sefcontext:
-     target: '/var/www/html/wordpress'
-     setype: httpd_sys_rw_content_t
-     state: present
+       target: '/var/www/html/wordpress'
+       setype: httpd_sys_rw_content_t
+       state: present
 
    - name: httpサービスの起動
      service: name=httpd state=restarted
