@@ -666,7 +666,7 @@ and check to make sure that only the key(s) you wanted were added.
    - name: サービスの起動
      service: name=mariadb state=started enabled=yes
 
-     - name: WordPress用データベースの作成
+   - name: WordPress用データベースの作成
      mysql_db: name={{ mysql_database }} state=present
 
    - name: WordPress用データベースユーザの作成
