@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/custom.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,34 +20,50 @@
     <![endif]-->
   </head>
   <body>
-    <header class="header_area">
-      <h1>東京電子専門学校 仮想化/クラウドコンピューティング クラウド実習</h1>
+    <header id="header">
+      <header-title></header-title>
     </header>
 
     <hr>
 
     <div class="contents_area">
-      <h2>1.SSH設定変更</h2>
+      <h2>Ansible環境構築</h2>
 
       <h3>SSH設定変更</h3>
 
-      <h4 class="h4_title">1.SSH設定変更</h4>
+      <h3>ansible-host作業</h3>
+
+      <h4 class="h4_title">SSH設定変更手順</h4>
 
       <ol>
-        <li>元ファイルのバックアップ<br>cp -p /etc/ssh/sshd_config /etc/ssh/sshd_config.org</li>
-        <li>以下項目の書換<br>vim /etc/ssh/sshd_config
-          <br>---------------------------------------------------------
-          <pre>
-PermitRootLogin no → PermitRootLogin yes
-PasswordAuthentication no → PasswordAuthentication yes
-PasswordAuthentication no → PasswordAuthentication yes</pre>
-          ---------------------------------------------------------
-          <br>Esc + :wq
+        <li>元ファイルのバックアップ
+<!-- code -->
+<pre class="pre"><code># cp -p /etc/ssh/sshd_config /etc/ssh/sshd_config.org</code></pre>          
+<!-- /code/ -->
         </li>
-        <li>sshdの再起動<br>systemctl restart sshd</li>
-      </ol>
+        <li>sshd_configの設定変更<br>
+<!-- code -->
+<pre class="pre"><code># vim /etc/ssh/sshd_config
 
-      <p class="text_align_center"><a href="../mokuji_ansible.html">目次トップへ戻る</a></p>
+---------------------以下赤字の内容に変更---------------------------
+・
+・省略
+・
+PermitRootLogin yes <span class="text_color_red">//←「#PermitRootLogin no」変更⇒「PermitRootLogin yes」</span>
+PasswordAuthentication yes <span class="text_color_red">//←「PasswordAuthentication no」変更⇒「PasswordAuthentication yes」</span>
+PasswordAuthentication yes <span class="text_color_red">//←「PasswordAuthentication no」変更⇒「PasswordAuthentication yes」</span>
+・
+・省略
+・
+---------------------[Esc + :wq]で保存終了します。-------------------------</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>sshdの再起動
+<!-- code -->
+<pre class="pre"><code># systemctl sshd restart</code></pre>          
+<!-- /code/ -->
+        </li>
+      </ol>
 
       <p class="text_align_center"><a href="../index.html">トップへ戻る</a></p>
 
@@ -62,5 +79,6 @@ PasswordAuthentication no → PasswordAuthentication yes</pre>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
   </body>
 </html>

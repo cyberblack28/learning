@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/custom.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,24 +20,25 @@
     <![endif]-->
   </head>
   <body>
-    <header class="header_area">
-      <h1>東京電子専門学校 仮想化/クラウドコンピューティング クラウド実習</h1>
+    <header id="header">
+      <header-title></header-title>
     </header>
 
     <hr>
 
     <div class="contents_area">
-      <h2>1.Playbookの作成・WordPress環境構築</h2>
+      <h2>Ansible環境構築</h2>
 
       <h3>Playbookの作成・WordPress環境構築</h3>
 
-      <h4 class="h4_title">2.Playbookの作成・WordPress環境構築</h4>
-
       <h3>ansible-server作業</h3>
 
+      <h4 class="h4_title">Playbookの作成・WordPress環境構築手順</h4>
+
       <ol>
-        <li>wordpress.ymlの作成<br>vim wordpress.yml
-          <pre>
+        <li>wordpress.ymlの作成
+<!-- code -->
+<pre class="pre"><code># vim wordpress.yml
 ---
  - name: wordpress環境構築
    hosts: ansible-hostのグローバルIP
@@ -44,6 +46,9 @@
    become: yes
    vars:
      wordpress_url: https://ja.wordpress.org/latest-ja.tar.gz
+     mysql_user: wordpress
+     mysql_password: wppass
+     mysql_database: wordpress
             
    tasks:
    - name: Apache（httpd）のインストール
@@ -66,7 +71,7 @@
        state: present
 
    - name: PHPのインストール
-     yum: name="{{item}}" enablerepo=remi-php71 state=latest
+     yum: name="{{item}}" enablerepo=epel,remi-php72 state=latest
      with_items:
       - php-mysql
       - php
@@ -76,7 +81,7 @@
       - php-gd
       - php-mcrypt
       - libmcrypt
-            
+
    - name: タイムゾーンの設定
      ini_file: >
       dest=/etc/php.ini
@@ -86,17 +91,25 @@
 
    - name: httpサービスの再起動
      service: name=httpd state=restarted enabled=yes
-            
+
    - name: MariaDBインストール
      yum: name="{{item}}" state=latest
      with_items:
       - mariadb
       - mariadb-server
       - MySQL-python
-      
+
    - name: サービスの起動
      service: name=mariadb state=started enabled=yes
-            
+
+   - name: WordPress用データベースの作成
+     mysql_db: name={{ mysql_database }} state=present
+
+   - name: WordPress用データベースユーザの作成
+     mysql_user: name={{ mysql_user }} host={{ item }} password={{ mysql_password }} priv={{ mysql_database }}.*:ALL,GRANT state=present
+     with_items:
+       - localhost
+
    - name: wordpressのダウンロード
      get_url:
        url="{{ wordpress_url }}"
@@ -110,32 +123,79 @@
             
    - name: httpサービスの起動
      service: name=httpd state=restarted
-          </pre>Esc + :wq
+</code></pre>          
+<!-- /code/ -->
         </li>
-        <li>ansibleの実行<br>ansible-playbook wordpress.yml</li>
+        <li>ansibleの実行
+<!-- code -->
+<pre class="pre"><code># ansible-playbook wordpress.yml
+
+PLAY [wordpress環境構築] ****************************************************************************************************************************************
+
+TASK [Gathering Facts] **************************************************************************************************************************************
+ok: [133.186.208.195]
+
+TASK [Apache（httpd）のインストール] *********************************************************************************************************************************
+ok: [133.186.208.195]
+
+TASK [サービスの起動] **********************************************************************************************************************************************
+ok: [133.186.208.195]
+
+TASK [リポジトリ追加] **********************************************************************************************************************************************
+ok: [133.186.208.195]
+
+TASK [rpm配置] ************************************************************************************************************************************************
+ok: [133.186.208.195]
+
+TASK [rpmのインストール] *******************************************************************************************************************************************
+ok: [133.186.208.195]
+
+TASK [PHPのインストール] *******************************************************************************************************************************************
+[DEPRECATION WARNING]: Invoking "yum" only once while using a loop via squash_actions is deprecated. Instead of using a loop to supply multiple items and
+specifying `name: "{{item}}"`, please use `name: ['php-mysql', 'php', 'php-devel', 'php-mbstring', 'php-pdo', 'php-gd', 'php-mcrypt', 'libmcrypt']` and
+remove the loop. This feature will be removed in version 2.11. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+ok: [133.186.208.195] => (item=[u'php-mysql', u'php', u'php-devel', u'php-mbstring', u'php-pdo', u'php-gd', u'php-mcrypt', u'libmcrypt'])
+
+TASK [タイムゾーンの設定] ********************************************************************************************************************************************
+ok: [133.186.208.195]
+
+TASK [httpサービスの再起動] *****************************************************************************************************************************************
+changed: [133.186.208.195]
+
+TASK [MariaDBインストール] ****************************************************************************************************************************************
+[DEPRECATION WARNING]: Invoking "yum" only once while using a loop via squash_actions is deprecated. Instead of using a loop to supply multiple items and
+specifying `name: "{{item}}"`, please use `name: ['mariadb', 'mariadb-server', 'MySQL-python']` and remove the loop. This feature will be removed in version
+ 2.11. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+ok: [133.186.208.195] => (item=[u'mariadb', u'mariadb-server', u'MySQL-python'])
+
+TASK [サービスの起動] **********************************************************************************************************************************************
+ok: [133.186.208.195]
+
+TASK [WordPress用データベースの作成] **********************************************************************************************************************************
+changed: [133.186.208.195]
+
+TASK [WordPress用データベースユーザの作成] *******************************************************************************************************************************
+changed: [133.186.208.195] => (item=localhost)
+
+TASK [wordpressのダウンロード] *************************************************************************************************************************************
+changed: [133.186.208.195]
+
+TASK [wordpressの展開] *****************************************************************************************************************************************
+changed: [133.186.208.195]
+
+TASK [wordpressの所有権をapacheに変更] ******************************************************************************************************************************
+changed: [133.186.208.195]
+
+TASK [httpサービスの起動] ******************************************************************************************************************************************
+changed: [133.186.208.195]
+
+PLAY RECAP **************************************************************************************************************************************************
+133.186.208.195            : ok=17   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>ブラウザを起動して「http://ansible-hostのグローバルIP/wordpress/」にアクセス</li>
       </ol>
-
-      <h4 class="h4_title">2.データベースの作成</h4>
-
-      <h3>ansible-host作業</h3>
-
-      <ol>
-        <li>mariadbのrootユーザのパスワード設定<br>mysql -u root<br>
-          MariaDB [(none)]> update mysql.user set password=password('tokyoec') where user = 'root';<br>
-          MariaDB [(none)]> FLUSH PRIVILEGES;<br>
-          MariaDB [(none)]> exit</li>
-        <li>WordPress用のDB作成<br>mysql -u root -p<br>
-          Enter password:tokyoec<br>
-          MariaDB [(none)]> CREATE DATABASE wordpress; <br>
-          MariaDB [(none)]> GRANT ALL PRIVILEGES ON wordpress.*TO 'wordpress'@'localhost' IDENTIFIED BY 'wppass';<br>
-          MariaDB [(none)]> FLUSH PRIVILEGES;<br>
-          MariaDB [(none)]> exit</li>
-        <li>wp-config.phpファイルの作成<br>cd /var/www/html/wordpress<br>vim wp-config.php<br>
-            <pre>右クリックでコピーした内容をペーストします。</pre>Esc + :wq</li>
-        <li>ブラウザを起動してhttp://ansible-hostのグローバルIP/wordpress/にアクセス</li>
-      </ol>
-
-      <p class="text_align_center"><a href="../mokuji_ansible.html">目次トップへ戻る</a></p>
 
       <p class="text_align_center"><a href="../index.html">トップへ戻る</a></p>
 
@@ -143,13 +203,14 @@
 
     <hr>
 
-    <footer class="footer_area">
-      <p class="text_align_center">&copy; cyberblack28</p>
+    <footer id="footer">
+      <footer-content></footer-content>
     </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
   </body>
 </html>
