@@ -98,7 +98,7 @@
      with_items:
       - mariadb
       - mariadb-server
-      - MySQL-python
+      - python3-PyMySQL
 
    - name: サービスの起動
      service: name=mariadb state=started enabled=yes
