@@ -710,7 +710,7 @@ and check to make sure that only the key(s) you wanted were added.
    - name: httpサービスの起動
      service: name=httpd state=restarted
 
-   - name: http,https
+   - name: firewalld(http,https)の開放
      become: yes
      firewalld:
        zone: public
