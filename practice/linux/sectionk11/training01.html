@@ -662,6 +662,7 @@ and check to make sure that only the key(s) you wanted were added.
      with_items:
       - mariadb
       - mariadb-server
+      - python3-PyMySQL
       
    - name: サービスの起動
      service: name=mariadb state=started enabled=yes
