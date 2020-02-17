@@ -696,16 +696,10 @@ and check to make sure that only the key(s) you wanted were added.
      file: path=/var/www/html/wordpress/ owner=apache group=apache recurse=yes
 
    - name: ディレクトリへのアクセス許可1
-     sefcontext:
-       target: '/var/www/html/wordpress(/.*)?'
-       setype: httpd_sys_content_t
-       state: present
+     command: chcon -R -t httpd_sys_content_t /var/www/html/wordpress
 
    - name: ディレクトリへのアクセス許可2
-     sefcontext:
-       target: '/var/www/html/wordpress(/.*)?'
-       setype: httpd_sys_rw_content_t
-       state: present
+     command: chcon -R -t httpd_sys_rw_content_t /var/www/html/wordpress
 
    - name: httpサービスの起動
      service: name=httpd state=restarted
