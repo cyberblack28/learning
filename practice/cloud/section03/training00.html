@@ -49,8 +49,17 @@
 ・
 ・省略
 ・
-PermitRootLogin yes <span class="text_color_red">//←「#PermitRootLogin no」変更⇒「PermitRootLogin yes」</span>
+#LoginGraceTime 2m
+PermitRootLogin yes <span class="text_color_red">//←「PermitRootLogin no」変更⇒「PermitRootLogin yes」</span>
+#StrictModes yes
+#MaxAuthTries 6
+#MaxSessions 10
+・
+・省略
+・
+# To disable tunneled clear text passwords, change to no here!
 PasswordAuthentication yes <span class="text_color_red">//←「PasswordAuthentication no」変更⇒「PasswordAuthentication yes」</span>
+#PermitEmptyPasswords no
 PasswordAuthentication yes <span class="text_color_red">//←「PasswordAuthentication no」変更⇒「PasswordAuthentication yes」</span>
 ・
 ・省略
