@@ -288,19 +288,46 @@ wordpress/wp-links-opml.php</code></pre>
 <pre class="pre"><code># mv wordpress /var/www/html</code></pre>
 <!-- /code/ -->
         </li>
-        <li>ディレクトリにSELinuxのコンテキストを設定
+        <li>「/var/www/html/wordpress」ディレクトリの所有者変更
 <!-- code -->
-<pre class="pre"><code># semanage fcontext -a -t httpd_sys_content_t '/var/www/html(/.*)?'</code></pre>
+<pre class="pre"><code># chown -R apache:apache /var/www/html/wordpress/</code></pre>
 <!-- /code/ -->
 
 <!-- code -->
-<pre class="pre"><code># restorecon -Rv /var/www/html
-Relabeled /var/www/html/wordpress from unconfined_u:object_r:admin_home_t:s0 to unconfined_u:object_r:httpd_sys_content_t:s0
-・
-・省略
-・
-Relabeled /var/www/html/wordpress/wp-links-opml.php from unconfined_u:object_r:admin_home_t:s0 to unconfined_u:object_r:httpd_sys_content_t:s0</code></pre>
+<pre class="pre"><code># ls -la /var/www/html/wordpress/
+合計 212
+drwxr-xr-x.  5 apache apache  4096  1月  2 00:00 .
+drwxr-xr-x.  3 root   root      23  2月 17 02:08 ..
+-rw-r--r--.  1 apache apache   420 11月 30  2017 index.php
+-rw-r--r--.  1 apache apache 19935  1月  1  2019 license.txt
+-rw-r--r--.  1 apache apache 10180  1月  2 00:00 readme.html
+-rw-r--r--.  1 apache apache  6939  9月  2 20:41 wp-activate.php
+drwxr-xr-x.  9 apache apache  4096  1月  2 00:00 wp-admin
+-rw-r--r--.  1 apache apache   369 11月 30  2017 wp-blog-header.php
+-rw-r--r--.  1 apache apache  2283  1月 20  2019 wp-comments-post.php
+-rw-r--r--.  1 apache apache  3944  1月  2 00:00 wp-config-sample.php
+drwxr-xr-x.  5 apache apache    69  1月  2 00:00 wp-content
+-rw-r--r--.  1 apache apache  3955 10月 10 18:52 wp-cron.php
+drwxr-xr-x. 20 apache apache  8192  1月  2 00:00 wp-includes
+-rw-r--r--.  1 apache apache  2504  9月  2 20:41 wp-links-opml.php
+-rw-r--r--.  1 apache apache  3326  9月  2 20:41 wp-load.php
+-rw-r--r--.  1 apache apache 47597 12月  9 08:30 wp-login.php
+-rw-r--r--.  1 apache apache  8483  9月  2 20:41 wp-mail.php
+-rw-r--r--.  1 apache apache 19120 10月 15 11:37 wp-settings.php
+-rw-r--r--.  1 apache apache 31112  9月  2 20:41 wp-signup.php
+-rw-r--r--.  1 apache apache  4764 11月 30  2017 wp-trackback.php
+-rw-r--r--.  1 apache apache  3150  7月  1  2019 xmlrpc.php</code></pre>
 <!-- /code/ -->
+        </li>
+        <li>ディレクトリにSELinuxのコンテキストを設定
+<!-- code -->
+<pre class="pre"><code># chcon -R -t httpd_sys_content_t /var/www/html/wordpress</code></pre>
+<!-- /code/ -->
+
+<!-- code -->
+<pre><code># chcon -R -t httpd_sys_rw_content_t /var/www/html/wordpress</code></pre>
+<!-- /code/ -->
+
         </li>
         <li>ブラウザでhttp://192.168.56.28/wordpress/にアクセス</li>
       </ol>
