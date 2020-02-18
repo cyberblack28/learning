@@ -256,16 +256,16 @@ zone "56.168.192.in-addr.arpa" {
    CGroup: /system.slice/NetworkManager.service
            mq12198 /usr/sbin/NetworkManager --no-daemon
 
- 2月 06 21:27:29 localhost.localdomain NetworkManager[12198]: <info>  [1581042449.9974] device (enp0s3): state change: secondaries -> activated (reason 'non>
- 2月 06 21:27:29 localhost.localdomain NetworkManager[12198]: <info>  [1581042449.9980] manager: NetworkManager state is now CONNECTED_SITE
- 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: <info>  [1581042450.0315] device (enp0s3): Activation: successful, device activated.
- 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: <info>  [1581042450.0322] manager: NetworkManager state is now CONNECTED_GLOBAL
- 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: <info>  [1581042450.0327] device (enp0s8): state change: config -> ip-config (reason 'none', s>
- 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: <info>  [1581042450.0337] device (enp0s8): state change: ip-config -> ip-check (reason 'none',>
- 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: <info>  [1581042450.0821] device (enp0s8): state change: ip-check -> secondaries (reason 'none>
- 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: <info>  [1581042450.0823] device (enp0s8): state change: secondaries -> activated (reason 'non>
- 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: <info>  [1581042450.0874] device (enp0s8): Activation: successful, device activated.
- 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: <info>  [1581042450.0880] manager: startup complete
+ 2月 06 21:27:29 localhost.localdomain NetworkManager[12198]: &lt;info&gt;  [1581042449.9974] device (enp0s3): state change: secondaries -> activated (reason 'non>
+ 2月 06 21:27:29 localhost.localdomain NetworkManager[12198]: &lt;info&gt;  [1581042449.9980] manager: NetworkManager state is now CONNECTED_SITE
+ 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: &lt;info&gt;  [1581042450.0315] device (enp0s3): Activation: successful, device activated.
+ 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: &lt;info&gt;  [1581042450.0322] manager: NetworkManager state is now CONNECTED_GLOBAL
+ 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: &lt;info&gt;  [1581042450.0327] device (enp0s8): state change: config -> ip-config (reason 'none', s>
+ 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: &lt;info&gt;  [1581042450.0337] device (enp0s8): state change: ip-config -> ip-check (reason 'none',>
+ 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: &lt;info&gt;  [1581042450.0821] device (enp0s8): state change: ip-check -> secondaries (reason 'none>
+ 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: &lt;info&gt;  [1581042450.0823] device (enp0s8): state change: secondaries -> activated (reason 'non>
+ 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: &lt;info&gt;  [1581042450.0874] device (enp0s8): Activation: successful, device activated.
+ 2月 06 21:27:30 localhost.localdomain NetworkManager[12198]: &lt;info&gt;  [1581042450.0880] manager: startup complete
 <span class="text_color_red">//[q]キーを入力して終了</span></code></pre>
 <!-- /code/ -->
         </li>
@@ -303,6 +303,7 @@ nameserver 192.168.56.28
 <!-- /code/ -->
         </li>
         <li>ゾーンファイルの作成
+<!-- code -->
 <pre class="pre"><code># vim /var/named/internal.zone
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -320,8 +321,10 @@ ns      IN  A     192.168.56.28
 www     IN  A     192.168.56.28
 ftp     IN  A     192.168.56.29
 --------------------[Esc + :wq]で保存終了します。-------------------------------------------------------------------------</code></pre>
+<!-- /code/ -->
         </li>
         <li>ゾーンファイル(逆引き)の作成
+<!-- code -->
 <pre class="pre"><code># vim /var/named/internal.rev
 
 -------------------------------------------------------------------------------------------------------------------------
@@ -337,12 +340,15 @@ $TTL 86400
 28	IN  PTR  www.example.com.
 29	IN  PTR  ftp.example.com.
 --------------------[Esc + :wq]で保存終了します。-------------------------------------------------------------------------</code></pre>
+<!-- /code/ -->
         </li>
         <li>BINDの再起動
-
+<!-- code -->
 <pre class="pre"><code># systemctl restart named.service</code></pre>
+<!-- /code/ -->
 
-<pre class="pre"><code># systemctl status named.service
+<!-- code -->
+<pre><code># systemctl status named.service
 ● named.service - Berkeley Internet Name Domain (DNS)
    Loaded: loaded (/usr/lib/systemd/system/named.service; enabled; vendor preset: disabled)
    Active: active (running) since Thu 2020-02-06 21:29:51 EST; 7s ago
@@ -366,8 +372,10 @@ $TTL 86400
  2月 06 21:29:51 localhost.localdomain named[12336]: managed-keys-zone: Key 20326 for zone . acceptance timer complete: key now trusted
  2月 06 21:29:51 localhost.localdomain named[12336]: resolver priming query complete
 <span class="text_color_red">//[q]キーを入力して終了</span></code></pre>
+<!-- /code/ -->
         </li>
         <li>nslookupコマンドで確認（正引）
+<!-- code -->
 <pre class="pre"><code># nslookup
 &gt; server 192.168.56.28
 Default server: 192.168.56.28
@@ -379,8 +387,10 @@ Address:        192.168.56.18#53
 Name:   www.example.com
 Address: 192.168.56.28
 &gt; exit</code></pre>
+<!-- /code/ -->
         </li>
         <li>nslookupコマンドで確認（逆引）
+<!-- code -->
 <pre class="pre"><code># nslookup
 &gt; server 192.168.56.28
 Default server: 192.168.56.28
@@ -390,18 +400,23 @@ Address: 192.168.56.28#53
 &gt; 192.168.56.29
 29.56.168.192.in-addr.arpa      name = ftp.example.com.
 &gt; exit</code></pre>
+<!-- /code/ -->
         </li>
         <li>外部からも名前解決できるようにfirewalldでdnsを解放
+<!-- code -->
 <pre class="pre"><code># firewall-cmd --add-service=dns --zone=public --permanent
 success</code></pre>
+<!-- /code/ -->
         </li>
         <li>設定を反映
+<!-- code -->
 <pre class="pre"><code># firewall-cmd --reload
 success</code></pre>
+<!-- /code/ -->
         </li>
       </ol>
 
-      <p class="text_align_center"><a href="../kouki.html">後期トップへ戻る</a></p>
+      <p class="text_align_center"><a href="../kouki.html">後期演習トップへ戻る</a></p>
 
       <p class="text_align_center"><a href="../index.html">トップへ戻る</a></p>
 
