@@ -89,15 +89,6 @@ hr {
  padding: 10px;
 }
 
-.contents_area p {
- padding-top: 10px;
- color:rgb(255, 255, 255);
-}
-
-.text_color_p {
-  color: rgb(0, 0, 0);
-}
-
 .text_color_red {
   color: rgb(236, 17, 17);
 }

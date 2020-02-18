@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>MariaDBのインストール</title>
+    <title>2.EC-CUBE環境構築</title>
 
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -248,22 +248,22 @@ MariaDB [(none)]>
 <!-- /code/ -->
 
 <!-- code -->
-<pre class="pre"><code># MariaDB [(none)]> CREATE DATABASE eccube;
+<pre><code># MariaDB [(none)]> CREATE DATABASE eccube;
 Query OK, 1 row affected (0.00 sec)</code></pre>
 <!-- /code/ -->
 
 <!-- code -->
-<pre class="pre"><code># MariaDB [(none)]> GRANT ALL PRIVILEGES ON eccube.*TO 'eccube'@'localhost' IDENTIFIED BY 'eccube';
+<pre><code># MariaDB [(none)]> GRANT ALL PRIVILEGES ON eccube.*TO 'eccube'@'localhost' IDENTIFIED BY 'eccube';
 Query OK, 0 rows affected (0.01 sec)</code></pre>
 <!-- /code/ -->
 
 <!-- code -->
-<pre class="pre"><code># MariaDB [(none)]> FLUSH PRIVILEGES;
+<pre><code># MariaDB [(none)]> FLUSH PRIVILEGES;
 Query OK, 0 rows affected (0.00 sec)</code></pre>
 <!-- /code/ -->
 
 <!-- code -->
-<pre class="pre"><code># MariaDB [(none)]> exit
+<pre><code># MariaDB [(none)]> exit
 Bye</code></pre>
 <!-- /code/ -->
         </li>

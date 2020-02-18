@@ -28,44 +28,57 @@
 
     <div class="contents_area">
 
-      <h2>1.WordPress環境構築</h2>
+      <h2>1.演習環境について</h2>
+
       <ul>
-        <li><h3><a href="section01/training01.html">Nginxのインストール</a></h3></li>
-        <li><h3><a href="section01/training02.html">PHPのインストール</a></h3></li>
-        <li><h3><a href="section01/training03.html">MariaDBのインストール</a></h3></li>
-        <li><h3><a href="section01/training04.html">WordPressのインストール</a></h3></li>
+        <li>仮想マシン利用をベースとしてます。下記1~5については、パブリッククラウド等のインスタンス「vCPU1,Mem2GB以上」、3については、2台のインスタンスが必要となります。6のKubernetesについては「vCPU2,Mem4GB以上」2台のインスタンスが最低必要です。</li>
+        <li>OSは、下記1~5については、CentOS7.5以上を推奨、4、5についてはUbuntu18.04LTS以上でも可能。6については、Ubuntu18.04LTS以上を推奨とします。</li>
       </ul>
 
-      <h2>2.EC-CUBE環境構築</h2>
+      <h2>2.演習内容について</h2>
+
+      <p>以下各ページの内容に従って実行してください。</p>
+
+      <h3>1.WordPress環境構築</h3>
       <ul>
-        <li><h3><a href="section02/training01.html">Apache Web Serverのインストール</a></h3></li>
-        <li><h3><a href="section02/training02.html">PHPのインストール</a></h3></li>
-        <li><h3><a href="section02/training03.html">MariaDBのインストール</a></h3></li>
-        <li><h3><a href="section02/training04.html">EC-CUBEのインストール</a></h3></li>
+        <li><a href="section01/training01.html">Nginxのインストール</a></li>
+        <li><a href="section01/training02.html">PHPのインストール</a></li>
+        <li><a href="section01/training03.html">MariaDBのインストール</a></li>
+        <li><a href="section01/training04.html">WordPressのインストール</a></li>
       </ul>
 
-      <h2>3.Ansible環境構築</h2>
+      <h3>2.EC-CUBE環境構築</h3>
       <ul>
-        <li><h3><a href="section03/training00.html">sshの設定変更</a></h3></li>
-        <li><h3><a href="section03/training01.html">ansible-serverの作成</a></h3></li>
-        <li><h3><a href="section03/training02.html">Playbookの作成・WordPress環境構築</a></h3></li>
+        <li><a href="section02/training01.html">Apache Web Serverのインストール</a></li>
+        <li><a href="section02/training02.html">PHPのインストール</a></li>
+        <li><a href="section02/training03.html">MariaDBのインストール</a></li>
+        <li><a href="section02/training04.html">EC-CUBEのインストール</a></li>
       </ul>
 
-      <h2>4.Docker環境構築</h2>
+      <h3>3.Ansible環境構築</h3>
+      <p>2台のインスタンスを用意します。ホスト名はansible-serverとansible-hostとします。（ホスト名は任意名で構いません）</p>
       <ul>
-        <li><h3><a href="https://qiita.com/cyberblack28/items/7ed6fbc75503bf9418b3" target="_blank">Docker pull commit push Dockerfile WordPress環境をつくる 新コマンド編</a></h3></li>
+        <li><a href="section03/training01.html">sshの設定変更</a></li>
+        <li><a href="section03/training02.html">ansible-serverの作成</a></li>
+        <li><a href="section03/training03.html">Playbookの作成・WordPress環境構築</a></li>
       </ul>
 
-      <h2>5.DockerCompose環境構築</h2>
+      <h3>4.Docker環境構築</h3>
       <ul>
-        <li><h3><a href="https://qiita.com/cyberblack28/items/76cde5637fa1e58cc85a" target="_blank">Docker pull commit push Dockerfile WordPress環境をつくる～Docker Compose～ 新コマンド編</a></h3></li>
+        <li><a href="https://qiita.com/cyberblack28/items/7ed6fbc75503bf9418b3" target="_blank">Docker pull commit push Dockerfile WordPress環境をつくる 新コマンド編</a></li>
       </ul>
 
-      <h2>6.Kubernetes環境構築</h2>
+      <h3>5.DockerCompose環境構築</h3>
       <ul>
-        <li><h3><a href="https://qiita.com/cyberblack28/private/bac211f4b9d12789a9c2" target="_blank">Kubernetes環境構築</a></h3></li>
-        <li><h3><a href="https://qiita.com/cyberblack28/private/739e40f45e6743856274" target="_blank">kubectlコマンド演習</a></h3></li>
-        <li><h3><a href="https://qiita.com/cyberblack28/private/0baa2ff5ed28402cdf2b" target="_blank">WordPress環境構築</a></h3></li>
+        <li><a href="https://qiita.com/cyberblack28/items/76cde5637fa1e58cc85a" target="_blank">Docker pull commit push Dockerfile WordPress環境をつくる～Docker Compose～ 新コマンド編</a></li>
+      </ul>
+
+      <h3>6.Kubernetes環境構築</h3>
+      <p>2台のインスタンスを用意します。ホスト名はrancher-serverとrancher-hostとします。（ホスト名は任意名で構いません）</p>
+      <ul>
+        <li><a href="https://qiita.com/cyberblack28/private/bac211f4b9d12789a9c2" target="_blank">Kubernetes環境構築</a></li>
+        <li><a href="https://qiita.com/cyberblack28/private/739e40f45e6743856274" target="_blank">kubectlコマンド演習</a></li>
+        <li><a href="https://qiita.com/cyberblack28/private/0baa2ff5ed28402cdf2b" target="_blank">WordPress環境構築</a></li>
       </ul>
 
     </div>
