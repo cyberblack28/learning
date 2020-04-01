@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>4.Docker環境構築</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/custom.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header id="header">
+      <header-title></header-title>
+    </header>
+
+    <hr>
+
+    <div class="contents_area">
+      <h2>4.Docker環境構築</h2>
+
+      <h3>1,Dockerのインストール</h3>
+
+      <h4 class="h4_title">Dockerインストール</h4>
+
+      <ol>
+        <li>インストールスクリプトのダウンロード
+<!-- code -->
+<pre class="pre"><code># curl -fsSL get.docker.com -o get-docker.sh</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>スクリプトの実行<br>
+<!-- code -->
+<pre class="pre"><code># sh get-docker.sh</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>Dockerのバージョンを確認
+<!-- code -->
+<pre class="pre"><code># docker version</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>システム情報を表示
+<!-- code -->
+<pre class="pre"><code># docker system info</code></pre>          
+<!-- /code/ -->
+        </li>
+      </ol>
+
+      <h3>2.Docker Hubからコンテナーイメージのpull</h3>
+
+      <h4 class="h4_title">Docker Hubからコンテナーイメージのpull</h4>
+
+      <ol>
+        <li>searchサブコマンドでレジストリーを検索
+<!-- code -->
+<pre class="pre"><code># docker search linaction</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>イメージのダウンロード
+<!-- code -->
+<pre class="pre"><code># docker image pull -a linaction/centos</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>ダウンロードしたイメージを確認
+<!-- code -->
+<pre class="pre"><code># docker image ls</code></pre>          
+<!-- /code/ -->
+        </li>
+      </ol>
+
+      <h3>3.コンテナーの起動</h3>
+
+      <h4 class="h4_title">コンテナーを起動</h4>
+
+      <ol>
+        <li>コンテナーを起動
+<!-- code -->
+<pre class="pre"><code># docker container run -it --name centos01 linaction/centos:centos6 /bin/bash</code></pre>          
+<!-- /code/ -->
+        </li>
+      </ol>
+
+      <h3>4.起動したコンテナーの確認</h3>
+
+      <h4 class="h4_title">起動したコンテナーの確認</h4>
+
+      <ol>
+        <li>コンテナー環境のOSのバージョンを確認
+<!-- code -->
+<pre class="pre"><code>[root@3c6e83d560cc /]# cat /etc/redhat-release</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>コンテナー内のプロセスを確認
+<!-- code -->
+<pre class="pre"><code>[root@3c6e83d560cc /]# ps -ef</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>コンテナー環境のネットワークを確認
+<!-- code -->
+<pre class="pre"><code>[root@3c6e83d560cc /]# ifconfig eth0</code></pre>          
+<!-- /code/ -->
+        </li>
+      </ol>
+
+      <h3>5.コンテナーとLinuxホストの切替</h3>
+
+      <h4 class="h4_title">コンテナーとLinuxホストの切替</h4>
+
+      <ol>
+        <li>コンテナーの/bin/bashから抜けてホストLinuxに戻る
+<!-- code -->
+<pre class="pre"><code>Ctrlキーを押したまま、PとQを順番に押す。</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>ホストLinuxから再度コンテナー内のbashに接続
+<!-- code -->
+<pre class="pre"><code># docker container attach centos01</code></pre>          
+<!-- /code/ -->
+        </li>
+      </ol>
+
+      <h3>6.コンテナーの起動と停止</h3>
+
+      <h4 class="h4_title">コンテナーの起動と停止</h4>
+
+      <ol>
+        <li>Linuxホストに戻る
+<!-- code -->
+<pre class="pre"><code>Ctrlキーを押したまま、PとQを順番に押す。</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>コンテナーを停止
+<!-- code -->
+<pre class="pre"><code># docker container stop centos01</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>停止したコンテナーを確認
+<!-- code -->
+<pre class="pre"><code># docker container ls -a</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>コンテナーを起動
+<!-- code -->
+<pre class="pre"><code># docker container start centos01</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>起動したコンテナーを確認
+<!-- code -->
+<pre class="pre"><code># docker container ls</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>docker execコマンド
+<!-- code -->
+<pre class="pre"><code># docker container exec -it centos01 /bin/bash</code></pre>          
+<!-- /code/ -->
+<!-- code -->
+<pre class="pre"><code>[root@3c6e83d560cc /]# ps -ef</code></pre>          
+<!-- /code/ -->
+<!-- code -->
+<pre class="pre"><code>[root@3c6e83d560cc /]# exit</code></pre>          
+<!-- /code/ -->
+        </li>
+      </ol>
+
+      <h3>7.Dockerコマンド演習</h3>
+
+      <h4 class="h4_title">Nginxコンテナーの作成</h4>
+
+      <ol>
+        <li>「practice-nginx」という名前の最新版のnginxイメージ、ポート8080のコンテナを作成
+<!-- code -->
+<pre class="pre"><code># docker run --name practice-nginx -d -p 8080:80 nginx</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「practice-nginx」コンテナーが起動していることを確認
+<!-- code -->
+<pre class="pre"><code># docker container ls</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「practice-nginx」コンテナーが8080でポートフォワーディングしているか確認
+<!-- code -->
+<pre class="pre"><code># curl localhost:8080</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「practice-nginx」コンテナーのログを確認
+<!-- code -->
+<pre class="pre"><code># docker container logs practice-nginx</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「practice-nginx」コンテナーの詳細情報を確認
+<!-- code -->
+<pre class="pre"><code># docker inspect practice-nginx</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「practice-nginx」コンテナーのリソース情報（ライブストリーム）を確認
+<!-- code -->
+<pre class="pre"><code># docker container stats practice-nginx</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「practice-nginx」コンテナーの停止
+<!-- code -->
+<pre class="pre"><code># docker container stop practice-nginx</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「practice-nginx」コンテナーの削除
+<!-- code -->
+<pre class="pre"><code># docker container rm practice-nginx</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「practice-nginx」コンテナーの削除確認
+<!-- code -->
+<pre class="pre"><code># docker container ls</code></pre>          
+<!-- /code/ -->
+        </li>
+      </ol>
+
+      <h4 class="h4_title">DockerfleからNginxコンテナの作成</h4>
+
+      <ol>
+        <li>「index.html」の作成
+<!-- code -->
+<pre class="pre"><code># vim index.html</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「Dockerfile」の作成
+<!-- code -->
+<pre class="pre"><code># vim Dockerfile</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「dockerfile-nginx」（任意名）イメージのビルド
+<!-- code -->
+<pre class="pre"><code># docker image build -t dockerfile-nginx .</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「dockerfile-nginx」イメージを基に「practice-nginx」という名前、ポート8080コンテナーを起動
+<!-- code -->
+<pre class="pre"><code># docker run --name practice-nginx -d -p 8080:80 dockerfile-nginx</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>8080でアクセスして、オリジナル「index.html」が表示されることを確認
+<!-- code -->
+<pre class="pre"><code># curl localhost:8080</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「practice-nginx」コンテナーの停止
+<!-- code -->
+<pre class="pre"><code># docker container stop practice-nginx</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「practice-nginx」コンテナーの削除
+<!-- code -->
+<pre class="pre"><code># docker container rm practice-nginx</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「practice-nginx」コンテナーの削除確認
+<!-- code -->
+<pre class="pre"><code># docker container ls</code></pre>          
+<!-- /code/ -->
+        </li>
+      </ol>
+
+      <h4 class="h4_title">multi-stage builds</h4>
+
+      <ol>
+        <li>サンプルGoアプリケーションの作成
+<!-- code -->
+<pre class="pre"><code># vim main.go</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「Dockerfile」の作成
+<!-- code -->
+<pre class="pre"><code># vim Dockerfile</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「hello」という名前でビルド実行
+<!-- code -->
+<pre class="pre"><code># docker image build -t hello .</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>「hello」コンテナーの起動（処理完了と同時にコンテナの削除を実施）
+<!-- code -->
+<pre class="pre"><code># docker run -it --rm hello</code></pre>          
+<!-- /code/ -->
+        </li>
+        <li>イメージの確認
+<!-- code -->
+<pre class="pre"><code># docker image ls</code></pre>          
+<!-- /code/ -->
+        </li>
+
+
+
+
+
+
+
+
+
+
+
+
+      <p class="text_align_center"><a href="../index.html">トップへ戻る</a></p>
+
+    </div>
+
+    <hr>
+
+    <footer class="footer_area">
+      <p class="text_align_center">&copy; cyberblack28</p>
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>
