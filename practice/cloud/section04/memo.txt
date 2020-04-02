@@ -1,7 +1,0 @@
-ID: cloudnativedays@gmail.com
-PASS : cndj2020pr
-
-nabemon@innerstudio.jp
-
-メモ
-https://github.com/kubernetes-native-testbed/kubernetes-native-testbed/blob/develop/manifests/infra/instances/ci.yaml#L23
