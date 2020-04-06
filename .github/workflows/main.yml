@@ -23,5 +23,4 @@ jobs:
           dpkg -i hugo_${HUGO_VERSION}_Linux-64bit.deb
           git submodule update --init
           hugo -v
-          cd themes
           git clone https://github.com/thingsym/hugo-theme-techdoc.git
