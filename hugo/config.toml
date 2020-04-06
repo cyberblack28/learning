@@ -1,4 +1,4 @@
-baseURL = "https://www.cyberblack.net/learning/hugo/"
+baseURL = "https://www.cyberblack.net/hugo/"
 
 languageCode = "en-us"
 DefaultContentLanguage = "en"
