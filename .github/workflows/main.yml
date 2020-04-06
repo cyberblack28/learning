@@ -1,26 +1,30 @@
-name: Deploy Pages
+name: github pages
 
 on:
   push:
     branches:
-    - master
+      - master
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-18.04
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: Build and Deploy
-      uses: JamesIves/github-pages-deploy-action@master
-      env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: docs
-        HUGO_VERSION: 0.68.3
-        BUILD_SCRIPT: |
-          wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.deb
-          dpkg -i hugo_${HUGO_VERSION}_Linux-64bit.deb
-          git submodule update --init
-          hugo -v
-          git clone https://github.com/thingsym/hugo-theme-techdoc.git
+      - uses: actions/checkout@v2
+        with:
+          submodules: true  # Fetch Hugo themes
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.68.3'
+          # extended: true
+
+      - name: Build
+        run: hugo --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.ACCOUNT_TOKEN }}
+          publish_dir: ./docs
