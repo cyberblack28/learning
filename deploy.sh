@@ -12,7 +12,7 @@ printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
 hugo -t hugo-theme-techdoc --minify --enableGitInfo
 
 # Go To Public folder
-cd public
+cd docs
 
 # Add changes to git.
 git add .
