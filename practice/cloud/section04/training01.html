@@ -43,8 +43,7 @@
 			</li>
 			<li>スクリプトの実行<br>
 				<!-- code -->
-				<pre class="pre"><code># sh get-docker.sh
-# Executing docker install script, commit: 442e66405c304fa92af8aadaa1d9b31bf4b0ad94
+				<pre class="pre"><code># # Executing docker install script, commit: 26ff363bcf3b3f5a00498ac43694bf1c7d9ce16c
 + sh -c apt-get update -qq >/dev/null
 + sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
 + sh -c curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" | apt-key add -qq - >/dev/null
@@ -55,21 +54,21 @@ Warning: apt-key output should not be parsed (stdout is not a terminal)
 + sh -c apt-get install -y -qq --no-install-recommends docker-ce >/dev/null
 + sh -c docker version
 Client: Docker Engine - Community
- Version:           19.03.8
+ Version:           19.03.12
  API version:       1.40
- Go version:        go1.12.17
- Git commit:        afacb8b7f0
- Built:             Wed Mar 11 01:25:46 2020
+ Go version:        go1.13.10
+ Git commit:        48a66213fe
+ Built:             Mon Jun 22 15:45:36 2020
  OS/Arch:           linux/amd64
  Experimental:      false
 
 Server: Docker Engine - Community
  Engine:
-  Version:          19.03.8
+  Version:          19.03.12
   API version:      1.40 (minimum version 1.12)
-  Go version:       go1.12.17
-  Git commit:       afacb8b7f0
-  Built:            Wed Mar 11 01:24:19 2020
+  Go version:       go1.13.10
+  Git commit:       48a66213fe
+  Built:            Mon Jun 22 15:44:07 2020
   OS/Arch:          linux/amd64
   Experimental:     false
  containerd:
@@ -99,21 +98,21 @@ WARNING: Adding a user to the "docker" group will grant the ability to run
 				<!-- code -->
 				<pre class="pre"><code># docker version
 Client: Docker Engine - Community
- Version:           19.03.8
+ Version:           19.03.12
  API version:       1.40
- Go version:        go1.12.17
- Git commit:        afacb8b7f0
- Built:             Wed Mar 11 01:25:46 2020
+ Go version:        go1.13.10
+ Git commit:        48a66213fe
+ Built:             Mon Jun 22 15:45:36 2020
  OS/Arch:           linux/amd64
  Experimental:      false
 
 Server: Docker Engine - Community
  Engine:
-  Version:          19.03.8
+  Version:          19.03.12
   API version:      1.40 (minimum version 1.12)
-  Go version:       go1.12.17
-  Git commit:       afacb8b7f0
-  Built:            Wed Mar 11 01:24:19 2020
+  Go version:       go1.13.10
+  Git commit:       48a66213fe
+  Built:            Mon Jun 22 15:44:07 2020
   OS/Arch:          linux/amd64
   Experimental:     false
  containerd:
@@ -139,9 +138,9 @@ Server:
   Paused: 0
   Stopped: 0
  Images: 0
- Server Version: 19.03.8
+ Server Version: 19.03.12
  Storage Driver: overlay2
-  Backing Filesystem: &lt;unknown&lt;
+  Backing Filesystem: extfs
   Supports d_type: true
   Native Overlay Diff: true
  Logging Driver: json-file
@@ -168,7 +167,7 @@ Server:
  CPUs: 2
  Total Memory: 3.852GiB
  Name: docker
- ID: IU62:N5PN:AMQR:WCZG:MXJD:JUDG:S33I:NC7Z:IBLQ:LQHO:IU63:LQP6
+ ID: Q5DI:7KRU:NKMM:SJH4:7OZV:USRX:RNGT:JN6M:IYFB:7STM:5BUJ:4HDC
  Docker Root Dir: /var/lib/docker
  Debug Mode: false
  Registry: https://index.docker.io/v1/
