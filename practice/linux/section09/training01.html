@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>9.Linux Filesystem</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/custom.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header id="header">
+      <header-title></header-title>
+    </header>
+
+    <hr>
+
+    <div class="contents_area">
+      <h2>9.Linux Filesystem</h2>
+
+      <h3>演習1 Linux Filesystem</h3>
+
+      <h4 class="h4_title">1.ディスク追加の確認</h4>
+      
+      <ol>
+        <li>rootユーザに変更してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ su -
+パスワード:tokyoec
+#
+</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>ディスク（VHD）が追加されているか確認します。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ll /dev/sd*
+brw-rw----. 1 root disk 8,  0  9月 14 01:30 /dev/sda
+brw-rw----. 1 root disk 8,  1  9月 14 01:30 /dev/sda1
+brw-rw----. 1 root disk 8,  2  9月 14 01:30 /dev/sda2
+brw-rw----. 1 root disk 8, 16  9月 14 01:30 /dev/sdb</span></code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+      </ol>
+
+      <h4 class="h4_title">2.fdiskコマンド</h4>
+      
+      <ol>
+        <li>/dev/sdbに対してfdiskコマンドを実行してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># fdisk /dev/sdb
+fdisk (util-linux 2.32.1) へようこそ。
+ここで設定した内容は、書き込みコマンドを実行するまでメモリのみに保持されます。
+書き込みコマンドを使用する際は、注意して実行してください。
+
+デバイスには認識可能なパーティション情報が含まれていません。
+新しい DOS ディスクラベルを作成しました。識別子は 0x948f7984 です。
+
+コマンド (m でヘルプ): n <span class="text_color_red">//nを入力します。</span>
+パーティションタイプ
+   p   基本パーティション (0 プライマリ, 0 拡張, 4 空き)
+   e   拡張領域 (論理パーティションが入ります)
+選択 (既定値 p): p <span class="text_color_red">//pを入力します。</span>
+パーティション番号 (1-4, 既定値 1): 1 <span class="text_color_red">//1を入力します。</span>
+最初のセクタ (2048-16777215, 既定値 2048): 2048
+最終セクタ, +セクタ番号 または +サイズ{K,M,G,T,P} (2048-16777215, 既定値 16777215): 16777215
+
+新しいパーティション 1 をタイプ Linux、サイズ 8 GiB で作成しました。
+
+コマンド (m でヘルプ): t <span class="text_color_red">//tを入力します。</span>
+パーティション 1 を選択
+16 進数コード (L で利用可能なコードを一覧表示します): L <span class="text_color_red">//Lを入力します。</span>
+
+ 0  空              24  NEC DOS         81  Minix / 古い Li bf  Solaris
+ 1  FAT12           27  隠し NTFS WinRE 82  Linux スワップ  c1  DRDOS/sec (FAT-
+ 2  XENIX root      39  Plan 9          83  Linux           c4  DRDOS/sec (FAT-
+ 3  XENIX usr       3c  PartitionMagic  84  隠し OS/2 また  c6  DRDOS/sec (FAT-
+ 4  FAT16 &lt;32M      40  Venix 80286     85  Linux 拡張領域  c7  Syrinx
+ 5  拡張領域        41  PPC PReP Boot   86  NTFS ボリューム da  非 FS データ
+ 6  FAT16           42  SFS             87  NTFS ボリューム db  CP/M / CTOS / .
+ 7  HPFS/NTFS/exFAT 4d  QNX4.x          88  Linux プレーン  de  Dell ユーティリ
+ 8  AIX             4e  QNX4.x 第2パー  8e  Linux LVM       df  BootIt
+ 9  AIX 起動可能    4f  QNX4.x 第3パー  93  Amoeba          e1  DOS access
+ a  OS/2 ブートマネ 50  OnTrack DM      94  Amoeba BBT      e3  DOS R/O
+ b  W95 FAT32       51  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor
+ c  W95 FAT32 (LBA) 52  CP/M            a0  IBM Thinkpad ハ ea  Rufus alignment
+ e  W95 FAT16 (LBA) 53  OnTrack DM6 Aux a5  FreeBSD         eb  BeOS fs
+ f  W95 拡張領域 (L 54  OnTrackDM6      a6  OpenBSD         ee  GPT
+10  OPUS            55  EZ-Drive        a7  NeXTSTEP        ef  EFI (FAT-12/16/
+11  隠し FAT12      56  Golden Bow      a8  Darwin UFS      f0  Linux/PA-RISC
+12  Compaq 診断     5c  Priam Edisk     a9  NetBSD          f1  SpeedStor
+14  隠し FAT16 &lt;32M 61  SpeedStor       ab  Darwin ブート   f4  SpeedStor
+16  隠し FAT16      63  GNU HURD または af  HFS / HFS+      f2  DOS セカンダリ
+17  隠し HPFS/NTFS  64  Novell Netware  b7  BSDI fs         fb  VMware VMFS
+18  AST SmartSleep  65  Novell Netware  b8  BSDI スワップ   fc  VMware VMKCORE
+1b  隠し W95 FAT32  70  DiskSecure Mult bb  隠し Boot Wizar fd  Linux raid 自動
+1c  隠し W95 FAT32  75  PC/IX           bc  Acronis FAT32 L fe  LANstep
+1e  隠し W95 FAT16  80  古い Minix      be  Solaris ブート  ff  BBT
+16 進数コード (L で利用可能なコードを一覧表示します): 83 <span class="text_color_red">//83を入力します。</span>
+パーティションのタイプを 'Linux' から 'Linux' に変更しました。
+
+コマンド (m でヘルプ): w <span class="text_color_red">//wを入力します。</span>
+パーティション情報が変更されました。
+ioctl() を呼び出してパーティション情報を再読み込みします。
+ディスクを同期しています。</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>/dev/sdb1が作成されていることを確認します。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># ll /dev/sd*
+brw-rw----. 1 root disk 8,  0  9月 14 01:30 /dev/sda
+brw-rw----. 1 root disk 8,  1  9月 14 01:30 /dev/sda1
+brw-rw----. 1 root disk 8,  2  9月 14 01:30 /dev/sda2
+brw-rw----. 1 root disk 8, 16  9月 14 01:59 /dev/sdb
+brw-rw----. 1 root disk 8, 17  9月 14 01:59 /dev/sdb1</span></code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+      </ol>
+
+      <h4 class="h4_title">3.ディスクフォーマット</h4>
+      
+      <ol>
+        <li>/dev/sdb1をext4形式に追加ディスクをフォーマットしてください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># mkfs -t ext4 /dev/sdb1
+mke2fs 1.45.4 (23-Sep-2019)
+Creating filesystem with 2096896 4k blocks and 524288 inodes
+Filesystem UUID: efa2b60d-28f8-4c5e-a4ae-71063021c674
+Superblock backups stored on blocks:
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information: done</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+      </ol>
+
+      <h4 class="h4_title">4.ディスクのマウント</h4>
+
+      <ol>
+        <li>/dev/sdb1を/mnt/sdb1にマウントしてください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse6" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># mkdir /mnt/sdb1</code></pre>
+
+<pre><code># mount /dev/sdb1 /mnt/sdb1</code></pre>
+
+<pre><code># ls /mnt/sdb1
+lost+found</code></pre>
+
+<pre><code># df
+ファイルシス        1K-ブロック    使用  使用可 使用% マウント位置
+devtmpfs                1906076       0 1906076    0% /dev
+tmpfs                   1934584       0 1934584    0% /dev/shm
+tmpfs                   1934584    9328 1925256    1% /run
+tmpfs                   1934584       0 1934584    0% /sys/fs/cgroup
+/dev/mapper/cl-root     6486016 4268124 2217892   66% /
+/dev/sda1                999320  249688  680820   27% /boot
+tmpfs                    386916    1180  385736    1% /run/user/42
+tmpfs                    386916       4  386912    1% /run/user/1000
+/dev/sdb1               8190392   36852 7717780    1% /mnt/sdb1</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>/dev/sdb1のUUIDを確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse7" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># blkid /dev/sdb1
+/dev/sdb1: UUID="efa2b60d-28f8-4c5e-a4ae-71063021c674" TYPE="ext4" PARTUUID="948f7984-01"</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>起動時にマウントするように/etc/fstabを編集してください。必ず/etc/fstab.orgとしてバックアップを取得してから作業しましょう。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse8" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># cp -p /etc/fstab /etc/fstab.org</code></pre>
+
+<pre><code># vim /etc/fstab
+---------------------UUIDの箇所は前項で確認したUUIDを入力します。---------------------------------
+#
+# /etc/fstab
+# Created by anaconda on Sun Aug  9 23:24:36 2020
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk/'.
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info.
+#
+# After editing this file, run 'systemctl daemon-reload' to update systemd
+# units generated from this file.
+#
+/dev/mapper/cl-root     /                       xfs     defaults        0 0
+UUID=da94ba38-9e0a-44e4-b6ee-fbcc8c74f073 /boot                   ext4    defaults        1 2
+UUID=efa2b60d-28f8-4c5e-a4ae-71063021c674 /mnt/sdb1               ext4    defaults        1 2 <span class="text_color_red">//追記箇所 前項で確認したUUIDを入力します。</span>
+/dev/mapper/cl-swap     swap                    swap    defaults        0 0
+---------------------[Esc + :wq]で保存終了-------------------------------------------------------</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>再起動後に/dev/sdb1がマウントされていること確認するために、rebootします。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse9">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse9" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code># reboot</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+        <li>reboot後に/dev/sdb1がマウントされていること確認してください。
+          <!-- accodion -->
+          <div class="accorion-position">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title accordion-toggle">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse10">Answer</a>
+                  </h4>
+                </div>
+                <div id="collapse10" class="panel-collapse collapse">
+                  <div class="panel-body">
+<pre><code>$ df
+ファイルシス        1K-ブロック    使用  使用可 使用% マウント位置
+devtmpfs                1906060       0 1906060    0% /dev
+tmpfs                   1934568       0 1934568    0% /dev/shm
+tmpfs                   1934568    9344 1925224    1% /run
+tmpfs                   1934568       0 1934568    0% /sys/fs/cgroup
+/dev/mapper/cl-root     6486016 4227980 2258036   66% /
+/dev/sdb1               8190392   36852 7717780    1% /mnt/sdb1
+/dev/sda1                999320  249688  680820   27% /boot
+tmpfs                    386912    1180  385732    1% /run/user/42
+tmpfs                    386912       4  386908    1% /run/user/1000</span></code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /accodion/ -->
+        </li>
+      </ol>
+
+      <p class="text_align_center"><a href="../zenki.html">前期演習トップへ戻る</a></p>
+
+      <p class="text_align_center"><a href="../index.html">トップへ戻る</a></p>
+
+    </div>
+
+    <hr>
+
+    <footer id="footer">
+      <footer-content></footer-content>
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>
