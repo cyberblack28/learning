@@ -179,24 +179,38 @@ Main PID: 13134 (nginx)
         </li>
         <li>リバースプロキシの設定
 <!-- code -->
-<pre class="pre"><code># vim /etc/nginx/conf.d/proxy.conf
+<pre class="pre"><code># vim /etc/nginx/nginx.conf
 
 ----------------------------------------------------------------------------------------
-server{
-  server_name    *.example.com;
-  server_name    192.168.56.29;
-  server_tokens off;
-            
-  proxy_set_header    Host    $host;
-  proxy_set_header    X-Real-IP    $remote_addr;
-  proxy_set_header    X-Forwarded-Host       $host;
-  proxy_set_header    X-Forwarded-Server    $host;
-  proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;
-            
+・
+・＜省略＞
+・
+server {
+  listen       80 default_server;
+  listen       [::]:80 default_server;
+  server_name  _;
+  root         /usr/share/nginx/html;
+
+  # Load configuration files for the default server block.
+  include /etc/nginx/default.d/*.conf;
+
+  server_tokens off; <span class="text_color_red">//「server_tokens off;」を追記</span>
+
   location / {
-    proxy_pass    http://192.168.56.29/;
+    proxy_pass http://192.168.56.19/;　<span class="text_color_red">//「proxy_pass http://192.168.56.19/;」を追記</span>
+  }
+
+  error_page 404 /404.html;
+      location = /40x.html {
+  }
+
+  error_page 500 502 503 504 /50x.html;
+      location = /50x.html {
   }
 }
+・
+・＜省略＞
+・
 -----------------------[Esc + :wq]で保存終了します。--------------------------------------</code></pre>
 <!-- /code/ -->
         </li>
@@ -216,6 +230,29 @@ success</code></pre>
 <pre class="pre"><code># firewall-cmd --reload
 success</code></pre>
 <!-- /code/ -->
+        </li>
+        <li>SELinuxの無効
+          <!-- code -->
+          <pre class="pre"><code># vim /etc/selinux/config
+----------------------------------------------------------------------------------------
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+SELINUX=disabled <span class="text_color_red">//「enforcing」を「disabled」に変更</span>
+# SELINUXTYPE= can take one of these three values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected.
+#     mls - Multi Level Security protection.
+SELINUXTYPE=Targeted
+-----------------------[Esc + :wq]で保存終了します。--------------------------------------</code></pre>
+          <!-- /code/ -->
+        </li>
+        <li>OS再起動
+          <!-- code -->
+          <pre class="pre"><code># reboot</code></pre>
+          <!-- /code/ -->
         </li>
       </ol>
 
