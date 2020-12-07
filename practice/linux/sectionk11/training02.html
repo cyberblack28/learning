@@ -50,42 +50,43 @@
         <li>jqのインストール
 <!-- code -->
 <pre class="pre"><code># dnf -y install jq
-メタデータの期限切れの最終確認: 0:00:09 時間前の 2020年02月18日 21時40分32秒 に 実施しました。
+メタデータの期限切れの最終確認: 0:48:00 時間前の 2020年12月07日 01時34分37秒 に実施しました。
 依存関係が解決しました。
-================================================================================
- パッケージ        Arch           バージョン            リポジトリー      サイズ
-================================================================================
-インストール:
- jq                x86_64         1.5-12.el8            AppStream         161 k
-依存関係のインストール:
- oniguruma         x86_64         6.8.2-1.el8           AppStream         188 k
+=============================================================================================================================================================================================================================================
+ パッケージ                                               アーキテクチャー                                      バージョン                                                    リポジトリー                                             サイズ
+=============================================================================================================================================================================================================================================
+インストール中:
+ jq                                                       x86_64                                                1.5-12.el8                                                    AppStream                                                161 k
+依存関係のインストール中:
+ oniguruma                                                x86_64                                                6.8.2-1.el8                                                   AppStream                                                188 k
 
 トランザクションの概要
-================================================================================
+=============================================================================================================================================================================================================================================
 インストール  2 パッケージ
 
 ダウンロードサイズの合計: 349 k
 インストール済みのサイズ: 1.0 M
 パッケージのダウンロード:
-(1/2): jq-1.5-12.el8.x86_64.rpm                 1.4 MB/s | 161 kB     00:00
-(2/2): oniguruma-6.8.2-1.el8.x86_64.rpm         1.6 MB/s | 188 kB     00:00
---------------------------------------------------------------------------------
-合計                                            680 kB/s | 349 kB     00:00
+(1/2): jq-1.5-12.el8.x86_64.rpm                                                                                                                                                                              1.7 MB/s | 161 kB     00:00
+(2/2): oniguruma-6.8.2-1.el8.x86_64.rpm                                                                                                                                                                      1.8 MB/s | 188 kB     00:00
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+合計                                                                                                                                                                                                         974 kB/s | 349 kB     00:00
 トランザクションの確認を実行中
 トランザクションの確認に成功しました。
 トランザクションのテストを実行中
 トランザクションのテストに成功しました。
 トランザクションを実行中
-  準備             :                                                        1/1
-  インストール中   : oniguruma-6.8.2-1.el8.x86_64                           1/2
-  scriptletの実行中: oniguruma-6.8.2-1.el8.x86_64                           1/2
-  インストール中   : jq-1.5-12.el8.x86_64                                   2/2
-  scriptletの実行中: jq-1.5-12.el8.x86_64                                   2/2
-  検証             : jq-1.5-12.el8.x86_64                                   1/2
-  検証             : oniguruma-6.8.2-1.el8.x86_64                           2/2
+  準備              :                                                                                                                                                                                                                    1/1
+  インストール中    : oniguruma-6.8.2-1.el8.x86_64                                                                                                                                                                                       1/2
+  scriptlet の実行中: oniguruma-6.8.2-1.el8.x86_64                                                                                                                                                                                       1/2
+  インストール中    : jq-1.5-12.el8.x86_64                                                                                                                                                                                               2/2
+  scriptlet の実行中: jq-1.5-12.el8.x86_64                                                                                                                                                                                               2/2
+  検証              : jq-1.5-12.el8.x86_64                                                                                                                                                                                               1/2
+  検証              : oniguruma-6.8.2-1.el8.x86_64                                                                                                                                                                                       2/2
+Installed products updated.
 
 インストール済み:
-  jq-1.5-12.el8.x86_64               oniguruma-6.8.2-1.el8.x86_64
+  jq-1.5-12.el8.x86_64                                                                                              oniguruma-6.8.2-1.el8.x86_64
 
 完了しました!</code></pre>
   <!-- /code/ -->
@@ -113,12 +114,12 @@ echo $(docker-compose --version)
 <pre class="pre"><code># sh docker-compose-install.sh
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100 19166  100 19166    0     0  67964      0 --:--:-- --:--:-- --:--:-- 67964
+100 18193    0 18193    0     0  51392      0 --:--:-- --:--:-- --:--:-- 51392
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100   617  100   617    0     0   1742      0 --:--:-- --:--:-- --:--:--  1762
-100 16.3M  100 16.3M    0     0  2621k      0  0:00:06  0:00:06 --:--:-- 3824k
-docker-compose version 1.25.4, build 8d51620a</code></pre>
+100   651  100   651    0     0   9169      0 --:--:-- --:--:-- --:--:--  9169
+100 11.6M  100 11.6M    0     0  3127k      0  0:00:03  0:00:03 --:--:-- 3537k
+docker-compose version 1.27.4, build 40524192</code></pre>
 <!-- /code/ -->
         </li>
       </ol>
@@ -184,43 +185,42 @@ Creating network "build_wordpress_default" with the default driver
 Creating volume "build_wordpress_db_data" with local driver
 Pulling db (mysql:5.7)...
 5.7: Pulling from library/mysql
-619014d83c02: Pull complete
-9ced578c3a5f: Pull complete
-731f6e13d8ea: Pull complete
-3c183de42679: Pull complete
-6de69b5c2f3c: Pull complete
-00f0a4086406: Pull complete
-84d93aea836d: Pull complete
-e2dd1f3e5a3d: Pull complete
-98fb37478ee6: Pull complete
-57eb21662ebf: Pull complete
-e95057f0a050: Pull complete
-Digest: sha256:cf6899e980c38071a78ded028de40e65286bfbbb746b97617ac4c9a84c4e812d
+852e50cd189d: Pull complete
+29969ddb0ffb: Pull complete
+a43f41a44c48: Pull complete
+5cdd802543a3: Pull complete
+b79b040de953: Pull complete
+938c64119969: Pull complete
+7689ec51a0d9: Pull complete
+36bd6224d58f: Pull complete
+cab9d3fa4c8c: Pull complete
+1b741e1c47de: Pull complete
+aac9d11987ac: Pull complete
+Digest: sha256:8e2004f9fe43df06c3030090f593021a5f283d028b5ed5765cc24236c2c4d88e
 Status: Downloaded newer image for mysql:5.7
 Pulling wordpress (wordpress:latest)...
 latest: Pulling from library/wordpress
-bc51dd8edc1b: Pull complete
-a3224e2c3a89: Pull complete
-be7a066df88f: Pull complete
-bfdf741d72a9: Pull complete
-a9e612a5f04c: Pull complete
-c026d8d0e8cb: Pull complete
-d94096c4941c: Pull complete
-5a16031a7587: Pull complete
-0cf1daf9efc0: Pull complete
-b202acb13a6c: Pull complete
-907001e30880: Pull complete
-2e4b329c80b2: Pull complete
-cd1ec92e7164: Pull complete
-8cba435f5ca6: Pull complete
-42d9ff86311d: Pull complete
-4907cef4e3ab: Pull complete
-d9efb2f24248: Pull complete
-8301b0ae2103: Pull complete
-a9e295ae3552: Pull complete
-cd1a22f91cdc: Pull complete
-f81677d558c1: Pull complete
-Digest: sha256:d9664204507998c812efc3a20d3d320724068b8ff308e99ff1329ada8ce70abc
+852e50cd189d: Already exists
+0266fc315b01: Pull complete
+4c8a5fa787a1: Pull complete
+46fc127c1884: Pull complete
+f768b7fadf16: Pull complete
+345b578c1a78: Pull complete
+90aafe41e78d: Pull complete
+0b5d7691301b: Pull complete
+e06cc2d9e2f8: Pull complete
+6e9815fb33e7: Pull complete
+9c620d71744c: Pull complete
+66ef24dcaca4: Pull complete
+83f52dab9487: Pull complete
+83626a606b22: Pull complete
+81fb279f13d3: Pull complete
+1417d770ba43: Pull complete
+3831bd0339c0: Pull complete
+bf496d74576e: Pull complete
+cc074193f10d: Pull complete
+21692721b48c: Pull complete
+Digest: sha256:cf7c7a9c9cc8614a7357dac77d401612c67af5e0ab1ab19e0777f643af3d3a3c
 Status: Downloaded newer image for wordpress:latest
 Creating build_wordpress_db_1 ... done
 Creating build_wordpress_wordpress_1 ... done</code></pre>
