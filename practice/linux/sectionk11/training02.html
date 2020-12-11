@@ -229,6 +229,69 @@ Creating build_wordpress_wordpress_1 ... done</code></pre>
         <li>ブラウザを起動して「http://192.168.56.29:8080」にアクセス</li>
       </ol>
 
+      <h4 class="h4_title">Volumeについて</h4>
+
+      <ol>
+        <li>volume名の確認
+<!-- code -->
+<pre class="pre"><code># docker volume ls
+DRIVER              VOLUME NAME
+local               1b13aec9ad265d4813a5fd2adc2091b14db5c4cd7f5b6761aa8935f54efa69d1
+local               build_wordpress_db_data
+</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>Linuxホストの以下ディレクトリでtestという空ファイルを作成
+<!-- code -->
+<pre class="pre"><code># touch /var/lib/docker/volumes/build_wordpress_db_data/_data/test</code></pre>
+<!-- /code/ -->
+<!-- code -->
+<pre class="pre"><code># ls /var/lib/docker/volumes/build_wordpress_db_data/_data/
+auto.cnf  ca-key.pem  ca.pem  client-cert.pem  client-key.pem  ib_buffer_pool  ib_logfile0  ib_logfile1  ibdata1  ibtmp1  mysql
+performance_schema  private_key.pem  public_key.pem  server-cert.pem  server-key.pem  sys  test  wordpress</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>MySQLのコンテナー名を確認
+<!-- code -->
+<pre class="pre"><code># docker container ls
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+f3e2e47c8949        wordpress:latest    "docker-entrypoint.s…"   2 minutes ago       Up 2 minutes        0.0.0.0:8080->80/tcp   build_wordpress_wordpress_1
+f5f271ee395a        mysql:5.7           "docker-entrypoint.s…"   3 minutes ago       Up 2 minutes        3306/tcp, 33060/tcp    build_wordpress_db_1</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>MySQLコンテナーの中からも確認
+<!-- code -->
+<pre class="pre"><code># docker container exec -it build_wordpress_db_1 /bin/bash
+root@f5f271ee395a:/# ls /var/lib/mysql
+auto.cnf         client-key.pem  ibdata1             private_key.pem  sys
+ca-key.pem       ib_buffer_pool  ibtmp1              public_key.pem   test
+ca.pem           ib_logfile0     mysql               server-cert.pem  wordpress
+client-cert.pem  ib_logfile1     performance_schema  server-key.pem</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>コンテナーでもtest2という空ファイルを作成して、Linuxホストから確認
+<!-- code -->
+<pre class="pre"><code>root@f5f271ee395a:/# touch /var/lib/mysql/test2</code></pre>
+<!-- /code/ -->
+<!-- code -->
+<pre class="pre"><code>root@f5f271ee395a:/# ls /var/lib/mysql
+auto.cnf    ca.pem           client-key.pem  ib_logfile0  ibdata1  mysql               private_key.pem  server-cert.pem  sys   test2
+ca-key.pem  client-cert.pem  ib_buffer_pool  ib_logfile1  ibtmp1   performance_schema  public_key.pem   server-key.pem   test  wordpress</code></pre>
+<!-- /code/ -->
+<!-- code -->
+<pre class="pre"><code>root@f5f271ee395a:/# exit
+exit</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>Linuxホストで確認
+<!-- code -->
+<pre class="pre"><code># ls /var/lib/docker/volumes/build_wordpress_db_data/_data/
+auto.cnf    ca.pem           client-key.pem  ib_logfile0  ibdata1  mysql               private_key.pem  server-cert.pem  sys   test2
+ca-key.pem  client-cert.pem  ib_buffer_pool  ib_logfile1  ibtmp1   performance_schema  public_key.pem   server-key.pem   test  wordpress</code></pre>
+<!-- /code/ -->
+        </li>
+      </ol>
+
       <p class="text_align_center"><a href="../kouki.html">後期演習トップへ戻る</a></p>
       
       <p class="text_align_center"><a href="../index.html">トップへ戻る</a></p>
