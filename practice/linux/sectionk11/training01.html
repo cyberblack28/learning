@@ -143,7 +143,7 @@ Docker CE Stable - x86_64                        40 kB/s |  21 kB     00:00
 警告: /var/cache/dnf/docker-ce-stable-fa9dc42ab4cec2f4/packages/containerd.io-1.3.9-3.1.el8.x86_64.rpm: ヘッダー V4 RSA/SHA512 Signature、鍵 ID 621e9f35: NOKEY
 Docker CE Stable - x86_64                                                                                                                                                                                     18 kB/s | 1.6 kB     00:00
 GPG 鍵 0x621E9F35 をインポート中:
- Userid     : "Docker Release (CE rpm) <docker@docker.com>"
+ Userid     : "Docker Release (CE rpm) &lt;docker@docker.com&gt;"
  Fingerprint: 060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35
  From       : https://download.docker.com/linux/centos/gpg
 鍵のインポートに成功しました
@@ -951,7 +951,7 @@ Commercial support is available at
             "Entrypoint": null,
             "OnBuild": null,
             "Labels": {
-                "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
+                "maintainer": "NGINX Docker Maintainers &lt;docker-maint@nginx.com&gt;"
             },
             "StopSignal": "SIGTERM"
         },
@@ -1205,6 +1205,320 @@ nginx               latest              602e111c06b6        3 weeks ago         
 linaction/centos    centos6             6ccd3be87830        4 years ago         191MB</code></pre>
 <!-- /code/ -->
         </li>
+      </ol>
+
+      <h4 class="h4_title">Dockerfile & Container Network</h4>
+
+      <h5 class="h5_title">Bind mount</h5>
+
+      <ol>
+        <li>サンプルHTMLの作成
+<!-- code -->
+<pre class="pre"><code># mkdir htdocs</code></pre>
+<!-- /code/ -->
+<!-- code -->
+<pre class="pre"><code># vim htdocs/index.html
+--------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Docker Bind mount&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+         &lt;h1&gt;ホストのhtmlファイルをマウントしています！&lt;/h1&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+--------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>Webサーバコンテナの起動
+<p>どちらか実行してください。</p>
+「--mount」オプションの場合はホスト上にパスが存在しない場合、エラーとなります。
+<!-- code -->
+<pre class="pre"><code># docker run --name httpd -d -p 8078:80 --mount type=bind,source=/root/htdocs/,target=/usr/local/apache2/htdocs/ httpd
+a4c2f1e19e6731110af0307563c379cf1103614a7ba7f877d7d5c877ba3657a2</code></pre>
+<!-- /code/ -->
+「--v」オプションの場合はホスト上にパスが存在しない場合、新しくディレクトリが作成されます。
+<!-- code -->
+<pre class="pre"><code># docker run --name httpd -d -p 8078:80 -v /root/htdocs/:/usr/local/apache2/htdocs/ httpd
+9db9f48f4808c12d3e71f09ff4a00502f2f39ab5249285229bbbd2f2c79797eb</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>curl確認
+<!-- code -->
+<pre class="pre"><code># curl http://localhost:8078/index.html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Docker Bind mount&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+         &lt;h1&gt;ホストのhtmlファイルをマウントしています！&lt;/h1&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<!-- /code/ -->  
+        </li>
+        <li>ホストのhtmlファイルの変更
+<!-- code -->
+<pre class="pre"><code># vim htdocs/index.html
+--------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Docker Bind mount&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+         &lt;h1&gt;ホストのhtmlファイルを更新しました！&lt;/h1&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+--------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
+<!-- /code/ --> 
+        </li>
+        <li>curlで更新されたhtmlを確認
+<pre class="pre"><code># curl http://localhost:8078/index.html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Docker Bind mount&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+         &lt;h1&gt;ホストのhtmlファイルを更新しました！&lt;/h1&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<!-- /code/ --> 
+        </li>
+        <li>httpdコンテナの停止
+<pre class="pre"><code># docker container stop httpd
+httpd</code></pre>
+<!-- /code/ --> 
+        </li>
+        <li>httpdコンテナの削除
+<pre class="pre"><code># docker container rm httpd
+httpd</code></pre>
+<!-- /code/ --> 
+        </li>
+       </ol>
+
+       <h5 class="h5_title">Volume</h5>
+
+       <ol>
+         <li>ボリュームの作成
+<!-- code -->
+<pre class="pre"><code># docker volume create httpd-volume</code></pre>
+<!-- /code/ -->
+         </li>
+         <li>ボリュームの確認
+<!-- code -->
+<pre class="pre"><code># docker volume ls
+local               httpd-volume
+</code></pre>
+<!-- /code/ -->
+         </li>
+         <li>ボリュームの詳細確認
+<!-- code -->
+<pre class="pre"><code># docker volume inspect httpd-volume
+[
+    {
+        "CreatedAt": "2020-12-15T01:28:41-05:00",
+        "Driver": "local",
+        "Labels": {},
+        "Mountpoint": "/var/lib/docker/volumes/httpd-volume/_data",
+        "Name": "httpd-volume",
+        "Options": {},
+        "Scope": "local"
+    }
+]</code></pre>
+<!-- /code/ -->
+         </li>
+         <li>Webサーバコンテナの起動
+<p>どちらか実行してください。</p>
+オプションは、「--mount」と「-v」の両方利用可能です。
+<!-- code -->
+<pre class="pre"><code># docker run --name=httpd -d -p 8078:80 --mount source=httpd-volume,target=/usr/local/apache2/htdocs/ httpd
+158d157cb3d36962c30d168d025f1770f64b663e3efbc51586c1eac2bd55c785</code></pre>
+<!-- /code/ -->
+「--v」オプションの場合はホスト上にパスが存在しない場合、新しくディレクトリが作成されます。
+<!-- code -->
+<pre class="pre"><code># docker run --name=httpd -d -p 8078:80 -v httpd-volume:/usr/local/apache2/htdocs/ httpd
+51ebd0104267b1f5d6752fdc6bad09192d4a91be95acffce1883dcfdb4cb0d6d</code></pre>
+<!-- /code/ -->
+         </li>
+         <li>index.htmlを更新
+<p>デフォルトは「It works!」と表示されるHTMLです。上書きで以下の内容に編集。</p>
+<!-- code -->
+<pre class="pre"><code># vim /var/lib/docker/volumes/httpd-volume/_data/index.html
+--------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Docker Volume&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+         &lt;h1&gt;Volumeのhtmlファイルを更新しました！&lt;/h1&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+--------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
+<!-- /code/ -->
+         </li>
+        <li>curlで更新されたhtmlを確認
+<pre class="pre"><code># curl http://localhost:8078/index.html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Docker Volume&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+         &lt;h1&gt;Volumeのhtmlファイルを更新しました！&lt;/h1&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<!-- /code/ --> 
+        </li>
+        <li>httpdコンテナの停止
+<pre class="pre"><code># docker container stop httpd
+httpd</code></pre>
+<!-- /code/ --> 
+        </li>
+        <li>httpdコンテナの削除
+<pre class="pre"><code># docker container rm httpd
+httpd</code></pre>
+<!-- /code/ --> 
+        </li>
+       </ol>
+
+       <h5 class="h5_title">tmpfs mount</h5>
+
+       <ol>
+         <li>curlで更新されたhtmlを確認
+<!-- code -->
+<pre class="pre"><code># docker run -itd --name httpd --mount type=tmpfs,destination=/root/tmp,tmpfs-size=10,tmpfs-mode=755 httpd
+87d3af28ba8e52efb36ec4521658d24af1b34efd70f244f362935056c7d770be</code></pre>
+<!-- /code/ -->
+         </li>
+         <li>curlで更新されたhtmlを確認
+<!-- code -->
+<pre class="pre"><code>:/usr/local/apache2# ls /root
+tmp
+:/usr/local/apache2# exit</code></pre>
+<!-- /code/ -->
+         </li>
+         <li>httpdコンテナの停止
+<!-- code -->
+<pre class="pre"><code># docker container stop httpd</code></pre>
+<!-- /code/ -->
+         </li>
+         <li>httpdコンテナの削除
+<!-- code -->
+<pre class="pre"><code># docker container rm httpd</code></pre>
+<!-- /code/ -->
+         </li>
+        </ol>
+
+        <h5 class="h5_title">Data Volume Container</h5>
+
+        <ol>
+          <li>ホストで作業ディレクトを作成および移動
+<!-- code -->
+<pre class="pre"><code># mkdir /tmp/data-volume</code></pre>
+<!-- /code/ -->
+<!-- code -->
+<pre class="pre"><code># cd /tmp/data-volume</code></pre>
+<!-- /code/ -->
+          </li>
+          <li>マウントするディレクトリとファイルを作成
+<!-- code -->
+<pre class="pre"><code># mkdir share</code></pre>
+<!-- /code/ -->
+
+<!-- code -->
+<pre class="pre"><code># touch share/share-file.txt</code></pre>
+<!-- /code/ -->
+          </li>
+          <li>CentOS7のイメージを利用して「centos7」コンテナを作成
+                <p>ホスト: /tmp/data-volume/share<br>コンテナ: /tmp/test</p>
+<!-- code -->
+<pre class="pre"><code># docker run -it -d --name centos7 -v /tmp/data-volume/share:/tmp/test centos:centos7</code></pre>
+<!-- /code/ -->
+          </li>
+          <li>CentOS7のイメージを利用して共有側の「centos7-share」コンテナを作成
+<!-- code -->
+<pre class="pre"><code># docker run -it -d --name centos7-share --volumes-from centos7 centos:centos7</code></pre>
+<!-- /code/ -->
+          </li>
+          <li>「centos7」コンテナに接続して確認
+<!-- code -->
+<pre class="pre"><code># docker exec -it centos7 /bin/bash</code></pre>
+<!-- /code/ -->
+<!-- code -->
+<pre class="pre"><code># ls -l /tmp/test
+total 0
+-rw-r--r--. 1 root root 0 Dec 15 16:53 share-file.txt
+</code></pre>
+<!-- /code/ -->
+          </li>
+          <li>「centos7-share」コンテナに接続して確認
+<!-- code -->
+<pre class="pre"><code># docker exec -it centos7-share /bin/bash</code></pre>
+<!-- /code/ -->
+<!-- code -->
+<pre class="pre"><code># ls -l /tmp/test
+total 0
+-rw-r--r--. 1 root root 0 Dec 15 16:53 share-file.txt
+</code></pre>
+<!-- /code/ -->
+          </li>
+          <li>「centos7」と「centos7-share」コンテナの停止
+<!-- code -->
+<pre class="pre"><code># docker container stop centos7</code></pre>
+<!-- /code/ -->
+<!-- code -->
+<pre class="pre"><code># docker container stop centos7-share</code></pre>
+<!-- /code/ -->
+          </li>
+          <li>「centos7」と「centos7-share」コンテナの削除
+<!-- code -->
+<pre class="pre"><code># docker container rm centos7</code></pre>
+<!-- /code/ -->
+<!-- code -->
+<pre class="pre"><code># docker container rm centos7-share</code></pre>
+<!-- /code/ -->
+          </li>
+         </ol>
+
+       <h4 class="h4_title">WordPress環境作成</h4>
+
+       <ol>
+        <li>「wordpress-network」の作成
+<!-- code -->
+<pre class="pre"><code># docker network create wordpress-network
+48dd9a7f67fed984e1347b52b1a31478cda492f511bce2bca9f503b9eb850ea5</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>ネットワーク一覧で確認
+<!-- code -->
+<pre class="pre"><code># docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+e3d270ab1c5d        bridge              bridge              local
+c3562b7929e9        host                host                local
+a3a80258dbd0        none                null                local
+48dd9a7f67fe        wordpress-network   bridge              local</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>MySQLコンテナーを作成
+<!-- code -->
+<pre class="pre"><code># docker run -d --name mysql --network wp-network -e MYSQL_ROOT_PASSWORD=wordpress -e MYSQL_DATABASE=wordpress -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress mysql:8.0.20
+e5ed4a86daf108151e3499a24aba65cb25bcd7f4bd0313f1cc17c22e8af727d2</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>WordPressコンテナーを作成
+<!-- code -->
+<pre class="pre"><code># docker run -d --name wordpress --network wp-network -p 8088:80 -e WORDPRESS_DB_HOST=mysql:3306 -e WORDPRESS_DB_NAME=wordpress -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress wordpress:php7.4-apache
+cf9c237a1fec5c4bce2e1345cfb6e0585550abbd4c66284ea45cb824bd04691a</code></pre>
+<!-- /code/ -->
+        </li>
+        <li>ブラウザを起動して「http://192.168.56.29:8088」にアクセス</li>
       </ol>
 
       <h4 class="h4_title">DockerfileからWordPress環境作成</h4>
@@ -1643,19 +1957,19 @@ Total                                           523 kB/s | 101 MB     03:17
 warning: rpmts_HdrFromFdno: Header V3 RSA/SHA1 Signature, key ID c105b9de: NOKEY
 Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 Importing GPG key 0xC105B9DE:
- Userid : CentOS-6 Key (CentOS 6 Official Signing Key) <centos-6-key@centos.org>
+ Userid : CentOS-6 Key (CentOS 6 Official Signing Key) &lt;centos-6-key@centos.org&gt;
  Package: centos-release-6-10.el6.centos.12.3.x86_64 (@CentOS/6.10)
  From   : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 warning: rpmts_HdrFromFdno: Header V4 DSA/SHA1 Signature, key ID 00f97f56: NOKEY
 Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
 Importing GPG key 0x00F97F56:
- Userid : Remi Collet <RPMS@FamilleCollet.com>
+ Userid : Remi Collet &lt;RPMS@FamilleCollet.com&gt;
  Package: remi-release-6.10-2.el6.remi.noarch (installed)
  From   : /etc/pki/rpm-gpg/RPM-GPG-KEY-remi
 warning: rpmts_HdrFromFdno: Header V3 RSA/SHA256 Signature, key ID 0608b895: NOKEY
 Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 Importing GPG key 0x0608B895:
- Userid : EPEL (6) <epel@fedoraproject.org>
+ Userid : EPEL (6) &lt;epel@fedoraproject.org&gt;
  Package: epel-release-6-8.noarch (installed)
  From   : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 Running rpm_check_debug
