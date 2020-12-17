@@ -1391,15 +1391,16 @@ httpd</code></pre>
        <h5 class="h5_title">tmpfs mount</h5>
 
        <ol>
-         <li>curlで更新されたhtmlを確認
+         <li>1.Webサーバコンテナを起動
 <!-- code -->
 <pre class="pre"><code># docker run -itd --name httpd --mount type=tmpfs,destination=/root/tmp,tmpfs-size=10,tmpfs-mode=755 httpd
 87d3af28ba8e52efb36ec4521658d24af1b34efd70f244f362935056c7d770be</code></pre>
 <!-- /code/ -->
          </li>
-         <li>curlで更新されたhtmlを確認
+         <li>「/root/tmp」ディレクトリ作成確認
 <!-- code -->
-<pre class="pre"><code>:/usr/local/apache2# ls /root
+<pre class="pre"><code># docker container exec -it httpd /bin/bash
+:/usr/local/apache2# ls /root
 tmp
 :/usr/local/apache2# exit</code></pre>
 <!-- /code/ -->
@@ -1508,13 +1509,13 @@ a3a80258dbd0        none                null                local
         </li>
         <li>MySQLコンテナーを作成
 <!-- code -->
-<pre class="pre"><code># docker run -d --name mysql --network wp-network -e MYSQL_ROOT_PASSWORD=wordpress -e MYSQL_DATABASE=wordpress -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress mysql:8.0.20
+<pre class="pre"><code># docker run -d --name mysql --network wordpress-network -e MYSQL_ROOT_PASSWORD=wordpress -e MYSQL_DATABASE=wordpress -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress mysql:8.0.20
 e5ed4a86daf108151e3499a24aba65cb25bcd7f4bd0313f1cc17c22e8af727d2</code></pre>
 <!-- /code/ -->
         </li>
         <li>WordPressコンテナーを作成
 <!-- code -->
-<pre class="pre"><code># docker run -d --name wordpress --network wp-network -p 8088:80 -e WORDPRESS_DB_HOST=mysql:3306 -e WORDPRESS_DB_NAME=wordpress -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress wordpress:php7.4-apache
+<pre class="pre"><code># docker run -d --name wordpress --network wordpress-network -p 8088:80 -e WORDPRESS_DB_HOST=mysql:3306 -e WORDPRESS_DB_NAME=wordpress -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress wordpress:php7.4-apache
 cf9c237a1fec5c4bce2e1345cfb6e0585550abbd4c66284ea45cb824bd04691a</code></pre>
 <!-- /code/ -->
         </li>
