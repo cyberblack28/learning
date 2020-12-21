@@ -57,19 +57,19 @@
  問題 2: conflicting requests
   - nothing provides module(perl:5.26) needed by module perl-DBI:1.641:8010020191113222731:16b3ab4d-0.x86_64
 依存関係が解決しました。
-=============================================================================================================================================================================================================================================
- パッケージ                                            アーキテクチャー                              バージョン                                                                      リポジトリー                                      サイズ
-=============================================================================================================================================================================================================================================
+================================================================================
+ パッケージ     Arch   バージョン                              Repo       サイズ
+================================================================================
 削除中:
- podman                                                x86_64                                        1.6.4-10.module_el8.2.0+305+5e198a41                                            @AppStream                                         55 M
-依存関係パッケージの削除中:
- cockpit-podman                                        noarch                                        12-1.module_el8.2.0+305+5e198a41                                                @AppStream                                        4.0 M
-未使用の依存関係の削除中:
- conmon                                                x86_64                                        2:2.0.6-1.module_el8.2.0+305+5e198a41                                           @AppStream                                         84 k
- libvarlink                                            x86_64                                        18-3.el8                                                                        @anaconda                                         129 k
+ podman         x86_64 1.6.4-10.module_el8.2.0+305+5e198a41    @AppStream  55 M
+依存関係パッケージの削除:
+ cockpit-podman noarch 12-1.module_el8.2.0+305+5e198a41        @AppStream 4.0 M
+未使用の依存関係の削除:
+ conmon         x86_64 2:2.0.6-1.module_el8.2.0+305+5e198a41   @AppStream  84 k
+ libvarlink     x86_64 18-3.el8                                @anaconda  129 k
 
 トランザクションの概要
-=============================================================================================================================================================================================================================================
+================================================================================
 削除  4 パッケージ
 
 解放された容量: 59 M
@@ -78,22 +78,25 @@
 トランザクションのテストを実行中
 トランザクションのテストに成功しました。
 トランザクションを実行中
-  準備              :                                                                                                                                                                                                                    1/1
-  scriptlet の実行中: cockpit-podman-12-1.module_el8.2.0+305+5e198a41.noarch                                                                                                                                                             1/1
-  削除              : cockpit-podman-12-1.module_el8.2.0+305+5e198a41.noarch                                                                                                                                                             1/4
-  削除              : podman-1.6.4-10.module_el8.2.0+305+5e198a41.x86_64                                                                                                                                                                 2/4
-  scriptlet の実行中: podman-1.6.4-10.module_el8.2.0+305+5e198a41.x86_64                                                                                                                                                                 2/4
-  削除              : conmon-2:2.0.6-1.module_el8.2.0+305+5e198a41.x86_64                                                                                                                                                                3/4
-  削除              : libvarlink-18-3.el8.x86_64                                                                                                                                                                                         4/4
-  scriptlet の実行中: libvarlink-18-3.el8.x86_64                                                                                                                                                                                         4/4
-  検証              : cockpit-podman-12-1.module_el8.2.0+305+5e198a41.noarch                                                                                                                                                             1/4
-  検証              : conmon-2:2.0.6-1.module_el8.2.0+305+5e198a41.x86_64                                                                                                                                                                2/4
-  検証              : libvarlink-18-3.el8.x86_64                                                                                                                                                                                         3/4
-  検証              : podman-1.6.4-10.module_el8.2.0+305+5e198a41.x86_64                                                                                                                                                                 4/4
+  準備             :                                                        1/1
+  scriptletの実行中: cockpit-podman-12-1.module_el8.2.0+305+5e198a41.noar   1/1
+  削除             : cockpit-podman-12-1.module_el8.2.0+305+5e198a41.noar   1/4
+  削除             : podman-1.6.4-10.module_el8.2.0+305+5e198a41.x86_64     2/4
+  scriptletの実行中: podman-1.6.4-10.module_el8.2.0+305+5e198a41.x86_64     2/4
+  削除             : conmon-2:2.0.6-1.module_el8.2.0+305+5e198a41.x86_64    3/4
+  削除             : libvarlink-18-3.el8.x86_64                             4/4
+  scriptletの実行中: libvarlink-18-3.el8.x86_64                             4/4
+  検証             : cockpit-podman-12-1.module_el8.2.0+305+5e198a41.noar   1/4
+  検証             : conmon-2:2.0.6-1.module_el8.2.0+305+5e198a41.x86_64    2/4
+  検証             : libvarlink-18-3.el8.x86_64                             3/4
+  検証             : podman-1.6.4-10.module_el8.2.0+305+5e198a41.x86_64     4/4
 Installed products updated.
 
-削除済み:
-  cockpit-podman-12-1.module_el8.2.0+305+5e198a41.noarch             conmon-2:2.0.6-1.module_el8.2.0+305+5e198a41.x86_64             libvarlink-18-3.el8.x86_64             podman-1.6.4-10.module_el8.2.0+305+5e198a41.x86_64
+削除しました:
+  cockpit-podman-12-1.module_el8.2.0+305+5e198a41.noarch
+  conmon-2:2.0.6-1.module_el8.2.0+305+5e198a41.x86_64
+  libvarlink-18-3.el8.x86_64
+  podman-1.6.4-10.module_el8.2.0+305+5e198a41.x86_64
 
 完了しました!</code></pre>
 <!-- /code/ -->
@@ -107,43 +110,41 @@ repo の追加: https://download.docker.com/linux/centos/docker-ce.repo
 
 <!-- code -->
 <pre><code># dnf -y install --allowerasing docker-ce docker-ce-cli
-CentOS-8 - AppStream                            9.3 kB/s | 4.3 kB     00:00
-CentOS-8 - AppStream                            691 kB/s | 6.4 MB     00:09
-CentOS-8 - Base                                 5.9 kB/s | 3.8 kB     00:00
-CentOS-8 - Base                                 322 kB/s | 5.0 MB     00:15
-CentOS-8 - Extras                               2.7 kB/s | 1.5 kB     00:00
-Docker CE Stable - x86_64                        40 kB/s |  21 kB     00:00
+Docker CE Stable - x86_64                        19 kB/s | 3.5 kB     00:00
 依存関係が解決しました。
-=============================================================================================================================================================================================================================================
- パッケージ                                          アーキテクチャー                             バージョン                                                                    リポジトリー                                           サイズ
-=============================================================================================================================================================================================================================================
-インストール中:
- docker-ce                                           x86_64                                       3:19.03.14-3.el8                                                              docker-ce-stable                                        24 M
- docker-ce-cli                                       x86_64                                       1:19.03.14-3.el8                                                              docker-ce-stable                                        38 M
-依存関係のインストール中:
- containerd.io                                       x86_64                                       1.3.9-3.1.el8                                                                 docker-ce-stable                                        29 M
+================================================================================
+ パッケージ                Arch   バージョン             リポジトリー     サイズ
+================================================================================
+インストール:
+ docker-ce                 x86_64 3:20.10.1-3.el8        docker-ce-stable  27 M
+ docker-ce-cli             x86_64 1:20.10.1-3.el8        docker-ce-stable  33 M
+依存関係のインストール:
+ containerd.io             x86_64 1.4.3-3.1.el8          docker-ce-stable  33 M
      置き換え  runc.x86_64 1.0.0-65.rc10.module_el8.2.0+305+5e198a41
- libcgroup                                           x86_64                                       0.41-19.el8                                                                   BaseOS                                                  70 k
-依存関係パッケージの削除中:
- buildah                                             x86_64                                       1.11.6-7.module_el8.2.0+305+5e198a41                                          @AppStream                                              35 M
+ docker-ce-rootless-extras x86_64 20.10.1-3.el8          docker-ce-stable 9.1 M
+ libcgroup                 x86_64 0.41-19.el8            BaseOS            70 k
+依存関係パッケージの削除:
+ buildah                   x86_64 1.11.6-7.module_el8.2.0+305+5e198a41
+                                                         @AppStream        35 M
 
 トランザクションの概要
-=============================================================================================================================================================================================================================================
-インストール  4 パッケージ
+================================================================================
+インストール  5 パッケージ
 削除          1 パッケージ
 
-ダウンロードサイズの合計: 92 M
+ダウンロードサイズの合計: 102 M
 パッケージのダウンロード:
-(1/4): libcgroup-0.41-19.el8.x86_64.rpm                                                                                                                                                                      465 kB/s |  70 kB     00:00
-(2/4): docker-ce-cli-19.03.14-3.el8.x86_64.rpm                                                                                                                                                               5.5 MB/s |  38 MB     00:06
-(3/4): docker-ce-19.03.14-3.el8.x86_64.rpm                                                                                                                                                                   3.2 MB/s |  24 MB     00:07
-(4/4): containerd.io-1.3.9-3.1.el8.x86_64.rpm                                                                                                                                                                3.2 MB/s |  29 MB     00:08
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-合計                                                                                                                                                                                                         9.6 MB/s |  92 MB     00:09
-警告: /var/cache/dnf/docker-ce-stable-fa9dc42ab4cec2f4/packages/containerd.io-1.3.9-3.1.el8.x86_64.rpm: ヘッダー V4 RSA/SHA512 Signature、鍵 ID 621e9f35: NOKEY
-Docker CE Stable - x86_64                                                                                                                                                                                     18 kB/s | 1.6 kB     00:00
+(1/5): libcgroup-0.41-19.el8.x86_64.rpm         228 kB/s |  70 kB     00:00
+(2/5): docker-ce-20.10.1-3.el8.x86_64.rpm       2.0 MB/s |  27 MB     00:13
+(3/5): containerd.io-1.4.3-3.1.el8.x86_64.rpm   2.2 MB/s |  33 MB     00:14
+(4/5): docker-ce-cli-20.10.1-3.el8.x86_64.rpm   2.2 MB/s |  33 MB     00:14
+(5/5): docker-ce-rootless-extras-20.10.1-3.el8. 2.7 MB/s | 9.1 MB     00:03
+--------------------------------------------------------------------------------
+合計                                            5.9 MB/s | 102 MB     00:17
+警告: /var/cache/dnf/docker-ce-stable-fa9dc42ab4cec2f4/packages/containerd.io-1.4.3-3.1.el8.x86_64.rpm: ヘッダー V4 RSA/SHA512 Signature、鍵 ID 621e9f35: NOKEY
+Docker CE Stable - x86_64                        15 kB/s | 1.6 kB     00:00
 GPG 鍵 0x621E9F35 をインポート中:
- Userid     : "Docker Release (CE rpm) &lt;docker@docker.com&gt;"
+ Userid     : "Docker Release (CE rpm) <docker@docker.com>"
  Fingerprint: 060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35
  From       : https://download.docker.com/linux/centos/gpg
 鍵のインポートに成功しました
@@ -152,31 +153,38 @@ GPG 鍵 0x621E9F35 をインポート中:
 トランザクションのテストを実行中
 トランザクションのテストに成功しました。
 トランザクションを実行中
-  準備              :                                                                                                                                                                                                                    1/1
-  インストール中    : docker-ce-cli-1:19.03.14-3.el8.x86_64                                                                                                                                                                              1/6
-  scriptlet の実行中: docker-ce-cli-1:19.03.14-3.el8.x86_64                                                                                                                                                                              1/6
-  インストール中    : containerd.io-1.3.9-3.1.el8.x86_64                                                                                                                                                                                 2/6
-  scriptlet の実行中: containerd.io-1.3.9-3.1.el8.x86_64                                                                                                                                                                                 2/6
-  scriptlet の実行中: libcgroup-0.41-19.el8.x86_64                                                                                                                                                                                       3/6
-  インストール中    : libcgroup-0.41-19.el8.x86_64                                                                                                                                                                                       3/6
-  scriptlet の実行中: libcgroup-0.41-19.el8.x86_64                                                                                                                                                                                       3/6
-  インストール中    : docker-ce-3:19.03.14-3.el8.x86_64                                                                                                                                                                                  4/6
-  scriptlet の実行中: docker-ce-3:19.03.14-3.el8.x86_64                                                                                                                                                                                  4/6
-  削除              : buildah-1.11.6-7.module_el8.2.0+305+5e198a41.x86_64                                                                                                                                                                5/6
-  廃止              : runc-1.0.0-65.rc10.module_el8.2.0+305+5e198a41.x86_64                                                                                                                                                              6/6
-  scriptlet の実行中: runc-1.0.0-65.rc10.module_el8.2.0+305+5e198a41.x86_64                                                                                                                                                              6/6
-  検証              : libcgroup-0.41-19.el8.x86_64                                                                                                                                                                                       1/6
-  検証              : containerd.io-1.3.9-3.1.el8.x86_64                                                                                                                                                                                 2/6
-  検証              : runc-1.0.0-65.rc10.module_el8.2.0+305+5e198a41.x86_64                                                                                                                                                              3/6
-  検証              : docker-ce-3:19.03.14-3.el8.x86_64                                                                                                                                                                                  4/6
-  検証              : docker-ce-cli-1:19.03.14-3.el8.x86_64                                                                                                                                                                              5/6
-  検証              : buildah-1.11.6-7.module_el8.2.0+305+5e198a41.x86_64                                                                                                                                                                6/6
+  準備             :                                                        1/1
+  インストール     : docker-ce-cli-1:20.10.1-3.el8.x86_64                   1/7
+  scriptletの実行中: docker-ce-cli-1:20.10.1-3.el8.x86_64                   1/7
+  インストール     : containerd.io-1.4.3-3.1.el8.x86_64                     2/7
+  scriptletの実行中: containerd.io-1.4.3-3.1.el8.x86_64                     2/7
+  scriptletの実行中: libcgroup-0.41-19.el8.x86_64                           3/7
+  インストール     : libcgroup-0.41-19.el8.x86_64                           3/7
+  scriptletの実行中: libcgroup-0.41-19.el8.x86_64                           3/7
+  インストール     : docker-ce-rootless-extras-20.10.1-3.el8.x86_64         4/7
+  scriptletの実行中: docker-ce-rootless-extras-20.10.1-3.el8.x86_64         4/7
+  インストール     : docker-ce-3:20.10.1-3.el8.x86_64                       5/7
+  scriptletの実行中: docker-ce-3:20.10.1-3.el8.x86_64                       5/7
+  削除             : buildah-1.11.6-7.module_el8.2.0+305+5e198a41.x86_64    6/7
+  廃止             : runc-1.0.0-65.rc10.module_el8.2.0+305+5e198a41.x86_6   7/7
+  scriptletの実行中: runc-1.0.0-65.rc10.module_el8.2.0+305+5e198a41.x86_6   7/7
+  検証             : libcgroup-0.41-19.el8.x86_64                           1/7
+  検証             : containerd.io-1.4.3-3.1.el8.x86_64                     2/7
+  検証             : runc-1.0.0-65.rc10.module_el8.2.0+305+5e198a41.x86_6   3/7
+  検証             : docker-ce-3:20.10.1-3.el8.x86_64                       4/7
+  検証             : docker-ce-cli-1:20.10.1-3.el8.x86_64                   5/7
+  検証             : docker-ce-rootless-extras-20.10.1-3.el8.x86_64         6/7
+  検証             : buildah-1.11.6-7.module_el8.2.0+305+5e198a41.x86_64    7/7
 Installed products updated.
 
 インストール済み:
-  containerd.io-1.3.9-3.1.el8.x86_64                          docker-ce-3:19.03.14-3.el8.x86_64                          docker-ce-cli-1:19.03.14-3.el8.x86_64                          libcgroup-0.41-19.el8.x86_64
+  containerd.io-1.4.3-3.1.el8.x86_64
+  docker-ce-3:20.10.1-3.el8.x86_64
+  docker-ce-cli-1:20.10.1-3.el8.x86_64
+  docker-ce-rootless-extras-20.10.1-3.el8.x86_64
+  libcgroup-0.41-19.el8.x86_64
 
-削除済み:
+削除しました:
   buildah-1.11.6-7.module_el8.2.0+305+5e198a41.x86_64
 
 完了しました!</code></pre>
@@ -195,297 +203,70 @@ Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /
 <!-- code -->
 <pre><code># systemctl status docker
 ● docker.service - Docker Application Container Engine
-   Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; vendor preset: disabled)
-   Active: active (running) since Mon 2020-12-07 01:26:01 EST; 6s ago
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; vendor pres>
+   Active: active (running) since Mon 2020-12-21 00:41:23 EST; 5s ago
      Docs: https://docs.docker.com
- Main PID: 2070 (dockerd)
+ Main PID: 8149 (dockerd)
     Tasks: 8
-   Memory: 143.1M
+   Memory: 38.9M
    CGroup: /system.slice/docker.service
-           mq2070 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+           mq8149 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/contai>
 
-12月 07 01:26:00 localhost.localdomain dockerd[2070]: time="2020-12-07T01:26:00.089823669-05:00" level=error msg="Failed to built-in GetDriver graph btrfs /var/lib/docker"
-12月 07 01:26:00 localhost.localdomain dockerd[2070]: time="2020-12-07T01:26:00.133815762-05:00" level=warning msg="Your kernel does not support cgroup blkio weight"
-12月 07 01:26:00 localhost.localdomain dockerd[2070]: time="2020-12-07T01:26:00.133895844-05:00" level=warning msg="Your kernel does not support cgroup blkio weight_device"
-12月 07 01:26:00 localhost.localdomain dockerd[2070]: time="2020-12-07T01:26:00.134043477-05:00" level=info msg="Loading containers: start."
-12月 07 01:26:00 localhost.localdomain dockerd[2070]: time="2020-12-07T01:26:00.628484383-05:00" level=info msg="Default bridge (docker0) is assigned with an IP address 172.17.0.0/16. Daemon option --bip can be used to set a preferred I>
-12月 07 01:26:01 localhost.localdomain dockerd[2070]: time="2020-12-07T01:26:01.082608926-05:00" level=info msg="Loading containers: done."
-12月 07 01:26:01 localhost.localdomain dockerd[2070]: time="2020-12-07T01:26:01.179130937-05:00" level=info msg="Docker daemon" commit=5eb3275d40 graphdriver(s)=overlay2 version=19.03.14
-12月 07 01:26:01 localhost.localdomain dockerd[2070]: time="2020-12-07T01:26:01.179496116-05:00" level=info msg="Daemon has completed initialization"
-12月 07 01:26:01 localhost.localdomain dockerd[2070]: time="2020-12-07T01:26:01.217698060-05:00" level=info msg="API listen on /var/run/docker.sock"
-12月 07 01:26:01 localhost.localdomain systemd[1]: Started Docker Application Container Engine.
+12月 21 00:41:21 localhost.localdomain dockerd[8149]: time="2020-12-21T00:41:21>
+12月 21 00:41:21 localhost.localdomain dockerd[8149]: time="2020-12-21T00:41:21>
+12月 21 00:41:21 localhost.localdomain dockerd[8149]: time="2020-12-21T00:41:21>
+12月 21 00:41:22 localhost.localdomain dockerd[8149]: time="2020-12-21T00:41:22>
+12月 21 00:41:22 localhost.localdomain dockerd[8149]: time="2020-12-21T00:41:22>
+12月 21 00:41:23 localhost.localdomain dockerd[8149]: time="2020-12-21T00:41:23>
+12月 21 00:41:23 localhost.localdomain dockerd[8149]: time="2020-12-21T00:41:23>
+12月 21 00:41:23 localhost.localdomain dockerd[8149]: time="2020-12-21T00:41:23>
+12月 21 00:41:23 localhost.localdomain systemd[1]: Started Docker Application C>
+12月 21 00:41:23 localhost.localdomain dockerd[8149]: time="2020-12-21T00:41:23>
 <span class="text_color_red">//[q]キーを入力して終了</span></code></pre>
-<!-- /code/ -->
-        </li>
-        <li>パッケージアップグレード
-<!-- code -->
-<pre class="pre"><code># dnf -y update https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.3.9-3.1.el7.x86_64.rpm
-メタデータの期限切れの最終確認: 0:10:30 時間前の 2020年12月07日 01時17分35秒 に実施しました。
-containerd.io-1.3.9-3.1.el7.x86_64.rpm                                                                                                                                                                        10 MB/s |  29 MB     00:02
-The same or higher version of containerd.io is already installed, cannot update it.
-依存関係が解決しました。
-行うべきことはありません。
-完了しました!
-[root@localhost ~]# dnf -y upgrade
-メタデータの期限切れの最終確認: 0:12:00 時間前の 2020年12月07日 01時17分35秒 に実施しました。
-依存関係が解決しました。
-=============================================================================================================================================================================================================================================
- パッケージ                                                  アーキテクチャー                           バージョン                                                                       リポジトリー                                  サイズ
-=============================================================================================================================================================================================================================================
-インストール中:
- kernel                                                      x86_64                                     4.18.0-193.28.1.el8_2                                                            BaseOS                                        2.8 M
- kernel-core                                                 x86_64                                     4.18.0-193.28.1.el8_2                                                            BaseOS                                         28 M
- kernel-modules                                              x86_64                                     4.18.0-193.28.1.el8_2                                                            BaseOS                                         23 M
-アップグレード中:
- bpftool                                                     x86_64                                     4.18.0-193.28.1.el8_2                                                            BaseOS                                        3.4 M
- firefox                                                     x86_64                                     78.4.0-1.el8_2                                                                   AppStream                                     105 M
- kernel-tools                                                x86_64                                     4.18.0-193.28.1.el8_2                                                            BaseOS                                        3.0 M
- kernel-tools-libs                                           x86_64                                     4.18.0-193.28.1.el8_2                                                            BaseOS                                        2.8 M
- libiscsi                                                    x86_64                                     1.18.0-8.module_el8.2.0+524+f765f7e0                                             AppStream                                      89 k
- nftables                                                    x86_64                                     1:0.9.3-12.el8_2.1                                                               BaseOS                                        311 k
- python3-nftables                                            x86_64                                     1:0.9.3-12.el8_2.1                                                               BaseOS                                         25 k
- python3-perf                                                x86_64                                     4.18.0-193.28.1.el8_2                                                            BaseOS                                        2.9 M
- qemu-guest-agent                                            x86_64                                     15:2.12.0-99.module_el8.2.0+524+f765f7e0.4                                       AppStream                                     217 k
- qemu-img                                                    x86_64                                     15:2.12.0-99.module_el8.2.0+524+f765f7e0.4                                       AppStream                                     946 k
- qemu-kvm                                                    x86_64                                     15:2.12.0-99.module_el8.2.0+524+f765f7e0.4                                       AppStream                                     101 k
- qemu-kvm-block-curl                                         x86_64                                     15:2.12.0-99.module_el8.2.0+524+f765f7e0.4                                       AppStream                                     112 k
- qemu-kvm-block-gluster                                      x86_64                                     15:2.12.0-99.module_el8.2.0+524+f765f7e0.4                                       AppStream                                     114 k
- qemu-kvm-block-iscsi                                        x86_64                                     15:2.12.0-99.module_el8.2.0+524+f765f7e0.4                                       AppStream                                     120 k
- qemu-kvm-block-rbd                                          x86_64                                     15:2.12.0-99.module_el8.2.0+524+f765f7e0.4                                       AppStream                                     113 k
- qemu-kvm-block-ssh                                          x86_64                                     15:2.12.0-99.module_el8.2.0+524+f765f7e0.4                                       AppStream                                     115 k
- qemu-kvm-common                                             x86_64                                     15:2.12.0-99.module_el8.2.0+524+f765f7e0.4                                       AppStream                                     933 k
- qemu-kvm-core                                               x86_64                                     15:2.12.0-99.module_el8.2.0+524+f765f7e0.4                                       AppStream                                     2.9 M
- selinux-policy                                              noarch                                     3.14.3-41.el8_2.8                                                                BaseOS                                        615 k
- selinux-policy-targeted                                     noarch                                     3.14.3-41.el8_2.8                                                                BaseOS                                         15 M
- spice-glib                                                  x86_64                                     0.37-1.el8_2.2                                                                   AppStream                                     358 k
- spice-gtk3                                                  x86_64                                     0.37-1.el8_2.2                                                                   AppStream                                      73 k
- spice-server                                                x86_64                                     0.14.2-1.el8_2.1                                                                 AppStream                                     404 k
- tzdata                                                      noarch                                     2020d-1.el8                                                                      BaseOS                                        471 k
-
-トランザクションの概要
-=============================================================================================================================================================================================================================================
-インストール     3 パッケージ
-アップグレード  24 パッケージ
-
-ダウンロードサイズの合計: 194 M
-パッケージのダウンロード:
-(1/27): kernel-4.18.0-193.28.1.el8_2.x86_64.rpm                                                                                                                                                              1.4 MB/s | 2.8 MB     00:01
-(2/27): kernel-modules-4.18.0-193.28.1.el8_2.x86_64.rpm                                                                                                                                                      2.7 MB/s |  23 MB     00:08
-(3/27): libiscsi-1.18.0-8.module_el8.2.0+524+f765f7e0.x86_64.rpm                                                                                                                                             2.4 MB/s |  89 kB     00:00
-(4/27): qemu-guest-agent-2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64.rpm                                                                                                                                  2.1 MB/s | 217 kB     00:00
-(5/27): qemu-img-2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64.rpm                                                                                                                                          2.8 MB/s | 946 kB     00:00
-(6/27): qemu-kvm-2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64.rpm                                                                                                                                          2.5 MB/s | 101 kB     00:00
-(7/27): qemu-kvm-block-curl-2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64.rpm                                                                                                                               1.7 MB/s | 112 kB     00:00
-(8/27): qemu-kvm-block-gluster-2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64.rpm                                                                                                                            1.6 MB/s | 114 kB     00:00
-(9/27): qemu-kvm-block-iscsi-2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64.rpm                                                                                                                              1.9 MB/s | 120 kB     00:00
-(10/27): qemu-kvm-block-rbd-2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64.rpm                                                                                                                               1.6 MB/s | 113 kB     00:00
-(11/27): qemu-kvm-block-ssh-2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64.rpm                                                                                                                               1.5 MB/s | 115 kB     00:00
-(12/27): qemu-kvm-common-2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64.rpm                                                                                                                                  2.3 MB/s | 933 kB     00:00
-(13/27): kernel-core-4.18.0-193.28.1.el8_2.x86_64.rpm                                                                                                                                                        2.8 MB/s |  28 MB     00:10
-(14/27): spice-glib-0.37-1.el8_2.2.x86_64.rpm                                                                                                                                                                3.1 MB/s | 358 kB     00:00
-(15/27): spice-gtk3-0.37-1.el8_2.2.x86_64.rpm                                                                                                                                                                3.0 MB/s |  73 kB     00:00
-(16/27): spice-server-0.14.2-1.el8_2.1.x86_64.rpm                                                                                                                                                            814 kB/s | 404 kB     00:00
-(17/27): qemu-kvm-core-2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64.rpm                                                                                                                                    3.0 MB/s | 2.9 MB     00:00
-(18/27): bpftool-4.18.0-193.28.1.el8_2.x86_64.rpm                                                                                                                                                            3.2 MB/s | 3.4 MB     00:01
-(19/27): kernel-tools-4.18.0-193.28.1.el8_2.x86_64.rpm                                                                                                                                                       2.7 MB/s | 3.0 MB     00:01
-(20/27): nftables-0.9.3-12.el8_2.1.x86_64.rpm                                                                                                                                                                2.7 MB/s | 311 kB     00:00
-(21/27): python3-nftables-0.9.3-12.el8_2.1.x86_64.rpm                                                                                                                                                        963 kB/s |  25 kB     00:00
-(22/27): kernel-tools-libs-4.18.0-193.28.1.el8_2.x86_64.rpm                                                                                                                                                  3.0 MB/s | 2.8 MB     00:00
-(23/27): python3-perf-4.18.0-193.28.1.el8_2.x86_64.rpm                                                                                                                                                       4.0 MB/s | 2.9 MB     00:00
-(24/27): selinux-policy-3.14.3-41.el8_2.8.noarch.rpm                                                                                                                                                         2.3 MB/s | 615 kB     00:00
-(25/27): tzdata-2020d-1.el8.noarch.rpm                                                                                                                                                                       1.8 MB/s | 471 kB     00:00
-(26/27): selinux-policy-targeted-3.14.3-41.el8_2.8.noarch.rpm                                                                                                                                                3.8 MB/s |  15 MB     00:03
-(27/27): firefox-78.4.0-1.el8_2.x86_64.rpm                                                                                                                                                                   4.0 MB/s | 105 MB     00:25
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-合計                                                                                                                                                                                                         6.7 MB/s | 194 MB     00:29
-トランザクションの確認を実行中
-トランザクションの確認に成功しました。
-トランザクションのテストを実行中
-トランザクションのテストに成功しました。
-トランザクションを実行中
-  準備              :                                                                                                                                                                                                                    1/1
-  scriptlet の実行中: qemu-kvm-common-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                                  1/1
-  アップグレード中  : qemu-kvm-common-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                                 1/51
-  scriptlet の実行中: qemu-kvm-common-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                                 1/51
-  インストール中    : kernel-core-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                          2/51
-  scriptlet の実行中: kernel-core-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                          2/51
-  インストール中    : kernel-modules-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                       3/51
-  scriptlet の実行中: kernel-modules-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                       3/51
-  アップグレード中  : qemu-kvm-block-curl-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                             4/51
-  アップグレード中  : qemu-kvm-block-gluster-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                          5/51
-  アップグレード中  : qemu-kvm-block-rbd-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                              6/51
-  アップグレード中  : qemu-kvm-block-ssh-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                              7/51
-  アップグレード中  : selinux-policy-3.14.3-41.el8_2.8.noarch                                                                                                                                                                           8/51
-  scriptlet の実行中: selinux-policy-3.14.3-41.el8_2.8.noarch                                                                                                                                                                           8/51
-  アップグレード中  : nftables-1:0.9.3-12.el8_2.1.x86_64                                                                                                                                                                                9/51
-  scriptlet の実行中: nftables-1:0.9.3-12.el8_2.1.x86_64                                                                                                                                                                                9/51
-  アップグレード中  : kernel-tools-libs-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                   10/51
-  scriptlet の実行中: kernel-tools-libs-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                   10/51
-  アップグレード中  : spice-server-0.14.2-1.el8_2.1.x86_64                                                                                                                                                                             11/51
-  アップグレード中  : spice-glib-0.37-1.el8_2.2.x86_64                                                                                                                                                                                 12/51
-  アップグレード中  : qemu-img-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                                       13/51
-  アップグレード中  : qemu-kvm-core-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                                  14/51
-  scriptlet の実行中: qemu-kvm-core-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                                  14/51
-  アップグレード中  : libiscsi-1.18.0-8.module_el8.2.0+524+f765f7e0.x86_64                                                                                                                                                             15/51
-  scriptlet の実行中: libiscsi-1.18.0-8.module_el8.2.0+524+f765f7e0.x86_64                                                                                                                                                             15/51
-  アップグレード中  : qemu-kvm-block-iscsi-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                           16/51
-  アップグレード中  : qemu-kvm-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                                       17/51
-  アップグレード中  : spice-gtk3-0.37-1.el8_2.2.x86_64                                                                                                                                                                                 18/51
-  アップグレード中  : kernel-tools-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                        19/51
-  アップグレード中  : python3-nftables-1:0.9.3-12.el8_2.1.x86_64                                                                                                                                                                       20/51
-  scriptlet の実行中: selinux-policy-targeted-3.14.3-41.el8_2.8.noarch                                                                                                                                                                 21/51
-  アップグレード中  : selinux-policy-targeted-3.14.3-41.el8_2.8.noarch                                                                                                                                                                 21/51
-  scriptlet の実行中: selinux-policy-targeted-3.14.3-41.el8_2.8.noarch                                                                                                                                                                 21/51
-  インストール中    : kernel-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                              22/51
-  アップグレード中  : tzdata-2020d-1.el8.noarch                                                                                                                                                                                        23/51
-  アップグレード中  : python3-perf-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                        24/51
-  アップグレード中  : bpftool-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                             25/51
-  アップグレード中  : qemu-guest-agent-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                               26/51
-  アップグレード中  : firefox-78.4.0-1.el8_2.x86_64                                                                                                                                                                                    27/51
-  scriptlet の実行中: firefox-78.4.0-1.el8_2.x86_64                                                                                                                                                                                    27/51
-  整理              : qemu-kvm-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                                       28/51
-  整理              : selinux-policy-targeted-3.14.3-41.el8_2.6.noarch                                                                                                                                                                 29/51
-  scriptlet の実行中: selinux-policy-targeted-3.14.3-41.el8_2.6.noarch                                                                                                                                                                 29/51
-  整理              : python3-nftables-1:0.9.3-12.el8.x86_64                                                                                                                                                                           30/51
-  整理              : selinux-policy-3.14.3-41.el8_2.6.noarch                                                                                                                                                                          31/51
-  scriptlet の実行中: selinux-policy-3.14.3-41.el8_2.6.noarch                                                                                                                                                                          31/51
-  整理              : tzdata-2020a-1.el8.noarch                                                                                                                                                                                        32/51
-  scriptlet の実行中: firefox-78.2.0-2.el8_2.x86_64                                                                                                                                                                                    33/51
-  整理              : firefox-78.2.0-2.el8_2.x86_64                                                                                                                                                                                    33/51
-  scriptlet の実行中: firefox-78.2.0-2.el8_2.x86_64                                                                                                                                                                                    33/51
-  整理              : qemu-kvm-core-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                                  34/51
-  整理              : spice-gtk3-0.37-1.el8.x86_64                                                                                                                                                                                     35/51
-  整理              : qemu-kvm-block-iscsi-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                           36/51
-  整理              : kernel-tools-4.18.0-193.19.1.el8_2.x86_64                                                                                                                                                                        37/51
-  整理              : qemu-kvm-block-curl-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                            38/51
-  整理              : qemu-kvm-block-gluster-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                         39/51
-  整理              : qemu-kvm-block-rbd-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                             40/51
-  整理              : qemu-kvm-block-ssh-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                             41/51
-  scriptlet の実行中: qemu-kvm-common-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                                42/51
-  整理              : qemu-kvm-common-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                                42/51
-  scriptlet の実行中: qemu-kvm-common-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                                42/51
-  整理              : kernel-tools-libs-4.18.0-193.19.1.el8_2.x86_64                                                                                                                                                                   43/51
-  scriptlet の実行中: kernel-tools-libs-4.18.0-193.19.1.el8_2.x86_64                                                                                                                                                                   43/51
-  整理              : libiscsi-1.18.0-8.module_el8.2.0+320+13f867d7.x86_64                                                                                                                                                             44/51
-  scriptlet の実行中: libiscsi-1.18.0-8.module_el8.2.0+320+13f867d7.x86_64                                                                                                                                                             44/51
-  整理              : spice-glib-0.37-1.el8.x86_64                                                                                                                                                                                     45/51
-  整理              : spice-server-0.14.2-1.el8.x86_64                                                                                                                                                                                 46/51
-  整理              : qemu-img-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                                       47/51
-  scriptlet の実行中: nftables-1:0.9.3-12.el8.x86_64                                                                                                                                                                                   48/51
-  整理              : nftables-1:0.9.3-12.el8.x86_64                                                                                                                                                                                   48/51
-  scriptlet の実行中: nftables-1:0.9.3-12.el8.x86_64                                                                                                                                                                                   48/51
-  整理              : python3-perf-4.18.0-193.19.1.el8_2.x86_64                                                                                                                                                                        49/51
-  整理              : bpftool-4.18.0-193.19.1.el8_2.x86_64                                                                                                                                                                             50/51
-  整理              : qemu-guest-agent-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                               51/51
-  scriptlet の実行中: kernel-core-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                         51/51
-  scriptlet の実行中: firefox-78.4.0-1.el8_2.x86_64                                                                                                                                                                                    51/51
-  scriptlet の実行中: qemu-guest-agent-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                               51/51
-  検証              : kernel-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                               1/51
-  検証              : kernel-core-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                          2/51
-  検証              : kernel-modules-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                       3/51
-  検証              : firefox-78.4.0-1.el8_2.x86_64                                                                                                                                                                                     4/51
-  検証              : firefox-78.2.0-2.el8_2.x86_64                                                                                                                                                                                     5/51
-  検証              : libiscsi-1.18.0-8.module_el8.2.0+524+f765f7e0.x86_64                                                                                                                                                              6/51
-  検証              : libiscsi-1.18.0-8.module_el8.2.0+320+13f867d7.x86_64                                                                                                                                                              7/51
-  検証              : qemu-guest-agent-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                                8/51
-  検証              : qemu-guest-agent-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                                9/51
-  検証              : qemu-img-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                                       10/51
-  検証              : qemu-img-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                                       11/51
-  検証              : qemu-kvm-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                                       12/51
-  検証              : qemu-kvm-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                                       13/51
-  検証              : qemu-kvm-block-curl-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                            14/51
-  検証              : qemu-kvm-block-curl-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                            15/51
-  検証              : qemu-kvm-block-gluster-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                         16/51
-  検証              : qemu-kvm-block-gluster-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                         17/51
-  検証              : qemu-kvm-block-iscsi-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                           18/51
-  検証              : qemu-kvm-block-iscsi-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                           19/51
-  検証              : qemu-kvm-block-rbd-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                             20/51
-  検証              : qemu-kvm-block-rbd-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                             21/51
-  検証              : qemu-kvm-block-ssh-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                             22/51
-  検証              : qemu-kvm-block-ssh-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                             23/51
-  検証              : qemu-kvm-common-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                                24/51
-  検証              : qemu-kvm-common-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                                25/51
-  検証              : qemu-kvm-core-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                                                                                                                                                  26/51
-  検証              : qemu-kvm-core-15:2.12.0-99.module_el8.2.0+385+c644c6e8.2.x86_64                                                                                                                                                  27/51
-  検証              : spice-glib-0.37-1.el8_2.2.x86_64                                                                                                                                                                                 28/51
-  検証              : spice-glib-0.37-1.el8.x86_64                                                                                                                                                                                     29/51
-  検証              : spice-gtk3-0.37-1.el8_2.2.x86_64                                                                                                                                                                                 30/51
-  検証              : spice-gtk3-0.37-1.el8.x86_64                                                                                                                                                                                     31/51
-  検証              : spice-server-0.14.2-1.el8_2.1.x86_64                                                                                                                                                                             32/51
-  検証              : spice-server-0.14.2-1.el8.x86_64                                                                                                                                                                                 33/51
-  検証              : bpftool-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                             34/51
-  検証              : bpftool-4.18.0-193.19.1.el8_2.x86_64                                                                                                                                                                             35/51
-  検証              : kernel-tools-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                        36/51
-  検証              : kernel-tools-4.18.0-193.19.1.el8_2.x86_64                                                                                                                                                                        37/51
-  検証              : kernel-tools-libs-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                   38/51
-  検証              : kernel-tools-libs-4.18.0-193.19.1.el8_2.x86_64                                                                                                                                                                   39/51
-  検証              : nftables-1:0.9.3-12.el8_2.1.x86_64                                                                                                                                                                               40/51
-  検証              : nftables-1:0.9.3-12.el8.x86_64                                                                                                                                                                                   41/51
-  検証              : python3-nftables-1:0.9.3-12.el8_2.1.x86_64                                                                                                                                                                       42/51
-  検証              : python3-nftables-1:0.9.3-12.el8.x86_64                                                                                                                                                                           43/51
-  検証              : python3-perf-4.18.0-193.28.1.el8_2.x86_64                                                                                                                                                                        44/51
-  検証              : python3-perf-4.18.0-193.19.1.el8_2.x86_64                                                                                                                                                                        45/51
-  検証              : selinux-policy-3.14.3-41.el8_2.8.noarch                                                                                                                                                                          46/51
-  検証              : selinux-policy-3.14.3-41.el8_2.6.noarch                                                                                                                                                                          47/51
-  検証              : selinux-policy-targeted-3.14.3-41.el8_2.8.noarch                                                                                                                                                                 48/51
-  検証              : selinux-policy-targeted-3.14.3-41.el8_2.6.noarch                                                                                                                                                                 49/51
-  検証              : tzdata-2020d-1.el8.noarch                                                                                                                                                                                        50/51
-  検証              : tzdata-2020a-1.el8.noarch                                                                                                                                                                                        51/51
-Installed products updated.
-
-アップグレード済み:
-  bpftool-4.18.0-193.28.1.el8_2.x86_64                                            firefox-78.4.0-1.el8_2.x86_64                                                 kernel-tools-4.18.0-193.28.1.el8_2.x86_64
-  kernel-tools-libs-4.18.0-193.28.1.el8_2.x86_64                                  libiscsi-1.18.0-8.module_el8.2.0+524+f765f7e0.x86_64                          nftables-1:0.9.3-12.el8_2.1.x86_64
-  python3-nftables-1:0.9.3-12.el8_2.1.x86_64                                      python3-perf-4.18.0-193.28.1.el8_2.x86_64                                     qemu-guest-agent-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64
-  qemu-img-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                      qemu-kvm-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64                    qemu-kvm-block-curl-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64
-  qemu-kvm-block-gluster-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64        qemu-kvm-block-iscsi-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64        qemu-kvm-block-rbd-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64
-  qemu-kvm-block-ssh-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64            qemu-kvm-common-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64             qemu-kvm-core-15:2.12.0-99.module_el8.2.0+524+f765f7e0.4.x86_64
-  selinux-policy-3.14.3-41.el8_2.8.noarch                                         selinux-policy-targeted-3.14.3-41.el8_2.8.noarch                              spice-glib-0.37-1.el8_2.2.x86_64
-  spice-gtk3-0.37-1.el8_2.2.x86_64                                                spice-server-0.14.2-1.el8_2.1.x86_64                                          tzdata-2020d-1.el8.noarch
-
-インストール済み:
-  kernel-4.18.0-193.28.1.el8_2.x86_64                                       kernel-core-4.18.0-193.28.1.el8_2.x86_64                                       kernel-modules-4.18.0-193.28.1.el8_2.x86_64
-
-完了しました!</code></pre>
 <!-- /code/ -->
         </li>
         <li>Dockerのバージョン確認
 <!-- code -->
 <pre class="pre"><code># docker version
 Client: Docker Engine - Community
- Version:           19.03.14
- API version:       1.40
+ Version:           20.10.1
+ API version:       1.41
  Go version:        go1.13.15
- Git commit:        5eb3275d40
- Built:             Tue Dec  1 19:19:47 2020
+ Git commit:        831ebea
+ Built:             Tue Dec 15 04:34:30 2020
  OS/Arch:           linux/amd64
- Experimental:      false
+ Context:           default
+ Experimental:      true
 
 Server: Docker Engine - Community
  Engine:
-  Version:          19.03.14
-  API version:      1.40 (minimum version 1.12)
+  Version:          20.10.1
+  API version:      1.41 (minimum version 1.12)
   Go version:       go1.13.15
-  Git commit:       5eb3275d40
-  Built:            Tue Dec  1 19:18:24 2020
+  Git commit:       f001486
+  Built:            Tue Dec 15 04:32:21 2020
   OS/Arch:          linux/amd64
   Experimental:     false
  containerd:
-  Version:          1.3.9
-  GitCommit:        ea765aba0d05254012b0b9e595e995c09186427f
+  Version:          1.4.3
+  GitCommit:        269548fa27e0089a8b8278fc4fc781d7f65a939b
  runc:
-  Version:          1.0.0-rc10
-  GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd
+  Version:          1.0.0-rc92
+  GitCommit:        ff819c7e9184c13b7c2607fe6c30ae19403a7aff
  docker-init:
-  Version:          0.18.0
-  GitCommit:        fec3683</code></pre>
+  Version:          0.19.0
+  GitCommit:        de40ad0</code></pre>
 <!-- /code/ -->
         </li>
         <li>システム情報の確認
 <!-- code -->
 <pre class="pre"><code># docker info
 Client:
+ Context:    default
  Debug Mode: false
+ Plugins:
+  app: Docker App (Docker Inc., v0.9.1-beta3)
+  buildx: Build with BuildKit (Docker Inc., v0.5.0-docker)
 
 Server:
  Containers: 0
@@ -493,24 +274,25 @@ Server:
   Paused: 0
   Stopped: 0
  Images: 0
- Server Version: 19.03.14
+ Server Version: 20.10.1
  Storage Driver: overlay2
   Backing Filesystem: xfs
   Supports d_type: true
   Native Overlay Diff: true
  Logging Driver: json-file
  Cgroup Driver: cgroupfs
+ Cgroup Version: 1
  Plugins:
   Volume: local
   Network: bridge host ipvlan macvlan null overlay
   Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
  Swarm: inactive
- Runtimes: runc
+ Runtimes: io.containerd.runc.v2 io.containerd.runtime.v1.linux runc
  Default Runtime: runc
  Init Binary: docker-init
- containerd version: ea765aba0d05254012b0b9e595e995c09186427f
- runc version: dc9208a3303feef5b3839f4323d9beb36df0a9dd
- init version: fec3683
+ containerd version: 269548fa27e0089a8b8278fc4fc781d7f65a939b
+ runc version: ff819c7e9184c13b7c2607fe6c30ae19403a7aff
+ init version: de40ad0
  Security Options:
   seccomp
    Profile: default
@@ -521,7 +303,7 @@ Server:
  CPUs: 1
  Total Memory: 1.297GiB
  Name: localhost.localdomain
- ID: AAAR:7HOA:C7L2:ZL6I:L4XW:YT3G:ZFIL:QOWR:4ZDL:HYRL:7W5E:QF44
+ ID: U2FS:RDWP:JK5G:WH4X:UYC3:2PBF:PW4C:DAKA:3TGO:2MXP:PRMV:GADN
  Docker Root Dir: /var/lib/docker
  Debug Mode: false
  Registry: https://index.docker.io/v1/
@@ -529,7 +311,10 @@ Server:
  Experimental: false
  Insecure Registries:
   127.0.0.0/8
- Live Restore Enabled: false</code></pre>
+ Live Restore Enabled: false
+
+WARNING: No blkio weight support
+WARNING: No blkio weight_device support</code></pre>
 <!-- /code/ -->
         </li>
         <li>firewalldの変更
