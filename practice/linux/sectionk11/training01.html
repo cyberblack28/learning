@@ -1,55 +1,57 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>11.Docker & Docker Compose</title>
 
-    <!-- Bootstrap -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/custom.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>11.Docker & Docker Compose</title>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+  <!-- Bootstrap -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/custom.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body>
-    <header id="header">
-      <header-title></header-title>
-    </header>
+</head>
 
-    <hr>
+<body>
+  <header id="header">
+    <header-title></header-title>
+  </header>
 
-    <div class="contents_area">
-      <h2>11.Docker & Docker Compose</h2>
+  <hr>
 
-      <h3>Dockerの構築テキスト</h3>
+  <div class="contents_area">
+    <h2>11.Docker & Docker Compose</h2>
 
-      <h4 class="h4_title">事前作業</h4>
+    <h3>Dockerの構築テキスト</h3>
 
-      <ol>
-        <li>studentユーザでログインして、rootユーザに変更します。
-<!-- code -->
-<pre class="pre"><code>$ su -
+    <h4 class="h4_title">事前作業</h4>
+
+    <ol>
+      <li>studentユーザでログインして、rootユーザに変更します。
+        <!-- code -->
+        <pre class="pre"><code>$ su -
 パスワード:tokyoec
 #
 </code></pre>
-<!-- /code/ -->
-        </li>
-      </ol>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-      <h4 class="h4_title">Dockerのインストール</h4>
+    <h4 class="h4_title">Dockerのインストール</h4>
 
-      <ol>
-        <li>podmanの削除
-<!-- code -->
-<pre class="pre"><code># dnf -y remove podman
+    <ol>
+      <li>podmanの削除
+        <!-- code -->
+        <pre class="pre"><code># dnf -y remove podman
 モジュラーの依存に関する問題:
 
  問題 1: conflicting requests
@@ -99,17 +101,17 @@ Installed products updated.
   podman-1.6.4-10.module_el8.2.0+305+5e198a41.x86_64
 
 完了しました!</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>Dockerのインストール
-<!-- code -->
-<pre class="pre"><code># dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+        <!-- /code/ -->
+      </li>
+      <li>Dockerのインストール
+        <!-- code -->
+        <pre class="pre"><code># dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 repo の追加: https://download.docker.com/linux/centos/docker-ce.repo
 </code></pre>
-<!-- /code/ -->
+        <!-- /code/ -->
 
-<!-- code -->
-<pre><code># dnf -y install --allowerasing docker-ce docker-ce-cli
+        <!-- code -->
+        <pre><code># dnf -y install --allowerasing docker-ce docker-ce-cli
 Docker CE Stable - x86_64                        19 kB/s | 3.5 kB     00:00
 依存関係が解決しました。
 ================================================================================
@@ -144,7 +146,7 @@ Docker CE Stable - x86_64                        19 kB/s | 3.5 kB     00:00
 警告: /var/cache/dnf/docker-ce-stable-fa9dc42ab4cec2f4/packages/containerd.io-1.4.3-3.1.el8.x86_64.rpm: ヘッダー V4 RSA/SHA512 Signature、鍵 ID 621e9f35: NOKEY
 Docker CE Stable - x86_64                        15 kB/s | 1.6 kB     00:00
 GPG 鍵 0x621E9F35 をインポート中:
- Userid     : "Docker Release (CE rpm) <docker@docker.com>"
+ Userid     : "Docker Release (CE rpm) &lt;docker@docker.com&gt;"
  Fingerprint: 060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35
  From       : https://download.docker.com/linux/centos/gpg
 鍵のインポートに成功しました
@@ -188,20 +190,21 @@ Installed products updated.
   buildah-1.11.6-7.module_el8.2.0+305+5e198a41.x86_64
 
 完了しました!</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>Dockerの自動起動設定
-<!-- code -->
-<pre class="pre"><code># systemctl enable docker
+        <!-- /code/ -->
+      </li>
+      <li>Dockerの自動起動設定
+        <!-- code -->
+        <pre
+          class="pre"><code># systemctl enable docker
 Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /usr/lib/systemd/system/docker.service.</code></pre>
-<!-- /code/ -->
+        <!-- /code/ -->
 
-<!-- code -->
-<pre><code># systemctl start docker</code></pre>
-<!-- /code/ -->
+        <!-- code -->
+        <pre><code># systemctl start docker</code></pre>
+        <!-- /code/ -->
 
-<!-- code -->
-<pre><code># systemctl status docker
+        <!-- code -->
+        <pre><code># systemctl status docker
 ● docker.service - Docker Application Container Engine
    Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; vendor pres>
    Active: active (running) since Mon 2020-12-21 00:41:23 EST; 5s ago
@@ -223,11 +226,11 @@ Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /
 12月 21 00:41:23 localhost.localdomain systemd[1]: Started Docker Application C>
 12月 21 00:41:23 localhost.localdomain dockerd[8149]: time="2020-12-21T00:41:23>
 <span class="text_color_red">//[q]キーを入力して終了</span></code></pre>
-<!-- /code/ -->
-        </li>
-        <li>Dockerのバージョン確認
-<!-- code -->
-<pre class="pre"><code># docker version
+        <!-- /code/ -->
+      </li>
+      <li>Dockerのバージョン確認
+        <!-- code -->
+        <pre class="pre"><code># docker version
 Client: Docker Engine - Community
  Version:           20.10.1
  API version:       1.41
@@ -256,11 +259,11 @@ Server: Docker Engine - Community
  docker-init:
   Version:          0.19.0
   GitCommit:        de40ad0</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>システム情報の確認
-<!-- code -->
-<pre class="pre"><code># docker info
+        <!-- /code/ -->
+      </li>
+      <li>システム情報の確認
+        <!-- code -->
+        <pre class="pre"><code># docker info
 Client:
  Context:    default
  Debug Mode: false
@@ -315,27 +318,27 @@ Server:
 
 WARNING: No blkio weight support
 WARNING: No blkio weight_device support</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>firewalldの変更
-<!-- code -->
-<pre class="pre"><code># firewall-cmd --add-masquerade --permanent
+        <!-- /code/ -->
+      </li>
+      <li>firewalldの変更
+        <!-- code -->
+        <pre class="pre"><code># firewall-cmd --add-masquerade --permanent
 success</code></pre>
-<!-- /code/ -->
+        <!-- /code/ -->
 
-<!-- code -->
-<pre><code># firewall-cmd --reload
+        <!-- code -->
+        <pre><code># firewall-cmd --reload
 success</code></pre>
-<!-- /code/ -->
-        </li>
-      </ol>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-      <h4 class="h4_title">Docker Hubからコンテナーイメージのpull</h4>
+    <h4 class="h4_title">Docker Hubからコンテナーイメージのpull</h4>
 
-      <ol>
-        <li>searchサブコマンドでレジストリーを検索
-<!-- code -->
-<pre class="pre"><code># docker search linaction
+    <ol>
+      <li>searchサブコマンドでレジストリーを検索
+        <!-- code -->
+        <pre class="pre"><code># docker search linaction
 NAME                                      DESCRIPTION               STARS               OFFICIAL            AUTOMATED
 linaction/centos                          Sample CentOS6.7(Final)   1
 linaction/wordpress                                                 0
@@ -344,11 +347,11 @@ linaction2205/docker-whale                                          0
 linaction/prometheus-handson-web-webapp                             0
 linaction2017/python-hello-world                                    0
 you19920304/linaction                     wordpress                 0</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>コンテナーイメージをダウンロード
-<!-- code -->
-<pre class="pre"><code># docker image pull -a linaction/centos
+        <!-- /code/ -->
+      </li>
+      <li>コンテナーイメージをダウンロード
+        <!-- code -->
+        <pre class="pre"><code># docker image pull -a linaction/centos
 centos6: Pulling from linaction/centos
 Image docker.io/linaction/centos:centos6 uses outdated schema1 manifest format. Please upgrade to a schema2 image for better future compatibility. More information at https://docs.docker.com/registry/spec/deprecated-schema-v1/
 a3ed95caeb02: Pull complete
@@ -358,49 +361,49 @@ d00fd8fd4a07: Pull complete
 Digest: sha256:759ea478951130a32e9191daaffc9b4e3c5ad089331eccc32112e370bf7c9fb8
 Status: Downloaded newer image for linaction/centos
 docker.io/linaction/centos</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>ダウンロードしたイメージを確認
-<!-- code -->
-<pre class="pre"><code># docker image ls
+        <!-- /code/ -->
+      </li>
+      <li>ダウンロードしたイメージを確認
+        <!-- code -->
+        <pre class="pre"><code># docker image ls
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 linaction/centos    centos6             6ccd3be87830        5 years ago         191MB
 </code></pre>
-<!-- /code/ -->
-        </li>
-      </ol>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-      <h4 class="h4_title">コンテナーの起動</h4>
+    <h4 class="h4_title">コンテナーの起動</h4>
 
-      <ol>
-        <li>コンテナーを起動
-<!-- code -->
-<pre class="pre"><code># docker container run -it --name centos01 linaction/centos:centos6 /bin/bash
+    <ol>
+      <li>コンテナーを起動
+        <!-- code -->
+        <pre class="pre"><code># docker container run -it --name centos01 linaction/centos:centos6 /bin/bash
 [root@76901b654200 /]#</code></pre>
-<!-- /code/ -->
-        </li>
-      </ol>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-      <h4 class="h4_title">起動したコンテナーの確認</h4>
+    <h4 class="h4_title">起動したコンテナーの確認</h4>
 
-      <ol>
-        <li>コンテナー環境のOSのバージョンを確認
-<!-- code -->
-<pre class="pre"><code>[root@76901b654200 /]# cat /etc/redhat-release
+    <ol>
+      <li>コンテナー環境のOSのバージョンを確認
+        <!-- code -->
+        <pre class="pre"><code>[root@76901b654200 /]# cat /etc/redhat-release
 CentOS release 6.7 (Final)</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>コンテナー内のプロセスを確認
-<!-- code -->
-<pre class="pre"><code>[root@76901b654200 /]# ps -ef
+        <!-- /code/ -->
+      </li>
+      <li>コンテナー内のプロセスを確認
+        <!-- code -->
+        <pre class="pre"><code>[root@76901b654200 /]# ps -ef
 UID          PID    PPID  C STIME TTY          TIME CMD
 root           1       0  0 06:37 pts/0    00:00:00 /bin/bash
 root          13       1  0 06:38 pts/0    00:00:00 ps -ef</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>コンテナー環境のネットワークを確認
-<!-- code -->
-<pre class="pre"><code>[root@76901b654200 /]# ifconfig eth0
+        <!-- /code/ -->
+      </li>
+      <li>コンテナー環境のネットワークを確認
+        <!-- code -->
+        <pre class="pre"><code>[root@76901b654200 /]# ifconfig eth0
 eth0      Link encap:Ethernet  HWaddr 02:42:AC:11:00:02
           inet addr:172.17.0.2  Bcast:172.17.255.255  Mask:255.255.0.0
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
@@ -408,94 +411,96 @@ eth0      Link encap:Ethernet  HWaddr 02:42:AC:11:00:02
           TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:0
           RX bytes:6145 (6.0 KiB)  TX bytes:0 (0.0 b)</code></pre>
-<!-- /code/ -->
-        </li>
-      </ol>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-      <h4 class="h4_title">コンテナーとホストLinuxの切替</h4>
+    <h4 class="h4_title">コンテナーとホストLinuxの切替</h4>
 
-      <ol>
-        <li>コンテナーの/bin/bashから抜けてホストLinuxに戻る
-<!-- code -->
-<pre class="pre"><code>Linuxホストに戻るCtrlキーを押したまま、PとQを順番に押す。</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>ホストLinuxから再度コンテナー内のbashに接続
-<!-- code -->
-<pre class="pre"><code># docker container attach centos01
+    <ol>
+      <li>コンテナーの/bin/bashから抜けてホストLinuxに戻る
+        <!-- code -->
+        <pre class="pre"><code>Linuxホストに戻るCtrlキーを押したまま、PとQを順番に押す。</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>ホストLinuxから再度コンテナー内のbashに接続
+        <!-- code -->
+        <pre class="pre"><code># docker container attach centos01
 [root@76901b654200 /]#</code></pre>
-<!-- /code/ -->
-        </li>
-      </ol>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-      <h4 class="h4_title">コンテナーの起動と停止</h4>
+    <h4 class="h4_title">コンテナーの起動と停止</h4>
 
-      <ol>
-        <li>Linuxホストに戻る
-<!-- code -->
-<pre class="pre"><code>Linuxホストに戻るCtrlキーを押したまま、PとQを順番に押す。</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>コンテナーを停止
-<!-- code -->
-<pre class="pre"><code># docker container stop centos01
+    <ol>
+      <li>Linuxホストに戻る
+        <!-- code -->
+        <pre class="pre"><code>Linuxホストに戻るCtrlキーを押したまま、PとQを順番に押す。</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>コンテナーを停止
+        <!-- code -->
+        <pre class="pre"><code># docker container stop centos01
 centos01</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>停止したコンテナーを確認
-<!-- code -->
-<pre class="pre"><code># docker container ls -a
+        <!-- /code/ -->
+      </li>
+      <li>停止したコンテナーを確認
+        <!-- code -->
+        <pre
+          class="pre"><code># docker container ls -a
 CONTAINER ID        IMAGE                      COMMAND             CREATED             STATUS                        PORTS               NAMES
 76901b654200        linaction/centos:centos6   "/bin/bash"         2 minutes ago       Exited (137) 10 seconds ago                       centos01                      centos01</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>コンテナーを起動
-<!-- code -->
-<pre class="pre"><code># docker container start centos01
+        <!-- /code/ -->
+      </li>
+      <li>コンテナーを起動
+        <!-- code -->
+        <pre class="pre"><code># docker container start centos01
 centos01</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>起動したコンテナーを確認
-<!-- code -->
-<pre class="pre"><code># docker container ls
+        <!-- /code/ -->
+      </li>
+      <li>起動したコンテナーを確認
+        <!-- code -->
+        <pre
+          class="pre"><code># docker container ls
 CONTAINER ID        IMAGE                      COMMAND             CREATED             STATUS              PORTS               NAMES
 76901b654200        linaction/centos:centos6   "/bin/bash"         3 minutes ago       Up 9 seconds                            centos01</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>docker container execコマンド
-<!-- code -->
-<pre class="pre"><code># docker container exec -it centos01 /bin/bash</code></pre>
-<!-- /code/ -->
+        <!-- /code/ -->
+      </li>
+      <li>docker container execコマンド
+        <!-- code -->
+        <pre class="pre"><code># docker container exec -it centos01 /bin/bash</code></pre>
+        <!-- /code/ -->
 
-<!-- code -->
-<pre><code># ps -ef
+        <!-- code -->
+        <pre><code># ps -ef
 UID          PID    PPID  C STIME TTY          TIME CMD
 root           1       0  0 06:40 pts/0    00:00:00 /bin/bash
 root          12       0  2 06:41 pts/1    00:00:00 /bin/bash
 root          23      12  0 06:41 pts/1    00:00:00 ps -ef</code></pre>
-<!-- /code/ -->
+        <!-- /code/ -->
 
-<!-- code -->
-<pre><code># exit
+        <!-- code -->
+        <pre><code># exit
 exit</code></pre>
-<!-- /code/ -->
+        <!-- /code/ -->
 
-<!-- code -->
-<pre><code># docker container ls
+        <!-- code -->
+        <pre><code># docker container ls
 CONTAINER ID        IMAGE                      COMMAND             CREATED             STATUS              PORTS               NAMES
 76901b654200        linaction/centos:centos6   "/bin/bash"         5 minutes ago       Up 2 minutes                            centos01</code></pre>
-<!-- /code/ -->
-        </li>
-      </ol>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-      <h4 class="h4_title">Dockerコマンド演習</h4>
+    <h4 class="h4_title">Dockerコマンド演習</h4>
 
-      <h5 class="h5_title">Nginxコンテナーの作成</h5>
+    <h5 class="h5_title">Nginxコンテナーの作成</h5>
 
-      <ol>
-        <li>「practice-nginx」という名前の最新版のnginxイメージ、ポート8080のコンテナを作成
-<!-- code -->
-<pre class="pre"><code># docker run --name practice-nginx -d -p 8080:80 nginx
+    <ol>
+      <li>「practice-nginx」という名前の最新版のnginxイメージ、ポート8080のコンテナを作成
+        <!-- code -->
+        <pre class="pre"><code># docker run --name practice-nginx -d -p 8080:80 nginx
 Unable to find image 'nginx:latest' locally
 latest: Pulling from library/nginx
 54fec2fa59d0: Pull complete
@@ -504,19 +509,20 @@ f9dc69acb465: Pull complete
 Digest: sha256:1de8dbae66ccb87c442ac9871987b729d7eee3b5341d9db50607feeeb650631e
 Status: Downloaded newer image for nginx:latest
 61422feae04c67046ab0942ee814d92e0efbe06eceb01fabe37c34e77b0e1228</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「practice-nginx」コンテナーが起動していることを確認
-<!-- code -->
-<pre class="pre"><code># docker container ls
+        <!-- /code/ -->
+      </li>
+      <li>「practice-nginx」コンテナーが起動していることを確認
+        <!-- code -->
+        <pre
+          class="pre"><code># docker container ls
   CONTAINER ID        IMAGE                      COMMAND                  CREATED             STATUS              PORTS                  NAMES
   61422feae04c        nginx                      "nginx -g 'daemon of…"   7 minutes ago       Up 7 minutes        0.0.0.0:8080->80/tcp   practice-nginx
   3f862208a82a        linaction/centos:centos6   "/bin/bash"              24 minutes ago      Up 16 minutes                              centos01</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「practice-nginx」コンテナーが8080でポートフォワーディングしているか確認
-<!-- code -->
-<pre class="pre"><code># curl localhost:8080
+        <!-- /code/ -->
+      </li>
+      <li>「practice-nginx」コンテナーが8080でポートフォワーディングしているか確認
+        <!-- code -->
+        <pre class="pre"><code># curl localhost:8080
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -543,11 +549,11 @@ Commercial support is available at
 &lt;/body&gt;
 &lt;/html&gt;</code>
 </pre>
-<!-- /code/ -->
-        </li>
-        <li>「practice-nginx」コンテナーのログを確認
-<!-- code -->
-<pre class="pre"><code># docker container logs practice-nginx
+        <!-- /code/ -->
+      </li>
+      <li>「practice-nginx」コンテナーのログを確認
+        <!-- code -->
+        <pre class="pre"><code># docker container logs practice-nginx
 /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
 /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
 /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
@@ -556,11 +562,11 @@ Commercial support is available at
 /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
 /docker-entrypoint.sh: Configuration complete; ready for start up
 172.17.0.1 - - [01/Oct/2020:07:22:37 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.58.0" "-"</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「practice-nginx」コンテナーの詳細情報を確認
-<!-- code -->
-<pre class="pre"><code># docker inspect practice-nginx
+        <!-- /code/ -->
+      </li>
+      <li>「practice-nginx」コンテナーの詳細情報を確認
+        <!-- code -->
+        <pre class="pre"><code># docker inspect practice-nginx
 [
     {
         "Id": "61422feae04c67046ab0942ee814d92e0efbe06eceb01fabe37c34e77b0e1228",
@@ -785,42 +791,46 @@ Commercial support is available at
         }
     }
 ]</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「practice-nginx」コンテナーのリソース情報（ライブストリーム）を確認
-<!-- code -->
-<pre class="pre"><code># docker container stats practice-nginx
+        <!-- /code/ -->
+      </li>
+      <li>「practice-nginx」コンテナーのリソース情報（ライブストリーム）を確認
+        <!-- code -->
+        <pre
+          class="pre"><code># docker container stats practice-nginx
   CONTAINER ID        NAME                CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O           PIDS
-  61422feae04c        practice-nginx      0.00%               3.047MiB / 3.818GiB   0.08%               1.71kB / 1.27kB     0B / 0B             2    </code></pre>「Ctrl + C」で終了します。
-<!-- /code/ -->
-        </li>
-        <li>「practice-nginx」コンテナーの停止
-<!-- code -->
-<pre class="pre"><code># docker container stop practice-nginx
+  61422feae04c        practice-nginx      0.00%               3.047MiB / 3.818GiB   0.08%               1.71kB / 1.27kB     0B / 0B             2    </code></pre>
+        「Ctrl + C」で終了します。
+        <!-- /code/ -->
+      </li>
+      <li>「practice-nginx」コンテナーの停止
+        <!-- code -->
+        <pre class="pre"><code># docker container stop practice-nginx
   practice-nginx</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「practice-nginx」コンテナーの削除
-<!-- code -->
-<pre class="pre"><code># docker container rm practice-nginx
+        <!-- /code/ -->
+      </li>
+      <li>「practice-nginx」コンテナーの削除
+        <!-- code -->
+        <pre class="pre"><code># docker container rm practice-nginx
 practice-nginx</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「practice-nginx」コンテナーの削除確認
-<!-- code -->
-<pre class="pre"><code># docker container ls
+        <!-- /code/ -->
+      </li>
+      <li>「practice-nginx」コンテナーの削除確認
+        <!-- code -->
+        <pre
+          class="pre"><code># docker container ls
 CONTAINER ID        IMAGE                      COMMAND             CREATED             STATUS              PORTS               NAMES
 3f862208a82a        linaction/centos:centos6   "/bin/bash"         28 minutes ago      Up 20 minutes                           centos01</code></pre>
-<!-- /code/ -->
-        </li>
-      </ol>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-      <h5 class="h5_title">DockerfleからNginxコンテナの作成</h5>
+    <h5 class="h5_title">DockerfleからNginxコンテナの作成</h5>
 
-      <ol>
-        <li>「index.html」の作成
-<!-- code -->
-<pre class="pre"><code># vim index.html
+    <ol>
+      <li>「index.html」の作成
+        <!-- code -->
+        <pre
+          class="pre"><code># vim index.html
 --------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -832,21 +842,22 @@ CONTAINER ID        IMAGE                      COMMAND             CREATED      
 &lt;/body&gt;
 &lt;/html&gt;
 --------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「Dockerfile」の作成
-<!-- code -->
-<pre class="pre"><code># vim Dockerfile
+        <!-- /code/ -->
+      </li>
+      <li>「Dockerfile」の作成
+        <!-- code -->
+        <pre
+          class="pre"><code># vim Dockerfile
 --------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
 FROM nginx
 
 COPY index.html /usr/share/nginx/html/index.html
 --------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「dockerfile-nginx」（任意名）イメージのビルド
-<!-- code -->
-<pre class="pre"><code># docker image build -t dockerfile-nginx .
+        <!-- /code/ -->
+      </li>
+      <li>「dockerfile-nginx」（任意名）イメージのビルド
+        <!-- code -->
+        <pre class="pre"><code># docker image build -t dockerfile-nginx .
 Sending build context to Docker daemon  27.14kB
 Step 1/2 : FROM nginx
  ---> 602e111c06b6
@@ -854,17 +865,18 @@ Step 2/2 : COPY index.html /usr/share/nginx/html/index.html
  ---> 01add235bbb7
 Successfully built 01add235bbb7
 Successfully tagged dockerfile-nginx:latest</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「dockerfile-nginx」イメージを基に「practice-nginx」という名前、ポート8080コンテナーを起動
-<!-- code -->
-<pre class="pre"><code># docker run --name practice-nginx -d -p 8080:80 dockerfile-nginx
+        <!-- /code/ -->
+      </li>
+      <li>「dockerfile-nginx」イメージを基に「practice-nginx」という名前、ポート8080コンテナーを起動
+        <!-- code -->
+        <pre class="pre"><code># docker run --name practice-nginx -d -p 8080:80 dockerfile-nginx
 24a89a5fbb3f30f75211cf0ff9583d0e6656a119c5c7f06c50f33b38808574fa</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>8080でアクセスして、オリジナル「index.html」が表示されることを確認
-<!-- code -->
-<pre class="pre"><code># curl localhost:8080
+        <!-- /code/ -->
+      </li>
+      <li>8080でアクセスして、オリジナル「index.html」が表示されることを確認
+        <!-- code -->
+        <pre
+          class="pre"><code># curl localhost:8080
 --------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -876,133 +888,42 @@ Successfully tagged dockerfile-nginx:latest</code></pre>
 &lt;/body&gt;
 &lt;/html&gt;
 --------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「practice-nginx」コンテナーの停止
-<!-- code -->
-<pre class="pre"><code># docker container stop practice-nginx
+        <!-- /code/ -->
+      </li>
+      <li>「practice-nginx」コンテナーの停止
+        <!-- code -->
+        <pre class="pre"><code># docker container stop practice-nginx
 practice-nginx</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「practice-nginx」コンテナーの削除
-<!-- code -->
-<pre class="pre"><code># docker container rm practice-nginx
+        <!-- /code/ -->
+      </li>
+      <li>「practice-nginx」コンテナーの削除
+        <!-- code -->
+        <pre class="pre"><code># docker container rm practice-nginx
   practice-nginx</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「practice-nginx」コンテナーの削除確認
-<!-- code -->
-<pre class="pre"><code># docker container ls
+        <!-- /code/ -->
+      </li>
+      <li>「practice-nginx」コンテナーの削除確認
+        <!-- code -->
+        <pre
+          class="pre"><code># docker container ls
   CONTAINER ID        IMAGE                      COMMAND             CREATED             STATUS              PORTS               NAMES
   3f862208a82a        linaction/centos:centos6   "/bin/bash"         31 minutes ago      Up 23 minutes                           centos01</code></pre>
-<!-- /code/ -->
-        </li>
-      </ol>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-      <h5 class="h5_title">multi-stage builds</h5>
+    <h4 class="h4_title">Dockerfile & Container Mount</h4>
 
-      <ol>
-        <li>サンプルGoアプリケーションの作成
-<!-- code -->
-<pre class="pre"><code># vim main.go
---------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
-package main
+    <h5 class="h5_title">Bind mount</h5>
 
-import "fmt"
-
-func main() {
-        fmt.Println("Hello,Docker & Kubernetes!!")
-}
---------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「Dockerfile」の作成
-<!-- code -->
-<pre class="pre"><code># vim Dockerfile
---------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
-FROM golang:alpine AS build-env
-ADD . /work
-WORKDIR /work
-RUN go build -o hello main.go
-
-FROM busybox
-COPY --from=build-env /work/hello /usr/local/bin/hello
-ENTRYPOINT ["/usr/local/bin/hello"]
---------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「hello」という名前でビルド実行
-<!-- code -->
-<pre class="pre"><code># docker image build -t hello .
-Sending build context to Docker daemon   29.7kB
-Step 1/7 : FROM golang:alpine AS build-env
-alpine: Pulling from library/golang
-cbdbe7a5bc2a: Pull complete
-408f87550127: Pull complete
-fe522b08c979: Pull complete
-618fff1cf170: Pull complete
-0d8b518583db: Pull complete
-Digest: sha256:9b3ad7928626126b72b916609ad081cfb6c0149f6e60cef7fc1e9e15a0d1e973
-Status: Downloaded newer image for golang:alpine
- ---> dda4232b2bd5
-Step 2/7 : ADD . /work
- ---> d5cd898bcb90
-Step 3/7 : WORKDIR /work
- ---> Running in bffdeb1e41d7
-Removing intermediate container bffdeb1e41d7
- ---> 8101e0d146c5
-Step 4/7 : RUN go build -o hello main.go
- ---> Running in f2bdea3825a0
-Removing intermediate container f2bdea3825a0
- ---> 1bd92d75d406
-Step 5/7 : FROM busybox
-latest: Pulling from library/busybox
-d9cbbca60e5f: Pull complete
-Digest: sha256:836945da1f3afe2cfff376d379852bbb82e0237cb2925d53a13f53d6e8a8c48c
-Status: Downloaded newer image for busybox:latest
- ---> 78096d0a5478
-Step 6/7 : COPY --from=build-env /work/hello /usr/local/bin/hello
- ---> 7478008b26f4
-Step 7/7 : ENTRYPOINT ["/usr/local/bin/hello"]
- ---> Running in 6fc2fec13179
-Removing intermediate container 6fc2fec13179
- ---> 0bf4edac4f41
-Successfully built 0bf4edac4f41
-Successfully tagged hello:latest</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>「hello」コンテナーの起動（処理完了と同時にコンテナの削除を実施）
-<!-- code -->
-<pre class="pre"><code># docker container run -it --rm hello
-Hello,Docker & Kubernetes!!</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>イメージの確認
-<!-- code -->
-<pre class="pre"><code># docker image ls
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-hello               latest              0bf4edac4f41        2 minutes ago       3.29MB
-&lt;none&gt;             &lt;none&gt;              1bd92d75d406        2 minutes ago       372MB
-dockerfile-nginx    latest              01add235bbb7        7 minutes ago       127MB
-busybox             latest              78096d0a5478        34 hours ago        1.22MB
-golang              alpine              dda4232b2bd5        2 weeks ago         370MB
-nginx               latest              602e111c06b6        3 weeks ago         127MB
-linaction/centos    centos6             6ccd3be87830        4 years ago         191MB</code></pre>
-<!-- /code/ -->
-        </li>
-      </ol>
-
-      <h4 class="h4_title">Dockerfile & Container Mount</h4>
-
-      <h5 class="h5_title">Bind mount</h5>
-
-      <ol>
-        <li>サンプルHTMLの作成
-<!-- code -->
-<pre class="pre"><code># mkdir htdocs</code></pre>
-<!-- /code/ -->
-<!-- code -->
-<pre class="pre"><code># vim htdocs/index.html
+    <ol>
+      <li>サンプルHTMLの作成
+        <!-- code -->
+        <pre class="pre"><code># mkdir htdocs</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre
+          class="pre"><code># vim htdocs/index.html
 --------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -1014,24 +935,24 @@ linaction/centos    centos6             6ccd3be87830        4 years ago         
  &lt;/body&gt;
 &lt;/html&gt;
 --------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>Webサーバコンテナの起動
-<p>どちらか実行してください。</p>
-「--mount」オプションの場合はホスト上にパスが存在しない場合、エラーとなります。
-<!-- code -->
-<pre class="pre"><code># docker run --name httpd -d -p 8078:80 --mount type=bind,source=/root/htdocs/,target=/usr/local/apache2/htdocs/ httpd
+        <!-- /code/ -->
+      </li>
+      <li>Webサーバコンテナの起動（どちらか実行しましょう）
+        <p>どちらか実行してください。</p>
+        「--mount」オプションの場合はホスト上にパスが存在しない場合、エラーとなります。
+        <!-- code -->
+        <pre class="pre"><code># docker run --name httpd -d -p 8078:80 --mount type=bind,source=/root/htdocs/,target=/usr/local/apache2/htdocs/ httpd
 a4c2f1e19e6731110af0307563c379cf1103614a7ba7f877d7d5c877ba3657a2</code></pre>
-<!-- /code/ -->
-「--v」オプションの場合はホスト上にパスが存在しない場合、新しくディレクトリが作成されます。
-<!-- code -->
-<pre class="pre"><code># docker run --name httpd -d -p 8078:80 -v /root/htdocs/:/usr/local/apache2/htdocs/ httpd
+        <!-- /code/ -->
+        「--v」オプションの場合はホスト上にパスが存在しない場合、新しくディレクトリが作成されます。
+        <!-- code -->
+        <pre class="pre"><code># docker run --name httpd -d -p 8078:80 -v /root/htdocs/:/usr/local/apache2/htdocs/ httpd
 9db9f48f4808c12d3e71f09ff4a00502f2f39ab5249285229bbbd2f2c79797eb</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>curl確認
-<!-- code -->
-<pre class="pre"><code># curl http://localhost:8078/index.html
+        <!-- /code/ -->
+      </li>
+      <li>curl確認
+        <!-- code -->
+        <pre class="pre"><code># curl http://localhost:8078/index.html
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
  &lt;head&gt;
@@ -1042,11 +963,12 @@ a4c2f1e19e6731110af0307563c379cf1103614a7ba7f877d7d5c877ba3657a2</code></pre>
  &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<!-- /code/ -->  
-        </li>
-        <li>ホストのhtmlファイルの変更
-<!-- code -->
-<pre class="pre"><code># vim htdocs/index.html
+        <!-- /code/ -->
+      </li>
+      <li>ホストのhtmlファイルの変更
+        <!-- code -->
+        <pre
+          class="pre"><code># vim htdocs/index.html
 --------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -1058,10 +980,10 @@ a4c2f1e19e6731110af0307563c379cf1103614a7ba7f877d7d5c877ba3657a2</code></pre>
  &lt;/body&gt;
 &lt;/html&gt;
 --------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
-<!-- /code/ --> 
-        </li>
-        <li>curlで更新されたhtmlを確認
-<pre class="pre"><code># curl http://localhost:8078/index.html
+        <!-- /code/ -->
+      </li>
+      <li>curlで更新されたhtmlを確認
+        <pre class="pre"><code># curl http://localhost:8078/index.html
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
  &lt;head&gt;
@@ -1072,38 +994,38 @@ a4c2f1e19e6731110af0307563c379cf1103614a7ba7f877d7d5c877ba3657a2</code></pre>
  &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<!-- /code/ --> 
-        </li>
-        <li>httpdコンテナの停止
-<pre class="pre"><code># docker container stop httpd
+        <!-- /code/ -->
+      </li>
+      <li>httpdコンテナの停止
+        <pre class="pre"><code># docker container stop httpd
 httpd</code></pre>
-<!-- /code/ --> 
-        </li>
-        <li>httpdコンテナの削除
-<pre class="pre"><code># docker container rm httpd
+        <!-- /code/ -->
+      </li>
+      <li>httpdコンテナの削除
+        <pre class="pre"><code># docker container rm httpd
 httpd</code></pre>
-<!-- /code/ --> 
-        </li>
-       </ol>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-       <h5 class="h5_title">Volume</h5>
+    <h5 class="h5_title">Volume</h5>
 
-       <ol>
-         <li>ボリュームの作成
-<!-- code -->
-<pre class="pre"><code># docker volume create httpd-volume</code></pre>
-<!-- /code/ -->
-         </li>
-         <li>ボリュームの確認
-<!-- code -->
-<pre class="pre"><code># docker volume ls
+    <ol>
+      <li>ボリュームの作成
+        <!-- code -->
+        <pre class="pre"><code># docker volume create httpd-volume</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>ボリュームの確認
+        <!-- code -->
+        <pre class="pre"><code># docker volume ls
 local               httpd-volume
 </code></pre>
-<!-- /code/ -->
-         </li>
-         <li>ボリュームの詳細確認
-<!-- code -->
-<pre class="pre"><code># docker volume inspect httpd-volume
+        <!-- /code/ -->
+      </li>
+      <li>ボリュームの詳細確認
+        <!-- code -->
+        <pre class="pre"><code># docker volume inspect httpd-volume
 [
     {
         "CreatedAt": "2020-12-15T01:28:41-05:00",
@@ -1115,25 +1037,25 @@ local               httpd-volume
         "Scope": "local"
     }
 ]</code></pre>
-<!-- /code/ -->
-         </li>
-         <li>Webサーバコンテナの起動
-<p>どちらか実行してください。</p>
-オプションは、「--mount」と「-v」の両方利用可能です。
-<!-- code -->
-<pre class="pre"><code># docker run --name=httpd -d -p 8078:80 --mount source=httpd-volume,target=/usr/local/apache2/htdocs/ httpd
+        <!-- /code/ -->
+      </li>
+      <li>Webサーバコンテナの起動（どちらか実行しましょう）
+        オプションは、「--mount」と「-v」の両方利用可能です。
+        <!-- code -->
+        <pre class="pre"><code># docker run --name=httpd -d -p 8078:80 --mount source=httpd-volume,target=/usr/local/apache2/htdocs/ httpd
 158d157cb3d36962c30d168d025f1770f64b663e3efbc51586c1eac2bd55c785</code></pre>
-<!-- /code/ -->
-「--v」オプションの場合はホスト上にパスが存在しない場合、新しくディレクトリが作成されます。
-<!-- code -->
-<pre class="pre"><code># docker run --name=httpd -d -p 8078:80 -v httpd-volume:/usr/local/apache2/htdocs/ httpd
+        <!-- /code/ -->
+        「--v」オプションの場合はホスト上にパスが存在しない場合、新しくディレクトリが作成されます。
+        <!-- code -->
+        <pre class="pre"><code># docker run --name=httpd -d -p 8078:80 -v httpd-volume:/usr/local/apache2/htdocs/ httpd
 51ebd0104267b1f5d6752fdc6bad09192d4a91be95acffce1883dcfdb4cb0d6d</code></pre>
-<!-- /code/ -->
-         </li>
-         <li>index.htmlを更新
-<p>デフォルトは「It works!」と表示されるHTMLです。上書きで以下の内容に編集。</p>
-<!-- code -->
-<pre class="pre"><code># vim /var/lib/docker/volumes/httpd-volume/_data/index.html
+        <!-- /code/ -->
+      </li>
+      <li>index.htmlを更新
+        <p>デフォルトは「It works!」と表示されるHTMLです。上書きで以下の内容に編集。</p>
+        <!-- code -->
+        <pre
+          class="pre"><code># vim /var/lib/docker/volumes/httpd-volume/_data/index.html
 --------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -1145,10 +1067,10 @@ local               httpd-volume
  &lt;/body&gt;
 &lt;/html&gt;
 --------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
-<!-- /code/ -->
-         </li>
-        <li>curlで更新されたhtmlを確認
-<pre class="pre"><code># curl http://localhost:8078/index.html
+        <!-- /code/ -->
+      </li>
+      <li>curlで更新されたhtmlを確認
+        <pre class="pre"><code># curl http://localhost:8078/index.html
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
  &lt;head&gt;
@@ -1159,1214 +1081,532 @@ local               httpd-volume
  &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<!-- /code/ --> 
-        </li>
-        <li>httpdコンテナの停止
-<pre class="pre"><code># docker container stop httpd
+        <!-- /code/ -->
+      </li>
+      <li>httpdコンテナの停止
+        <pre class="pre"><code># docker container stop httpd
 httpd</code></pre>
-<!-- /code/ --> 
-        </li>
-        <li>httpdコンテナの削除
-<pre class="pre"><code># docker container rm httpd
+        <!-- /code/ -->
+      </li>
+      <li>httpdコンテナの削除
+        <pre class="pre"><code># docker container rm httpd
 httpd</code></pre>
-<!-- /code/ --> 
-        </li>
-       </ol>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-       <h5 class="h5_title">tmpfs mount</h5>
+    <h5 class="h5_title">tmpfs mount</h5>
 
-       <ol>
-         <li>Webサーバコンテナを起動
-<!-- code -->
-<pre class="pre"><code># docker run -itd --name httpd --mount type=tmpfs,destination=/root/tmp,tmpfs-size=10,tmpfs-mode=755 httpd
+    <ol>
+      <li>Webサーバコンテナを起動
+        <!-- code -->
+        <pre class="pre"><code># docker run -itd --name httpd --mount type=tmpfs,destination=/root/tmp,tmpfs-size=10,tmpfs-mode=755 httpd
 87d3af28ba8e52efb36ec4521658d24af1b34efd70f244f362935056c7d770be</code></pre>
-<!-- /code/ -->
-         </li>
-         <li>「/root/tmp」ディレクトリ作成確認
-<!-- code -->
-<pre class="pre"><code># docker container exec -it httpd /bin/bash
+        <!-- /code/ -->
+      </li>
+      <li>「/root/tmp」ディレクトリ作成確認
+        <!-- code -->
+        <pre class="pre"><code># docker container exec -it httpd /bin/bash
 :/usr/local/apache2# ls /root
 tmp
 :/usr/local/apache2# exit</code></pre>
-<!-- /code/ -->
-         </li>
-         <li>httpdコンテナの停止
-<!-- code -->
-<pre class="pre"><code># docker container stop httpd</code></pre>
-<!-- /code/ -->
-         </li>
-         <li>httpdコンテナの削除
-<!-- code -->
-<pre class="pre"><code># docker container rm httpd</code></pre>
-<!-- /code/ -->
-         </li>
-        </ol>
+        <!-- /code/ -->
+      </li>
+      <li>httpdコンテナの停止
+        <!-- code -->
+        <pre class="pre"><code># docker container stop httpd
+httpd</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>httpdコンテナの削除
+        <!-- code -->
+        <pre class="pre"><code># docker container rm httpd
+httpd</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-        <h5 class="h5_title">Data Volume Container</h5>
+    <h5 class="h5_title">Data Volume Container</h5>
 
-        <ol>
-          <li>ホストで作業ディレクトを作成および移動
-<!-- code -->
-<pre class="pre"><code># mkdir /tmp/data-volume</code></pre>
-<!-- /code/ -->
-<!-- code -->
-<pre class="pre"><code># cd /tmp/data-volume</code></pre>
-<!-- /code/ -->
-          </li>
-          <li>マウントするディレクトリとファイルを作成
-<!-- code -->
-<pre class="pre"><code># mkdir share</code></pre>
-<!-- /code/ -->
+    <ol>
+      <li>ホストで作業ディレクトを作成および移動
+        <!-- code -->
+        <pre class="pre"><code># mkdir /tmp/data-volume</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># cd /tmp/data-volume</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>マウントするディレクトリとファイルを作成
+        <!-- code -->
+        <pre class="pre"><code># mkdir share</code></pre>
+        <!-- /code/ -->
 
-<!-- code -->
-<pre class="pre"><code># touch share/share-file.txt</code></pre>
-<!-- /code/ -->
-          </li>
-          <li>CentOS7のイメージを利用して「centos7」コンテナを作成
-                <p>ホスト: /tmp/data-volume/share<br>コンテナ: /tmp/test</p>
-<!-- code -->
-<pre class="pre"><code># docker run -it -d --name centos7 -v /tmp/data-volume/share:/tmp/test centos:centos7</code></pre>
-<!-- /code/ -->
-          </li>
-          <li>CentOS7のイメージを利用して共有側の「centos7-share」コンテナを作成
-<!-- code -->
-<pre class="pre"><code># docker run -it -d --name centos7-share --volumes-from centos7 centos:centos7</code></pre>
-<!-- /code/ -->
-          </li>
-          <li>「centos7」コンテナに接続して確認
-<!-- code -->
-<pre class="pre"><code># docker exec -it centos7 /bin/bash</code></pre>
-<!-- /code/ -->
-<!-- code -->
-<pre class="pre"><code># ls -l /tmp/test
+        <!-- code -->
+        <pre class="pre"><code># touch share/share-file.txt</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>CentOS7のイメージを利用して「centos7」コンテナを作成
+        <p>ホスト: /tmp/data-volume/share<br>コンテナ: /tmp/test</p>
+        <!-- code -->
+        <pre
+          class="pre"><code># docker run -it -d --name centos7 -v /tmp/data-volume/share:/tmp/test centos:centos7</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>CentOS7のイメージを利用して共有側の「centos7-share」コンテナを作成
+        <!-- code -->
+        <pre
+          class="pre"><code># docker run -it -d --name centos7-share --volumes-from centos7 centos:centos7</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>「centos7」コンテナに接続して確認
+        <!-- code -->
+        <pre class="pre"><code># docker exec -it centos7 /bin/bash</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># ls -l /tmp/test
 total 0
 -rw-r--r--. 1 root root 0 Dec 15 16:53 share-file.txt
 </code></pre>
-<!-- /code/ -->
-          </li>
-          <li>「centos7-share」コンテナに接続して確認
-<!-- code -->
-<pre class="pre"><code># docker exec -it centos7-share /bin/bash</code></pre>
-<!-- /code/ -->
-<!-- code -->
-<pre class="pre"><code># ls -l /tmp/test
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># exit
+exit
+</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>「centos7-share」コンテナに接続して確認
+        <!-- code -->
+        <pre class="pre"><code># docker exec -it centos7-share /bin/bash</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># ls -l /tmp/test
 total 0
 -rw-r--r--. 1 root root 0 Dec 15 16:53 share-file.txt
 </code></pre>
-<!-- /code/ -->
-          </li>
-          <li>「centos7」と「centos7-share」コンテナの停止
-<!-- code -->
-<pre class="pre"><code># docker container stop centos7</code></pre>
-<!-- /code/ -->
-<!-- code -->
-<pre class="pre"><code># docker container stop centos7-share</code></pre>
-<!-- /code/ -->
-          </li>
-          <li>「centos7」と「centos7-share」コンテナの削除
-<!-- code -->
-<pre class="pre"><code># docker container rm centos7</code></pre>
-<!-- /code/ -->
-<!-- code -->
-<pre class="pre"><code># docker container rm centos7-share</code></pre>
-<!-- /code/ -->
-          </li>
-         </ol>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># exit
+exit
+</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>「centos7」と「centos7-share」コンテナの停止
+        <!-- code -->
+        <pre class="pre"><code># docker container stop centos7
+centos7
+</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># docker container stop centos7-share
+centos7-share
+</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>「centos7」と「centos7-share」コンテナの削除
+        <!-- code -->
+        <pre class="pre"><code># docker container rm centos7
+centos7
+</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># docker container rm centos7-share
+centos7-share
+</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-       <h4 class="h4_title">WordPress環境作成</h4>
+    <h4 class="h4_title">WordPress環境作成</h4>
 
-       <ol>
-        <li>「wordpress-network」の作成
-<!-- code -->
-<pre class="pre"><code># docker network create wordpress-network
+    <ol>
+      <li>「wordpress-network」の作成
+        <!-- code -->
+        <pre class="pre"><code># docker network create wordpress-network
 48dd9a7f67fed984e1347b52b1a31478cda492f511bce2bca9f503b9eb850ea5</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>ネットワーク一覧で確認
-<!-- code -->
-<pre class="pre"><code># docker network ls
+        <!-- /code/ -->
+      </li>
+      <li>ネットワーク一覧で確認
+        <!-- code -->
+        <pre class="pre"><code># docker network ls
 NETWORK ID          NAME                DRIVER              SCOPE
 e3d270ab1c5d        bridge              bridge              local
 c3562b7929e9        host                host                local
 a3a80258dbd0        none                null                local
 48dd9a7f67fe        wordpress-network   bridge              local</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>MySQLコンテナーを作成
-<!-- code -->
-<pre class="pre"><code># docker run -d --name mysql --network wordpress-network -e MYSQL_ROOT_PASSWORD=wordpress -e MYSQL_DATABASE=wordpress -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress mysql:8.0.20
-e5ed4a86daf108151e3499a24aba65cb25bcd7f4bd0313f1cc17c22e8af727d2</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>WordPressコンテナーを作成
-<!-- code -->
-<pre class="pre"><code># docker run -d --name wordpress --network wordpress-network -p 8088:80 -e WORDPRESS_DB_HOST=mysql:3306 -e WORDPRESS_DB_NAME=wordpress -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress wordpress:php7.4-apache
-cf9c237a1fec5c4bce2e1345cfb6e0585550abbd4c66284ea45cb824bd04691a</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>ブラウザを起動して「http://192.168.56.29:8088」にアクセス</li>
-      </ol>
+        <!-- /code/ -->
+      </li>
+      <li>MySQLコンテナーを作成
+        <!-- code -->
+        <pre class="pre"><code># docker run -d --name mysql --network wordpress-network -e MYSQL_ROOT_PASSWORD=wordpress -e MYSQL_DATABASE=wordpress -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress mysql:8.0.20
+Unable to find image 'mysql:8.0.20' locally
+8.0.20: Pulling from library/mysql
+8559a31e96f4: Pull complete
+d51ce1c2e575: Pull complete
+c2344adc4858: Pull complete
+fcf3ceff18fc: Pull complete
+16da0c38dc5b: Pull complete
+b905d1797e97: Pull complete
+4b50d1c6b05c: Pull complete
+c75914a65ca2: Pull complete
+1ae8042bdd09: Pull complete
+453ac13c00a3: Pull complete
+9e680cd72f08: Pull complete
+a6b5dc864b6c: Pull complete
+Digest: sha256:8b7b328a7ff6de46ef96bcf83af048cb00a1c86282bfca0cb119c84568b4caf6
+Status: Downloaded newer image for mysql:8.0.20
+0360db624057ad66be8bf1b1bfcd9813e22f215230630ddcbc8ea53f67230c52</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>WordPressコンテナーを作成
+        <!-- code -->
+        <pre class="pre"><code># docker run -d --name wordpress --network wordpress-network -p 8080:80 -e WORDPRESS_DB_HOST=mysql:3306 -e WORDPRESS_DB_NAME=wordpress -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress wordpress:php7.4-apache
+Unable to find image 'wordpress:php7.4-apache' locally
+php7.4-apache: Pulling from library/wordpress
+6ec7b7d162b2: Already exists
+db606474d60c: Pull complete
+afb30f0cd8e0: Pull complete
+3bb2e8051594: Pull complete
+4c761b44e2cc: Pull complete
+c2199db96575: Pull complete
+1b9a9381eea8: Pull complete
+50450ffc67ee: Pull complete
+4d1e5a768e83: Pull complete
+5e8be0d1df16: Pull complete
+7a6395859d40: Pull complete
+7306499d3dce: Pull complete
+fa6f0ba15ac6: Pull complete
+308a9ead128f: Pull complete
+2db781a8732e: Pull complete
+63d3161e9e46: Pull complete
+a08dd591ed8a: Pull complete
+931a26282f2a: Pull complete
+f5c6b405e809: Pull complete
+caf2bb847f73: Pull complete
+Digest: sha256:dadd8e9c2ef6dc2fe146cbc5f2edc0ed8ae1026ae252b52f25791be4d7d16600
+Status: Downloaded newer image for wordpress:php7.4-apache
+7fb48dfad2562d69542889fd977bf48c3908781832d28e1e18bd73a53c51e8d6</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>ブラウザを起動して「http://192.168.56.29:8080」にアクセス</li>
+      <li>ホームディレクトリに移動
+        <!-- code -->
+        <pre class="pre"><code># cd</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-      <h4 class="h4_title">DockerfileからWordPress環境作成</h4>
+    <h4 class="h4_title">multi-stage builds</h4>
 
-      <ol>
-        <li>コンテナーを停止
-<!-- code -->
-<pre class="pre"><code># docker container stop centos01
-centos01</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>build用のディレクトリを作成
-<!-- code -->
-<pre class="pre"><code># mkdir ~/build_wordpress</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>Dockerfileを作成
-<!-- code -->
-<pre class="pre"><code># cd build_wordpress</code></pre>
-<!-- /code/ -->
+    <ol>
+      <li>サンプルGoアプリケーションの作成
+        <!-- code -->
+        <pre class="pre"><code># vim main.go
+-----------------------------------------------------------------------------
+package main
 
-<!-- code -->
-<pre><code># vim Dockerfile
+import "fmt"
 
---------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
-#centos6のイメージを取得
-FROM centos:centos6
+func main() {
+fmt.Println("Hello,Docker & Kubernetes!!")
+}
+-----------------------------------------------------------------------------
+Esc + :wq</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>「Dockerfile」の作成
+        <!-- code -->
+        <pre class="pre"><code># vim Dockerfile
+-----------------------------------------------------------------------------
+#Goのビルドを実行するベースイメージをPull
+FROM golang:1.14.1-alpine3.11 as builder
+#ローカルのmain.goをイメージ内にコピー
+COPY ./main.go ./
+#main.goをソースからビルド（コンパイル）して、helloというビルド成果物を生成
+RUN go build -o /hello ./main.go
 
-#タイムゾーンの設定
-RUN /bin/cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+#busyboxベースイメージをPull
+FROM busybox
+#ビルドコンテナからビルド成果物のmsbをコピーして配置
+COPY --from=builder /hello /usr/local/bin/hello
+#msbの実行
+ENTRYPOINT ["/usr/local/bin/hello"]
+-----------------------------------------------------------------------------
+Esc + :wq</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>「hello」という名前でビルド実行
+        <!-- code -->
+        <pre class="pre"><code># docker image build -t hello ./
+Sending build context to Docker daemon  35.33kB
+Step 1/6 : FROM golang:1.14.1-alpine3.11 as builder
+1.14.1-alpine3.11: Pulling from library/golang
+aad63a933944: Pull complete
+c732a2540651: Pull complete
+7b2225181d6b: Pull complete
+c8dae7ec6990: Pull complete
+08684ee472f3: Pull complete
+Digest: sha256:244a736db4a1d2611d257e7403c729663ce2eb08d4628868f9d9ef2735496659
+Status: Downloaded newer image for golang:1.14.1-alpine3.11
+---> 760fdda71c8f
+Step 2/6 : COPY ./main.go ./
+---> a537bd8ef92c
+Step 3/6 : RUN go build -o /hello ./main.go
+---> Running in 95438f2eefa3
+Removing intermediate container 95438f2eefa3
+---> 5491e7998799
+Step 4/6 : FROM busybox
+latest: Pulling from library/busybox
+d60bca25ef07: Pull complete
+Digest: sha256:49dae530fd5fee674a6b0d3da89a380fc93746095e7eca0f1b70188a95fd5d71
+Status: Downloaded newer image for busybox:latest
+---> a77dce18d0ec
+Step 5/6 : COPY --from=builder /hello /usr/local/bin/hello
+---> 1f18803799a8
+Step 6/6 : ENTRYPOINT ["/usr/local/bin/hello"]
+---> Running in 202669e25ca8
+Removing intermediate container 202669e25ca8
+---> 369c15a0a9bb
+Successfully built 369c15a0a9bb
+Successfully tagged hello:latest</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>「hello」コンテナーの起動（処理完了と同時にコンテナの削除を実施）
+        <!-- code -->
+        <pre class="pre"><code># docker container run -it --rm hello
+Hello,Docker & Kubernetes!!</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>イメージの確認
+        <!-- code -->
+        <pre class="pre"><code># docker image ls
+REPOSITORY         TAG                 IMAGE ID       CREATED          SIZE
+hello              latest              cdeb3dda2a29   32 seconds ago   3.3MB
+&lt;none&gt;              &lt;none&gt;             cd58c8f59987   37 seconds ago   372MB
+busybox            latest              a77dce18d0ec   5 days ago       1.24MB
+nginx              latest              ae2feff98a0c   2 weeks ago      133MB
+wordpress          php7.4-apache       bc5f6567b763   3 weeks ago      550MB
+httpd              latest              dd85cdbb9987   3 weeks ago      138MB
+centos             centos7             8652b9f0cb4c   7 weeks ago      204MB
+mysql              8.0.20              be0dbf01a0f3   6 months ago     541MB
+golang             1.14.1-alpine3.11   760fdda71c8f   9 months ago     370MB
+linaction/centos   centos6             6ccd3be87830   5 years ago      191MB</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-#yumリポジトリの追加
-RUN rpm -ivh http://archives.fedoraproject.org/pub/archive/epel/6/x86_64/epel-release-6-8.noarch.rpm
-RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+    <h3>11.Docker HubへコンテナイメージをPush</h3>
 
-#php7のインストール
-RUN sed -i -e "s/^mirrorlist=http:\/\/mirrorlist.centos.org/#mirrorlist=http:\/\/mirrorlist.centos.org/g" /etc/yum.repos.d/CentOS-Base.repo
-RUN sed -i -e "s/^#baseurl=http:\/\/mirror.centos.org/baseurl=http:\/\/vault.centos.org/g" /etc/yum.repos.d/CentOS-Base.repo
-RUN yum install -y --enablerepo=remi,remi-php73 php php-devel php-mbstring php-pdo php-mysql php-gd php-mcrypt libmcrypt
-
-#yumによるHTTPD,MySQL,tar,wgetのインストール
-RUN yum -y install httpd mysql-server tar wget
-
-#tmpディレクトリに移動
-WORKDIR /tmp/
-
-#wordpress一式のダウンロード
-RUN wget https://ja.wordpress.org/latest-ja.tar.gz
-
-#wordpressの展開
-RUN tar xvfz ./latest-ja.tar.gz -C /var/www/html
-
-#ダウンロードしたwordpressの削除
-RUN rm -f ./latest-ja.tar.gz
-
-#wordpressのconfigファイルをリネームして利用可能にする
-RUN cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php
-
-#wordpressのconfigファイルに必要な情報をsedコマンドで書き換える
-RUN sed -i -e 's/database_name_here/wordpress/g' -e 's/username_here/wordpress/g' -e 's/password_here/wppass/g' /var/www/html/wordpress/wp-config.php
-
-#DocumentRootディレクトリの所有者をapacheに変更
-RUN chown -R apache.apache /var/www/html/
-
-#mysqldの起動、DB作成、ユーザ作成および権限設定、mysqldの停止
-RUN service mysqld start && mysql -u root -e "CREATE DATABASE wordpress; GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wppass'; FLUSH PRIVILEGES;" && service mysqld stop
-
-#mysqld,httpdの起動スクリプトの作成
-RUN echo -e "service mysqld start\nservice httpd start\n/bin/bash" > /startService.sh
-
-#mysqld,httpdの起動スクリプトの権限設定
-RUN chmod o+x /startService.sh
-
-#公開ポート
-EXPOSE 80
-
-#mysqld,httpdの起動スクリプトの実行
-CMD /startService.sh
---------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>Dockerfileを実行
-<!-- code -->
-<pre class="pre"><code># docker image build -t linaction/wordpress:ver1.0 ~/build_wordpress
-Sending build context to Docker daemon  4.096kB
-Step 1/20 : FROM centos:centos6
-centos6: Pulling from library/centos
-ff50d722b382: Pull complete
-Digest: sha256:dec8f471302de43f4cfcf82f56d99a5227b5ea1aa6d02fa56344986e1f4610e7
-Status: Downloaded newer image for centos:centos6
- ---> d0957ffdf8a2
-Step 2/20 : RUN /bin/cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
- ---> Running in 87be53df82ce
-Removing intermediate container 87be53df82ce
- ---> 844246736960
-Step 3/20 : RUN rpm -ivh http://archives.fedoraproject.org/pub/archive/epel/6/x86_64/epel-release-6-8.noarch.rpm
- ---> Running in 2f5706c67a2b
-warning: /var/tmp/rpm-tmp.54xQNA: Header V3 RSA/SHA256 Signature, key ID 0608b895: NOKEY
-Retrieving http://archives.fedoraproject.org/pub/archive/epel/6/x86_64/epel-release-6-8.noarch.rpm
-Preparing...                ##################################################
-epel-release                ##################################################
-Removing intermediate container 2f5706c67a2b
- ---> 2e06b63c11e6
-Step 4/20 : RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
- ---> Running in 2ac17188357f
-warning: /var/tmp/rpm-tmp.WNui3x: Header V4 DSA/SHA1 Signature, key ID 00f97f56: NOKEY
-Retrieving http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-Preparing...                ##################################################
-remi-release                ##################################################
-Removing intermediate container 2ac17188357f
- ---> 04299b6674cf
-Step 5/20 : RUN sed -i -e "s/^mirrorlist=http:\/\/mirrorlist.centos.org/#mirrorlist=http:\/\/mirrorlist.centos.org/g" /etc/yum.repos.d/CentOS-Base.repo
- ---> Running in 9d58408e5218
-Removing intermediate container 9d58408e5218
- ---> 57ea8a94f66b
-Step 6/20 : RUN sed -i -e "s/^#baseurl=http:\/\/mirror.centos.org/baseurl=http:\/\/vault.centos.org/g" /etc/yum.repos.d/CentOS-Base.repo
- ---> Running in aa46c3f27ae6
-Removing intermediate container aa46c3f27ae6
- ---> c306dd227c7f
-Step 7/20 : RUN yum install -y --enablerepo=remi,remi-php73 php php-devel php-mbstring php-pdo php-mysql php-gd php-mcrypt libmcrypt
- ---> Running in bf111e0671a9
-Loaded plugins: fastestmirror, ovl
-Setting up Install Process
-Package php-mysql is obsoleted by php-mysqlnd, trying to install php-mysqlnd-7.3.25-1.el6.remi.x86_64 instead
-Package php-mcrypt is obsoleted by php-pecl-mcrypt, trying to install php-pecl-mcrypt-1.0.3-1.el6.remi.7.3.x86_64 instead
-Resolving Dependencies
---> Running transaction check
----> Package libmcrypt.x86_64 0:2.5.8-9.el6 will be installed
----> Package php.x86_64 0:7.3.25-1.el6.remi will be installed
---> Processing Dependency: httpd-mmn = 20051115 for package: php-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: php-common(x86-64) = 7.3.25-1.el6.remi for package: php-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: php-cli(x86-64) = 7.3.25-1.el6.remi for package: php-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: httpd for package: php-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: libargon2.so.0()(64bit) for package: php-7.3.25-1.el6.remi.x86_64
----> Package php-devel.x86_64 0:7.3.25-1.el6.remi will be installed
---> Processing Dependency: autoconf for package: php-devel-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: automake for package: php-devel-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: gcc for package: php-devel-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: gcc-c++ for package: php-devel-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: libtool for package: php-devel-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: krb5-devel(x86-64) for package: php-devel-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: libargon2-devel(x86-64) for package: php-devel-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: libedit-devel(x86-64) for package: php-devel-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: libxml2-devel(x86-64) for package: php-devel-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: openssl-devel(x86-64) for package: php-devel-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: zlib-devel(x86-64) for package: php-devel-7.3.25-1.el6.remi.x86_64
----> Package php-gd.x86_64 0:7.3.25-1.el6.remi will be installed
---> Processing Dependency: gd-last(x86-64) >= 2.1.1 for package: php-gd-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: libX11.so.6()(64bit) for package: php-gd-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: libXpm.so.4()(64bit) for package: php-gd-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: libfreetype.so.6()(64bit) for package: php-gd-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: libgd.so.3()(64bit) for package: php-gd-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: libjpeg.so.62()(64bit) for package: php-gd-7.3.25-1.el6.remi.x86_64
---> Processing Dependency: libpng12.so.0()(64bit) for package: php-gd-7.3.25-1.el6.remi.x86_64
----> Package php-mbstring.x86_64 0:7.3.25-1.el6.remi will be installed
---> Processing Dependency: libonig.so.105()(64bit) for package: php-mbstring-7.3.25-1.el6.remi.x86_64
----> Package php-mysqlnd.x86_64 0:7.3.25-1.el6.remi will be installed
----> Package php-pdo.x86_64 0:7.3.25-1.el6.remi will be installed
----> Package php-pecl-mcrypt.x86_64 0:1.0.3-1.el6.remi.7.3 will be installed
---> Running transaction check
----> Package autoconf.noarch 0:2.63-5.1.el6 will be installed
---> Processing Dependency: perl >= 5.005_03 for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl >= 5.005 for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl >= 5.000 for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: m4 >= 1.4.7 for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(vars) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(strict) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(Text::ParseWords) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(POSIX) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(IO::File) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(Getopt::Long) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(File::stat) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(File::Spec) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(File::Path) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(File::Find) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(File::Copy) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(File::Compare) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(File::Basename) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(Exporter) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(Errno) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(DynaLoader) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(Data::Dumper) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(Cwd) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: perl(Carp) for package: autoconf-2.63-5.1.el6.noarch
---> Processing Dependency: /usr/bin/perl for package: autoconf-2.63-5.1.el6.noarch
----> Package automake.noarch 0:1.11.1-4.el6 will be installed
----> Package freetype.x86_64 0:2.3.11-19.el6_10 will be installed
----> Package gcc.x86_64 0:4.4.7-23.el6 will be installed
---> Processing Dependency: libgomp = 4.4.7-23.el6 for package: gcc-4.4.7-23.el6.x86_64
---> Processing Dependency: cpp = 4.4.7-23.el6 for package: gcc-4.4.7-23.el6.x86_64
---> Processing Dependency: glibc-devel >= 2.2.90-12 for package: gcc-4.4.7-23.el6.x86_64
---> Processing Dependency: cloog-ppl >= 0.15 for package: gcc-4.4.7-23.el6.x86_64
---> Processing Dependency: libgomp.so.1()(64bit) for package: gcc-4.4.7-23.el6.x86_64
----> Package gcc-c++.x86_64 0:4.4.7-23.el6 will be installed
---> Processing Dependency: libstdc++-devel = 4.4.7-23.el6 for package: gcc-c++-4.4.7-23.el6.x86_64
---> Processing Dependency: libmpfr.so.1()(64bit) for package: gcc-c++-4.4.7-23.el6.x86_64
----> Package gd-last.x86_64 0:2.3.0-2.el6.remi will be installed
---> Processing Dependency: libfontconfig.so.1()(64bit) for package: gd-last-2.3.0-2.el6.remi.x86_64
---> Processing Dependency: libtiff.so.3()(64bit) for package: gd-last-2.3.0-2.el6.remi.x86_64
---> Processing Dependency: libwebp.so.5()(64bit) for package: gd-last-2.3.0-2.el6.remi.x86_64
----> Package httpd.x86_64 0:2.2.15-69.el6.centos will be installed
---> Processing Dependency: httpd-tools = 2.2.15-69.el6.centos for package: httpd-2.2.15-69.el6.centos.x86_64
---> Processing Dependency: system-logos >= 7.92.1-1 for package: httpd-2.2.15-69.el6.centos.x86_64
---> Processing Dependency: initscripts >= 8.36 for package: httpd-2.2.15-69.el6.centos.x86_64
---> Processing Dependency: apr-util-ldap for package: httpd-2.2.15-69.el6.centos.x86_64
---> Processing Dependency: /etc/mime.types for package: httpd-2.2.15-69.el6.centos.x86_64
---> Processing Dependency: libaprutil-1.so.0()(64bit) for package: httpd-2.2.15-69.el6.centos.x86_64
---> Processing Dependency: libapr-1.so.0()(64bit) for package: httpd-2.2.15-69.el6.centos.x86_64
----> Package krb5-devel.x86_64 0:1.10.3-65.el6 will be installed
---> Processing Dependency: libkadm5(x86-64) = 1.10.3-65.el6 for package: krb5-devel-1.10.3-65.el6.x86_64
---> Processing Dependency: libselinux-devel for package: krb5-devel-1.10.3-65.el6.x86_64
---> Processing Dependency: libcom_err-devel for package: krb5-devel-1.10.3-65.el6.x86_64
---> Processing Dependency: keyutils-libs-devel for package: krb5-devel-1.10.3-65.el6.x86_64
----> Package libX11.x86_64 0:1.6.4-4.el6_10 will be installed
---> Processing Dependency: libX11-common = 1.6.4-4.el6_10 for package: libX11-1.6.4-4.el6_10.x86_64
---> Processing Dependency: libxcb.so.1()(64bit) for package: libX11-1.6.4-4.el6_10.x86_64
----> Package libXpm.x86_64 0:3.5.10-2.el6 will be installed
----> Package libargon2.x86_64 0:20161029-7.el6.remi will be installed
----> Package libargon2-devel.x86_64 0:20161029-7.el6.remi will be installed
----> Package libedit-devel.x86_64 0:2.11-4.20080712cvs.1.el6 will be installed
---> Processing Dependency: libedit = 2.11-4.20080712cvs.1.el6 for package: libedit-devel-2.11-4.20080712cvs.1.el6.x86_64
---> Processing Dependency: ncurses-devel for package: libedit-devel-2.11-4.20080712cvs.1.el6.x86_64
---> Processing Dependency: libedit.so.0()(64bit) for package: libedit-devel-2.11-4.20080712cvs.1.el6.x86_64
----> Package libjpeg-turbo.x86_64 0:1.2.1-3.el6_5 will be installed
----> Package libpng.x86_64 2:1.2.49-2.el6_7 will be installed
----> Package libtool.x86_64 0:2.2.6-15.5.el6 will be installed
----> Package libxml2-devel.x86_64 0:2.7.6-21.el6_8.1 will be installed
----> Package oniguruma5php.x86_64 0:6.9.6-1.el6.remi will be installed
----> Package openssl-devel.x86_64 0:1.0.1e-58.el6_10 will be installed
---> Processing Dependency: openssl = 1.0.1e-58.el6_10 for package: openssl-devel-1.0.1e-58.el6_10.x86_64
----> Package php-cli.x86_64 0:7.3.25-1.el6.remi will be installed
----> Package php-common.x86_64 0:7.3.25-1.el6.remi will be installed
---> Processing Dependency: php-json(x86-64) = 7.3.25-1.el6.remi for package: php-common-7.3.25-1.el6.remi.x86_64
----> Package zlib-devel.x86_64 0:1.2.3-29.el6 will be installed
---> Running transaction check
----> Package apr.x86_64 0:1.3.9-5.el6_9.1 will be installed
----> Package apr-util.x86_64 0:1.3.9-3.el6_0.1 will be installed
----> Package apr-util-ldap.x86_64 0:1.3.9-3.el6_0.1 will be installed
----> Package cloog-ppl.x86_64 0:0.15.7-1.2.el6 will be installed
---> Processing Dependency: libppl_c.so.2()(64bit) for package: cloog-ppl-0.15.7-1.2.el6.x86_64
---> Processing Dependency: libppl.so.7()(64bit) for package: cloog-ppl-0.15.7-1.2.el6.x86_64
----> Package cpp.x86_64 0:4.4.7-23.el6 will be installed
----> Package fontconfig.x86_64 0:2.8.0-5.el6 will be installed
----> Package glibc-devel.x86_64 0:2.12-1.212.el6_10.3 will be installed
---> Processing Dependency: glibc-headers = 2.12-1.212.el6_10.3 for package: glibc-devel-2.12-1.212.el6_10.3.x86_64
---> Processing Dependency: glibc = 2.12-1.212.el6_10.3 for package: glibc-devel-2.12-1.212.el6_10.3.x86_64
---> Processing Dependency: glibc-headers for package: glibc-devel-2.12-1.212.el6_10.3.x86_64
----> Package httpd-tools.x86_64 0:2.2.15-69.el6.centos will be installed
----> Package initscripts.x86_64 0:9.03.61-1.el6.centos will be installed
---> Processing Dependency: util-linux-ng >= 2.16 for package: initscripts-9.03.61-1.el6.centos.x86_64
---> Processing Dependency: upstart >= 0.6.5-11 for package: initscripts-9.03.61-1.el6.centos.x86_64
---> Processing Dependency: udev >= 125-1 for package: initscripts-9.03.61-1.el6.centos.x86_64
---> Processing Dependency: sysvinit-tools >= 2.87-6 for package: initscripts-9.03.61-1.el6.centos.x86_64
---> Processing Dependency: plymouth for package: initscripts-9.03.61-1.el6.centos.x86_64
---> Processing Dependency: /sbin/pidof for package: initscripts-9.03.61-1.el6.centos.x86_64
---> Processing Dependency: /sbin/ip for package: initscripts-9.03.61-1.el6.centos.x86_64
---> Processing Dependency: /sbin/blkid for package: initscripts-9.03.61-1.el6.centos.x86_64
---> Processing Dependency: /sbin/arping for package: initscripts-9.03.61-1.el6.centos.x86_64
----> Package keyutils-libs-devel.x86_64 0:1.4-5.el6 will be installed
----> Package libX11-common.noarch 0:1.6.4-4.el6_10 will be installed
----> Package libcom_err-devel.x86_64 0:1.41.12-24.el6 will be installed
----> Package libedit.x86_64 0:2.11-4.20080712cvs.1.el6 will be installed
----> Package libgomp.x86_64 0:4.4.7-23.el6 will be installed
----> Package libkadm5.x86_64 0:1.10.3-65.el6 will be installed
----> Package libselinux-devel.x86_64 0:2.0.94-7.el6 will be installed
---> Processing Dependency: libsepol-devel >= 2.0.32-1 for package: libselinux-devel-2.0.94-7.el6.x86_64
---> Processing Dependency: pkgconfig(libsepol) for package: libselinux-devel-2.0.94-7.el6.x86_64
----> Package libstdc++-devel.x86_64 0:4.4.7-23.el6 will be installed
----> Package libtiff.x86_64 0:3.9.4-21.el6_8 will be installed
----> Package libwebp.x86_64 0:0.4.3-3.el6 will be installed
----> Package libxcb.x86_64 0:1.12-4.el6 will be installed
---> Processing Dependency: libXau.so.6()(64bit) for package: libxcb-1.12-4.el6.x86_64
----> Package m4.x86_64 0:1.4.13-5.el6 will be installed
----> Package mailcap.noarch 0:2.1.31-2.el6 will be installed
----> Package mpfr.x86_64 0:2.4.1-6.el6 will be installed
----> Package ncurses-devel.x86_64 0:5.7-4.20090207.el6 will be installed
----> Package openssl.x86_64 0:1.0.1e-57.el6 will be updated
----> Package openssl.x86_64 0:1.0.1e-58.el6_10 will be an update
----> Package perl.x86_64 4:5.10.1-144.el6 will be installed
---> Processing Dependency: perl-libs = 4:5.10.1-144.el6 for package: 4:perl-5.10.1-144.el6.x86_64
---> Processing Dependency: perl-libs for package: 4:perl-5.10.1-144.el6.x86_64
---> Processing Dependency: perl(version) for package: 4:perl-5.10.1-144.el6.x86_64
---> Processing Dependency: perl(Pod::Simple) for package: 4:perl-5.10.1-144.el6.x86_64
---> Processing Dependency: perl(Module::Pluggable) for package: 4:perl-5.10.1-144.el6.x86_64
---> Processing Dependency: libperl.so()(64bit) for package: 4:perl-5.10.1-144.el6.x86_64
----> Package php-json.x86_64 0:7.3.25-1.el6.remi will be installed
----> Package redhat-logos.noarch 0:60.0.14-12.el6.centos will be installed
---> Running transaction check
----> Package glibc.x86_64 0:2.12-1.212.el6 will be updated
---> Processing Dependency: glibc = 2.12-1.212.el6 for package: glibc-common-2.12-1.212.el6.x86_64
----> Package glibc.x86_64 0:2.12-1.212.el6_10.3 will be an update
----> Package glibc-headers.x86_64 0:2.12-1.212.el6_10.3 will be installed
---> Processing Dependency: kernel-headers >= 2.2.1 for package: glibc-headers-2.12-1.212.el6_10.3.x86_64
---> Processing Dependency: kernel-headers for package: glibc-headers-2.12-1.212.el6_10.3.x86_64
----> Package iproute.x86_64 0:2.6.32-57.el6 will be installed
---> Processing Dependency: iptables >= 1.4.5 for package: iproute-2.6.32-57.el6.x86_64
---> Processing Dependency: libxtables.so.4()(64bit) for package: iproute-2.6.32-57.el6.x86_64
----> Package iputils.x86_64 0:20071127-24.el6 will be installed
----> Package libXau.x86_64 0:1.0.6-4.el6 will be installed
----> Package libsepol-devel.x86_64 0:2.0.41-4.el6 will be installed
----> Package perl-Module-Pluggable.x86_64 1:3.90-144.el6 will be installed
----> Package perl-Pod-Simple.x86_64 1:3.13-144.el6 will be installed
---> Processing Dependency: perl(Pod::Escapes) >= 1.04 for package: 1:perl-Pod-Simple-3.13-144.el6.x86_64
----> Package perl-libs.x86_64 4:5.10.1-144.el6 will be installed
----> Package perl-version.x86_64 3:0.77-144.el6 will be installed
----> Package plymouth.x86_64 0:0.8.3-29.el6.centos will be installed
---> Processing Dependency: libdrm_radeon.so.1()(64bit) for package: plymouth-0.8.3-29.el6.centos.x86_64
---> Processing Dependency: libdrm_nouveau.so.1()(64bit) for package: plymouth-0.8.3-29.el6.centos.x86_64
---> Processing Dependency: libdrm_intel.so.1()(64bit) for package: plymouth-0.8.3-29.el6.centos.x86_64
---> Processing Dependency: libdrm.so.2()(64bit) for package: plymouth-0.8.3-29.el6.centos.x86_64
----> Package ppl.x86_64 0:0.10.2-11.el6 will be installed
----> Package sysvinit-tools.x86_64 0:2.87-6.dsf.el6 will be installed
----> Package udev.x86_64 0:147-2.74.el6_10 will be installed
---> Processing Dependency: hwdata for package: udev-147-2.74.el6_10.x86_64
----> Package upstart.x86_64 0:0.6.5-17.el6 will be installed
----> Package util-linux-ng.x86_64 0:2.17.2-12.28.el6_9.2 will be installed
---> Running transaction check
----> Package glibc-common.x86_64 0:2.12-1.212.el6 will be updated
----> Package glibc-common.x86_64 0:2.12-1.212.el6_10.3 will be an update
----> Package hwdata.noarch 0:0.233-20.1.el6 will be installed
----> Package iptables.x86_64 0:1.4.7-19.el6 will be installed
---> Processing Dependency: policycoreutils for package: iptables-1.4.7-19.el6.x86_64
----> Package kernel-headers.x86_64 0:2.6.32-754.35.1.el6 will be installed
----> Package libdrm.x86_64 0:2.4.65-2.el6 will be installed
---> Processing Dependency: libpciaccess.so.0()(64bit) for package: libdrm-2.4.65-2.el6.x86_64
----> Package perl-Pod-Escapes.x86_64 1:1.04-144.el6 will be installed
---> Running transaction check
----> Package libpciaccess.x86_64 0:0.13.4-1.el6 will be installed
----> Package policycoreutils.x86_64 0:2.0.83-30.1.el6_8 will be installed
---> Processing Dependency: libdbus-glib-1.so.2()(64bit) for package: policycoreutils-2.0.83-30.1.el6_8.x86_64
---> Running transaction check
----> Package dbus-glib.x86_64 0:0.86-6.el6 will be installed
---> Finished Dependency Resolution
-
-Dependencies Resolved
-
-================================================================================
- Package                 Arch     Version                    Repository    Size
-================================================================================
-Installing:
- libmcrypt               x86_64   2.5.8-9.el6                epel          96 k
- php                     x86_64   7.3.25-1.el6.remi          remi-php73   3.0 M
- php-devel               x86_64   7.3.25-1.el6.remi          remi-php73   1.4 M
- php-gd                  x86_64   7.3.25-1.el6.remi          remi-php73    78 k
- php-mbstring            x86_64   7.3.25-1.el6.remi          remi-php73   864 k
- php-mysqlnd             x86_64   7.3.25-1.el6.remi          remi-php73   216 k
- php-pdo                 x86_64   7.3.25-1.el6.remi          remi-php73   118 k
- php-pecl-mcrypt         x86_64   1.0.3-1.el6.remi.7.3       remi-php73    27 k
-Installing for dependencies:
- apr                     x86_64   1.3.9-5.el6_9.1            base         124 k
- apr-util                x86_64   1.3.9-3.el6_0.1            base          87 k
- apr-util-ldap           x86_64   1.3.9-3.el6_0.1            base          15 k
- autoconf                noarch   2.63-5.1.el6               base         781 k
- automake                noarch   1.11.1-4.el6               base         550 k
- cloog-ppl               x86_64   0.15.7-1.2.el6             base          93 k
- cpp                     x86_64   4.4.7-23.el6               base         3.7 M
- dbus-glib               x86_64   0.86-6.el6                 base         170 k
- fontconfig              x86_64   2.8.0-5.el6                base         186 k
- freetype                x86_64   2.3.11-19.el6_10           updates      361 k
- gcc                     x86_64   4.4.7-23.el6               base          10 M
- gcc-c++                 x86_64   4.4.7-23.el6               base         4.7 M
- gd-last                 x86_64   2.3.0-2.el6.remi           remi         130 k
- glibc-devel             x86_64   2.12-1.212.el6_10.3        updates      991 k
- glibc-headers           x86_64   2.12-1.212.el6_10.3        updates      620 k
- httpd                   x86_64   2.2.15-69.el6.centos       base         836 k
- httpd-tools             x86_64   2.2.15-69.el6.centos       base          81 k
- hwdata                  noarch   0.233-20.1.el6             base         1.4 M
- initscripts             x86_64   9.03.61-1.el6.centos       base         949 k
- iproute                 x86_64   2.6.32-57.el6              base         386 k
- iptables                x86_64   1.4.7-19.el6               base         255 k
- iputils                 x86_64   20071127-24.el6            base         121 k
- kernel-headers          x86_64   2.6.32-754.35.1.el6        updates      4.6 M
- keyutils-libs-devel     x86_64   1.4-5.el6                  base          29 k
- krb5-devel              x86_64   1.10.3-65.el6              base         504 k
- libX11                  x86_64   1.6.4-4.el6_10             updates      587 k
- libX11-common           noarch   1.6.4-4.el6_10             updates      171 k
- libXau                  x86_64   1.0.6-4.el6                base          24 k
- libXpm                  x86_64   3.5.10-2.el6               base          51 k
- libargon2               x86_64   20161029-7.el6.remi        remi          21 k
- libargon2-devel         x86_64   20161029-7.el6.remi        remi          12 k
- libcom_err-devel        x86_64   1.41.12-24.el6             base          33 k
- libdrm                  x86_64   2.4.65-2.el6               base         136 k
- libedit                 x86_64   2.11-4.20080712cvs.1.el6   base          74 k
- libedit-devel           x86_64   2.11-4.20080712cvs.1.el6   base          26 k
- libgomp                 x86_64   4.4.7-23.el6               base         135 k
- libjpeg-turbo           x86_64   1.2.1-3.el6_5              base         174 k
- libkadm5                x86_64   1.10.3-65.el6              base         143 k
- libpciaccess            x86_64   0.13.4-1.el6               base          24 k
- libpng                  x86_64   2:1.2.49-2.el6_7           base         182 k
- libselinux-devel        x86_64   2.0.94-7.el6               base         137 k
- libsepol-devel          x86_64   2.0.41-4.el6               base          64 k
- libstdc++-devel         x86_64   4.4.7-23.el6               base         1.6 M
- libtiff                 x86_64   3.9.4-21.el6_8             base         346 k
- libtool                 x86_64   2.2.6-15.5.el6             base         564 k
- libwebp                 x86_64   0.4.3-3.el6                epel         210 k
- libxcb                  x86_64   1.12-4.el6                 base         180 k
- libxml2-devel           x86_64   2.7.6-21.el6_8.1           base         1.1 M
- m4                      x86_64   1.4.13-5.el6               base         278 k
- mailcap                 noarch   2.1.31-2.el6               base          27 k
- mpfr                    x86_64   2.4.1-6.el6                base         157 k
- ncurses-devel           x86_64   5.7-4.20090207.el6         base         641 k
- oniguruma5php           x86_64   6.9.6-1.el6.remi           remi         199 k
- openssl-devel           x86_64   1.0.1e-58.el6_10           updates      1.2 M
- perl                    x86_64   4:5.10.1-144.el6           base          10 M
- perl-Module-Pluggable   x86_64   1:3.90-144.el6             base          41 k
- perl-Pod-Escapes        x86_64   1:1.04-144.el6             base          33 k
- perl-Pod-Simple         x86_64   1:3.13-144.el6             base         213 k
- perl-libs               x86_64   4:5.10.1-144.el6           base         579 k
- perl-version            x86_64   3:0.77-144.el6             base          52 k
- php-cli                 x86_64   7.3.25-1.el6.remi          remi-php73   4.4 M
- php-common              x86_64   7.3.25-1.el6.remi          remi-php73   1.1 M
- php-json                x86_64   7.3.25-1.el6.remi          remi-php73    67 k
- plymouth                x86_64   0.8.3-29.el6.centos        base          89 k
- policycoreutils         x86_64   2.0.83-30.1.el6_8          base         663 k
- ppl                     x86_64   0.10.2-11.el6              base         1.3 M
- redhat-logos            noarch   60.0.14-12.el6.centos      base          15 M
- sysvinit-tools          x86_64   2.87-6.dsf.el6             base          60 k
- udev                    x86_64   147-2.74.el6_10            updates      358 k
- upstart                 x86_64   0.6.5-17.el6               base         177 k
- util-linux-ng           x86_64   2.17.2-12.28.el6_9.2       base         1.6 M
- zlib-devel              x86_64   1.2.3-29.el6               base          44 k
-Updating for dependencies:
- glibc                   x86_64   2.12-1.212.el6_10.3        updates      3.8 M
- glibc-common            x86_64   2.12-1.212.el6_10.3        updates       14 M
- openssl                 x86_64   1.0.1e-58.el6_10           updates      1.5 M
-
-Transaction Summary
-================================================================================
-Install      80 Package(s)
-Upgrade       3 Package(s)
-
-Total download size: 101 M
-Downloading Packages:
---------------------------------------------------------------------------------
-Total                                           523 kB/s | 101 MB     03:17
-warning: rpmts_HdrFromFdno: Header V3 RSA/SHA1 Signature, key ID c105b9de: NOKEY
-Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
-Importing GPG key 0xC105B9DE:
- Userid : CentOS-6 Key (CentOS 6 Official Signing Key) &lt;centos-6-key@centos.org&gt;
- Package: centos-release-6-10.el6.centos.12.3.x86_64 (@CentOS/6.10)
- From   : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
-warning: rpmts_HdrFromFdno: Header V4 DSA/SHA1 Signature, key ID 00f97f56: NOKEY
-Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
-Importing GPG key 0x00F97F56:
- Userid : Remi Collet &lt;RPMS@FamilleCollet.com&gt;
- Package: remi-release-6.10-2.el6.remi.noarch (installed)
- From   : /etc/pki/rpm-gpg/RPM-GPG-KEY-remi
-warning: rpmts_HdrFromFdno: Header V3 RSA/SHA256 Signature, key ID 0608b895: NOKEY
-Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
-Importing GPG key 0x0608B895:
- Userid : EPEL (6) &lt;epel@fedoraproject.org&gt;
- Package: epel-release-6-8.noarch (installed)
- From   : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
-Running rpm_check_debug
-Running Transaction Test
-Transaction Test Succeeded
-Running Transaction
-Warning: RPMDB altered outside of yum.
-  Installing : zlib-devel-1.2.3-29.el6.x86_64                              1/86
-  Updating   : glibc-2.12-1.212.el6_10.3.x86_64                            2/86
-  Updating   : glibc-common-2.12-1.212.el6_10.3.x86_64                     3/86
-  Updating   : openssl-1.0.1e-58.el6_10.x86_64                             4/86
-  Installing : php-json-7.3.25-1.el6.remi.x86_64                           5/86
-  Installing : php-common-7.3.25-1.el6.remi.x86_64                         6/86
-  Installing : apr-1.3.9-5.el6_9.1.x86_64                                  7/86
-  Installing : apr-util-1.3.9-3.el6_0.1.x86_64                             8/86
-  Installing : libargon2-20161029-7.el6.remi.x86_64                        9/86
-  Installing : libjpeg-turbo-1.2.1-3.el6_5.x86_64                         10/86
-  Installing : freetype-2.3.11-19.el6_10.x86_64                           11/86
-  Installing : mpfr-2.4.1-6.el6.x86_64                                    12/86
-  Installing : sysvinit-tools-2.87-6.dsf.el6.x86_64                       13/86
-  Installing : 2:libpng-1.2.49-2.el6_7.x86_64                             14/86
-  Installing : libedit-2.11-4.20080712cvs.1.el6.x86_64                    15/86
-  Installing : php-cli-7.3.25-1.el6.remi.x86_64                           16/86
-  Installing : hwdata-0.233-20.1.el6.noarch                               17/86
-  Installing : redhat-logos-60.0.14-12.el6.centos.noarch                  18/86
-  Installing : libpciaccess-0.13.4-1.el6.x86_64                           19/86
-  Installing : cpp-4.4.7-23.el6.x86_64                                    20/86
-  Installing : fontconfig-2.8.0-5.el6.x86_64                              21/86
-  Installing : libtiff-3.9.4-21.el6_8.x86_64                              22/86
-  Installing : libargon2-devel-20161029-7.el6.remi.x86_64                 23/86
-  Installing : apr-util-ldap-1.3.9-3.el6_0.1.x86_64                       24/86
-  Installing : httpd-tools-2.2.15-69.el6.centos.x86_64                    25/86
-  Installing : php-pdo-7.3.25-1.el6.remi.x86_64                           26/86
-  Installing : dbus-glib-0.86-6.el6.x86_64                                27/86
-  Installing : libgomp-4.4.7-23.el6.x86_64                                28/86
-  Installing : 1:perl-Pod-Escapes-1.04-144.el6.x86_64                     29/86
-  Installing : 3:perl-version-0.77-144.el6.x86_64                         30/86
-  Installing : 4:perl-libs-5.10.1-144.el6.x86_64                          31/86
-  Installing : 1:perl-Module-Pluggable-3.90-144.el6.x86_64                32/86
-  Installing : 1:perl-Pod-Simple-3.13-144.el6.x86_64                      33/86
-  Installing : 4:perl-5.10.1-144.el6.x86_64                               34/86
-  Installing : libXau-1.0.6-4.el6.x86_64                                  35/86
-  Installing : libxcb-1.12-4.el6.x86_64                                   36/86
-  Installing : upstart-0.6.5-17.el6.x86_64                                37/86
-  Installing : policycoreutils-2.0.83-30.1.el6_8.x86_64                   38/86
-  Installing : iptables-1.4.7-19.el6.x86_64                               39/86
-  Installing : iproute-2.6.32-57.el6.x86_64                               40/86
-  Installing : libdrm-2.4.65-2.el6.x86_64                                 41/86
-  Installing : plymouth-0.8.3-29.el6.centos.x86_64                        42/86
-  Installing : iputils-20071127-24.el6.x86_64                             43/86
-  Installing : util-linux-ng-2.17.2-12.28.el6_9.2.x86_64                  44/86
-install-info: No such file or directory for /usr/share/info/ipc.info
-  Installing : initscripts-9.03.61-1.el6.centos.x86_64                    45/86
-  Installing : udev-147-2.74.el6_10.x86_64                                46/86
-  Installing : m4-1.4.13-5.el6.x86_64                                     47/86
-  Installing : autoconf-2.63-5.1.el6.noarch                               48/86
-install-info: No such file or directory for /usr/share/info/autoconf.info
-  Installing : automake-1.11.1-4.el6.noarch                               49/86
-install-info: No such file or directory for /usr/share/info/automake.info.gz
-  Installing : libwebp-0.4.3-3.el6.x86_64                                 50/86
-  Installing : ppl-0.10.2-11.el6.x86_64                                   51/86
-  Installing : cloog-ppl-0.15.7-1.2.el6.x86_64                            52/86
-  Installing : libmcrypt-2.5.8-9.el6.x86_64                               53/86
-  Installing : oniguruma5php-6.9.6-1.el6.remi.x86_64                      54/86
-  Installing : libkadm5-1.10.3-65.el6.x86_64                              55/86
-  Installing : libxml2-devel-2.7.6-21.el6_8.1.x86_64                      56/86
-  Installing : mailcap-2.1.31-2.el6.noarch                                57/86
-  Installing : httpd-2.2.15-69.el6.centos.x86_64                          58/86
-  Installing : ncurses-devel-5.7-4.20090207.el6.x86_64                    59/86
-  Installing : libedit-devel-2.11-4.20080712cvs.1.el6.x86_64              60/86
-  Installing : keyutils-libs-devel-1.4-5.el6.x86_64                       61/86
-  Installing : libstdc++-devel-4.4.7-23.el6.x86_64                        62/86
-  Installing : libcom_err-devel-1.41.12-24.el6.x86_64                     63/86
-  Installing : libX11-common-1.6.4-4.el6_10.noarch                        64/86
-  Installing : libX11-1.6.4-4.el6_10.x86_64                               65/86
-  Installing : libXpm-3.5.10-2.el6.x86_64                                 66/86
-  Installing : gd-last-2.3.0-2.el6.remi.x86_64                            67/86
-  Installing : kernel-headers-2.6.32-754.35.1.el6.x86_64                  68/86
-  Installing : glibc-headers-2.12-1.212.el6_10.3.x86_64                   69/86
-  Installing : glibc-devel-2.12-1.212.el6_10.3.x86_64                     70/86
-  Installing : gcc-4.4.7-23.el6.x86_64                                    71/86
-  Installing : gcc-c++-4.4.7-23.el6.x86_64                                72/86
-  Installing : libtool-2.2.6-15.5.el6.x86_64                              73/86
-install-info: No such file or directory for /usr/share/info/libtool.info.gz
-  Installing : libsepol-devel-2.0.41-4.el6.x86_64                         74/86
-  Installing : libselinux-devel-2.0.94-7.el6.x86_64                       75/86
-  Installing : krb5-devel-1.10.3-65.el6.x86_64                            76/86
-  Installing : openssl-devel-1.0.1e-58.el6_10.x86_64                      77/86
-  Installing : php-devel-7.3.25-1.el6.remi.x86_64                         78/86
-  Installing : php-gd-7.3.25-1.el6.remi.x86_64                            79/86
-  Installing : php-7.3.25-1.el6.remi.x86_64                               80/86
-  Installing : php-mbstring-7.3.25-1.el6.remi.x86_64                      81/86
-  Installing : php-pecl-mcrypt-1.0.3-1.el6.remi.7.3.x86_64                82/86
-  Installing : php-mysqlnd-7.3.25-1.el6.remi.x86_64                       83/86
-  Cleanup    : openssl-1.0.1e-57.el6.x86_64                               84/86
-  Cleanup    : glibc-common-2.12-1.212.el6.x86_64                         85/86
-  Cleanup    : glibc-2.12-1.212.el6.x86_64                                86/86
-  Verifying  : gcc-4.4.7-23.el6.x86_64                                     1/86
-  Verifying  : httpd-2.2.15-69.el6.centos.x86_64                           2/86
-  Verifying  : krb5-devel-1.10.3-65.el6.x86_64                             3/86
-  Verifying  : zlib-devel-1.2.3-29.el6.x86_64                              4/86
-  Verifying  : dbus-glib-0.86-6.el6.x86_64                                 5/86
-  Verifying  : libtiff-3.9.4-21.el6_8.x86_64                               6/86
-  Verifying  : apr-util-ldap-1.3.9-3.el6_0.1.x86_64                        7/86
-  Verifying  : openssl-1.0.1e-58.el6_10.x86_64                             8/86
-  Verifying  : redhat-logos-60.0.14-12.el6.centos.noarch                   9/86
-  Verifying  : libedit-devel-2.11-4.20080712cvs.1.el6.x86_64              10/86
-  Verifying  : httpd-tools-2.2.15-69.el6.centos.x86_64                    11/86
-  Verifying  : 1:perl-Pod-Simple-3.13-144.el6.x86_64                      12/86
-  Verifying  : libsepol-devel-2.0.41-4.el6.x86_64                         13/86
-  Verifying  : initscripts-9.03.61-1.el6.centos.x86_64                    14/86
-  Verifying  : libselinux-devel-2.0.94-7.el6.x86_64                       15/86
-  Verifying  : cpp-4.4.7-23.el6.x86_64                                    16/86
-  Verifying  : 3:perl-version-0.77-144.el6.x86_64                         17/86
-  Verifying  : libXpm-3.5.10-2.el6.x86_64                                 18/86
-  Verifying  : libgomp-4.4.7-23.el6.x86_64                                19/86
-  Verifying  : glibc-devel-2.12-1.212.el6_10.3.x86_64                     20/86
-  Verifying  : libxcb-1.12-4.el6.x86_64                                   21/86
-  Verifying  : gd-last-2.3.0-2.el6.remi.x86_64                            22/86
-  Verifying  : apr-1.3.9-5.el6_9.1.x86_64                                 23/86
-  Verifying  : hwdata-0.233-20.1.el6.noarch                               24/86
-  Verifying  : kernel-headers-2.6.32-754.35.1.el6.x86_64                  25/86
-  Verifying  : 4:perl-libs-5.10.1-144.el6.x86_64                          26/86
-  Verifying  : glibc-headers-2.12-1.212.el6_10.3.x86_64                   27/86
-  Verifying  : php-gd-7.3.25-1.el6.remi.x86_64                            28/86
-  Verifying  : mpfr-2.4.1-6.el6.x86_64                                    29/86
-  Verifying  : libargon2-20161029-7.el6.remi.x86_64                       30/86
-  Verifying  : glibc-common-2.12-1.212.el6_10.3.x86_64                    31/86
-  Verifying  : 1:perl-Pod-Escapes-1.04-144.el6.x86_64                     32/86
-  Verifying  : cloog-ppl-0.15.7-1.2.el6.x86_64                            33/86
-  Verifying  : php-devel-7.3.25-1.el6.remi.x86_64                         34/86
-  Verifying  : iproute-2.6.32-57.el6.x86_64                               35/86
-  Verifying  : libXau-1.0.6-4.el6.x86_64                                  36/86
-  Verifying  : upstart-0.6.5-17.el6.x86_64                                37/86
-  Verifying  : php-pdo-7.3.25-1.el6.remi.x86_64                           38/86
-  Verifying  : policycoreutils-2.0.83-30.1.el6_8.x86_64                   39/86
-  Verifying  : php-7.3.25-1.el6.remi.x86_64                               40/86
-  Verifying  : libxml2-devel-2.7.6-21.el6_8.1.x86_64                      41/86
-  Verifying  : libX11-common-1.6.4-4.el6_10.noarch                        42/86
-  Verifying  : libpciaccess-0.13.4-1.el6.x86_64                           43/86
-  Verifying  : libjpeg-turbo-1.2.1-3.el6_5.x86_64                         44/86
-  Verifying  : automake-1.11.1-4.el6.noarch                               45/86
-  Verifying  : 1:perl-Module-Pluggable-3.90-144.el6.x86_64                46/86
-  Verifying  : libcom_err-devel-1.41.12-24.el6.x86_64                     47/86
-  Verifying  : sysvinit-tools-2.87-6.dsf.el6.x86_64                       48/86
-  Verifying  : autoconf-2.63-5.1.el6.noarch                               49/86
-  Verifying  : apr-util-1.3.9-3.el6_0.1.x86_64                            50/86
-  Verifying  : freetype-2.3.11-19.el6_10.x86_64                           51/86
-  Verifying  : gcc-c++-4.4.7-23.el6.x86_64                                52/86
-  Verifying  : m4-1.4.13-5.el6.x86_64                                     53/86
-  Verifying  : util-linux-ng-2.17.2-12.28.el6_9.2.x86_64                  54/86
-  Verifying  : libwebp-0.4.3-3.el6.x86_64                                 55/86
-  Verifying  : ppl-0.10.2-11.el6.x86_64                                   56/86
-  Verifying  : libmcrypt-2.5.8-9.el6.x86_64                               57/86
-  Verifying  : php-cli-7.3.25-1.el6.remi.x86_64                           58/86
-  Verifying  : openssl-devel-1.0.1e-58.el6_10.x86_64                      59/86
-  Verifying  : libdrm-2.4.65-2.el6.x86_64                                 60/86
-  Verifying  : iptables-1.4.7-19.el6.x86_64                               61/86
-  Verifying  : udev-147-2.74.el6_10.x86_64                                62/86
-  Verifying  : libtool-2.2.6-15.5.el6.x86_64                              63/86
-  Verifying  : glibc-2.12-1.212.el6_10.3.x86_64                           64/86
-  Verifying  : 4:perl-5.10.1-144.el6.x86_64                               65/86
-  Verifying  : libargon2-devel-20161029-7.el6.remi.x86_64                 66/86
-  Verifying  : fontconfig-2.8.0-5.el6.x86_64                              67/86
-  Verifying  : libstdc++-devel-4.4.7-23.el6.x86_64                        68/86
-  Verifying  : 2:libpng-1.2.49-2.el6_7.x86_64                             69/86
-  Verifying  : plymouth-0.8.3-29.el6.centos.x86_64                        70/86
-  Verifying  : keyutils-libs-devel-1.4-5.el6.x86_64                       71/86
-  Verifying  : php-mysqlnd-7.3.25-1.el6.remi.x86_64                       72/86
-  Verifying  : php-pecl-mcrypt-1.0.3-1.el6.remi.7.3.x86_64                73/86
-  Verifying  : oniguruma5php-6.9.6-1.el6.remi.x86_64                      74/86
-  Verifying  : ncurses-devel-5.7-4.20090207.el6.x86_64                    75/86
-  Verifying  : php-json-7.3.25-1.el6.remi.x86_64                          76/86
-  Verifying  : php-common-7.3.25-1.el6.remi.x86_64                        77/86
-  Verifying  : mailcap-2.1.31-2.el6.noarch                                78/86
-  Verifying  : libedit-2.11-4.20080712cvs.1.el6.x86_64                    79/86
-  Verifying  : php-mbstring-7.3.25-1.el6.remi.x86_64                      80/86
-  Verifying  : libkadm5-1.10.3-65.el6.x86_64                              81/86
-  Verifying  : iputils-20071127-24.el6.x86_64                             82/86
-  Verifying  : libX11-1.6.4-4.el6_10.x86_64                               83/86
-  Verifying  : glibc-2.12-1.212.el6.x86_64                                84/86
-  Verifying  : glibc-common-2.12-1.212.el6.x86_64                         85/86
-  Verifying  : openssl-1.0.1e-57.el6.x86_64                               86/86
-
-Installed:
-  libmcrypt.x86_64 0:2.5.8-9.el6
-  php.x86_64 0:7.3.25-1.el6.remi
-  php-devel.x86_64 0:7.3.25-1.el6.remi
-  php-gd.x86_64 0:7.3.25-1.el6.remi
-  php-mbstring.x86_64 0:7.3.25-1.el6.remi
-  php-mysqlnd.x86_64 0:7.3.25-1.el6.remi
-  php-pdo.x86_64 0:7.3.25-1.el6.remi
-  php-pecl-mcrypt.x86_64 0:1.0.3-1.el6.remi.7.3
-
-Dependency Installed:
-  apr.x86_64 0:1.3.9-5.el6_9.1
-  apr-util.x86_64 0:1.3.9-3.el6_0.1
-  apr-util-ldap.x86_64 0:1.3.9-3.el6_0.1
-  autoconf.noarch 0:2.63-5.1.el6
-  automake.noarch 0:1.11.1-4.el6
-  cloog-ppl.x86_64 0:0.15.7-1.2.el6
-  cpp.x86_64 0:4.4.7-23.el6
-  dbus-glib.x86_64 0:0.86-6.el6
-  fontconfig.x86_64 0:2.8.0-5.el6
-  freetype.x86_64 0:2.3.11-19.el6_10
-  gcc.x86_64 0:4.4.7-23.el6
-  gcc-c++.x86_64 0:4.4.7-23.el6
-  gd-last.x86_64 0:2.3.0-2.el6.remi
-  glibc-devel.x86_64 0:2.12-1.212.el6_10.3
-  glibc-headers.x86_64 0:2.12-1.212.el6_10.3
-  httpd.x86_64 0:2.2.15-69.el6.centos
-  httpd-tools.x86_64 0:2.2.15-69.el6.centos
-  hwdata.noarch 0:0.233-20.1.el6
-  initscripts.x86_64 0:9.03.61-1.el6.centos
-  iproute.x86_64 0:2.6.32-57.el6
-  iptables.x86_64 0:1.4.7-19.el6
-  iputils.x86_64 0:20071127-24.el6
-  kernel-headers.x86_64 0:2.6.32-754.35.1.el6
-  keyutils-libs-devel.x86_64 0:1.4-5.el6
-  krb5-devel.x86_64 0:1.10.3-65.el6
-  libX11.x86_64 0:1.6.4-4.el6_10
-  libX11-common.noarch 0:1.6.4-4.el6_10
-  libXau.x86_64 0:1.0.6-4.el6
-  libXpm.x86_64 0:3.5.10-2.el6
-  libargon2.x86_64 0:20161029-7.el6.remi
-  libargon2-devel.x86_64 0:20161029-7.el6.remi
-  libcom_err-devel.x86_64 0:1.41.12-24.el6
-  libdrm.x86_64 0:2.4.65-2.el6
-  libedit.x86_64 0:2.11-4.20080712cvs.1.el6
-  libedit-devel.x86_64 0:2.11-4.20080712cvs.1.el6
-  libgomp.x86_64 0:4.4.7-23.el6
-  libjpeg-turbo.x86_64 0:1.2.1-3.el6_5
-  libkadm5.x86_64 0:1.10.3-65.el6
-  libpciaccess.x86_64 0:0.13.4-1.el6
-  libpng.x86_64 2:1.2.49-2.el6_7
-  libselinux-devel.x86_64 0:2.0.94-7.el6
-  libsepol-devel.x86_64 0:2.0.41-4.el6
-  libstdc++-devel.x86_64 0:4.4.7-23.el6
-  libtiff.x86_64 0:3.9.4-21.el6_8
-  libtool.x86_64 0:2.2.6-15.5.el6
-  libwebp.x86_64 0:0.4.3-3.el6
-  libxcb.x86_64 0:1.12-4.el6
-  libxml2-devel.x86_64 0:2.7.6-21.el6_8.1
-  m4.x86_64 0:1.4.13-5.el6
-  mailcap.noarch 0:2.1.31-2.el6
-  mpfr.x86_64 0:2.4.1-6.el6
-  ncurses-devel.x86_64 0:5.7-4.20090207.el6
-  oniguruma5php.x86_64 0:6.9.6-1.el6.remi
-  openssl-devel.x86_64 0:1.0.1e-58.el6_10
-  perl.x86_64 4:5.10.1-144.el6
-  perl-Module-Pluggable.x86_64 1:3.90-144.el6
-  perl-Pod-Escapes.x86_64 1:1.04-144.el6
-  perl-Pod-Simple.x86_64 1:3.13-144.el6
-  perl-libs.x86_64 4:5.10.1-144.el6
-  perl-version.x86_64 3:0.77-144.el6
-  php-cli.x86_64 0:7.3.25-1.el6.remi
-  php-common.x86_64 0:7.3.25-1.el6.remi
-  php-json.x86_64 0:7.3.25-1.el6.remi
-  plymouth.x86_64 0:0.8.3-29.el6.centos
-  policycoreutils.x86_64 0:2.0.83-30.1.el6_8
-  ppl.x86_64 0:0.10.2-11.el6
-  redhat-logos.noarch 0:60.0.14-12.el6.centos
-  sysvinit-tools.x86_64 0:2.87-6.dsf.el6
-  udev.x86_64 0:147-2.74.el6_10
-  upstart.x86_64 0:0.6.5-17.el6
-  util-linux-ng.x86_64 0:2.17.2-12.28.el6_9.2
-  zlib-devel.x86_64 0:1.2.3-29.el6
-
-Dependency Updated:
-  glibc.x86_64 0:2.12-1.212.el6_10.3  glibc-common.x86_64 0:2.12-1.212.el6_10.3
-  openssl.x86_64 0:1.0.1e-58.el6_10
-
-Complete!
-Removing intermediate container bf111e0671a9
- ---> d439ce57004b
-Step 8/20 : RUN yum -y install httpd mysql-server tar wget
- ---> Running in 96aa8522e543
-Loaded plugins: fastestmirror, ovl
-Setting up Install Process
-Determining fastest mirrors
- * epel: d2lzkl7pfhq30w.cloudfront.net
- * remi-safe: ftp.riken.jp
-Package httpd-2.2.15-69.el6.centos.x86_64 already installed and latest version
-Package 2:tar-1.23-15.el6_8.x86_64 already installed and latest version
-Resolving Dependencies
---> Running transaction check
----> Package mysql-server.x86_64 0:5.1.73-8.el6_8 will be installed
---> Processing Dependency: mysql = 5.1.73-8.el6_8 for package: mysql-server-5.1.73-8.el6_8.x86_64
---> Processing Dependency: perl-DBI for package: mysql-server-5.1.73-8.el6_8.x86_64
---> Processing Dependency: perl-DBD-MySQL for package: mysql-server-5.1.73-8.el6_8.x86_64
---> Processing Dependency: perl(DBI) for package: mysql-server-5.1.73-8.el6_8.x86_64
---> Processing Dependency: libmysqlclient_r.so.16(libmysqlclient_16)(64bit) for package: mysql-server-5.1.73-8.el6_8.x86_64
---> Processing Dependency: libmysqlclient.so.16(libmysqlclient_16)(64bit) for package: mysql-server-5.1.73-8.el6_8.x86_64
---> Processing Dependency: libmysqlclient_r.so.16()(64bit) for package: mysql-server-5.1.73-8.el6_8.x86_64
---> Processing Dependency: libmysqlclient.so.16()(64bit) for package: mysql-server-5.1.73-8.el6_8.x86_64
----> Package wget.x86_64 0:1.12-10.el6 will be installed
---> Running transaction check
----> Package mysql.x86_64 0:5.1.73-8.el6_8 will be installed
----> Package mysql-libs.x86_64 0:5.1.73-8.el6_8 will be installed
----> Package perl-DBD-MySQL.x86_64 0:4.013-3.el6 will be installed
----> Package perl-DBI.x86_64 0:1.609-4.el6 will be installed
---> Finished Dependency Resolution
-
-Dependencies Resolved
-
-================================================================================
- Package               Arch          Version                  Repository   Size
-================================================================================
-Installing:
- mysql-server          x86_64        5.1.73-8.el6_8           base        8.6 M
- wget                  x86_64        1.12-10.el6              base        484 k
-Installing for dependencies:
- mysql                 x86_64        5.1.73-8.el6_8           base        895 k
- mysql-libs            x86_64        5.1.73-8.el6_8           base        1.2 M
- perl-DBD-MySQL        x86_64        4.013-3.el6              base        134 k
- perl-DBI              x86_64        1.609-4.el6              base        705 k
-
-Transaction Summary
-================================================================================
-Install       6 Package(s)
-
-Total download size: 12 M
-Installed size: 35 M
-Downloading Packages:
---------------------------------------------------------------------------------
-Total                                           800 kB/s |  12 MB     00:15
-Running rpm_check_debug
-Running Transaction Test
-Transaction Test Succeeded
-Running Transaction
-  Installing : mysql-libs-5.1.73-8.el6_8.x86_64                             1/6
-  Installing : perl-DBI-1.609-4.el6.x86_64                                  2/6
-  Installing : perl-DBD-MySQL-4.013-3.el6.x86_64                            3/6
-  Installing : mysql-5.1.73-8.el6_8.x86_64                                  4/6
-  Installing : mysql-server-5.1.73-8.el6_8.x86_64                           5/6
-  Installing : wget-1.12-10.el6.x86_64                                      6/6
-install-info: No such file or directory for /usr/share/info/wget.info.gz
-  Verifying  : wget-1.12-10.el6.x86_64                                      1/6
-  Verifying  : perl-DBD-MySQL-4.013-3.el6.x86_64                            2/6
-  Verifying  : mysql-server-5.1.73-8.el6_8.x86_64                           3/6
-  Verifying  : perl-DBI-1.609-4.el6.x86_64                                  4/6
-  Verifying  : mysql-5.1.73-8.el6_8.x86_64                                  5/6
-  Verifying  : mysql-libs-5.1.73-8.el6_8.x86_64                             6/6
-
-Installed:
-  mysql-server.x86_64 0:5.1.73-8.el6_8         wget.x86_64 0:1.12-10.el6
-
-Dependency Installed:
-  mysql.x86_64 0:5.1.73-8.el6_8           mysql-libs.x86_64 0:5.1.73-8.el6_8
-  perl-DBD-MySQL.x86_64 0:4.013-3.el6     perl-DBI.x86_64 0:1.609-4.el6
-
-Complete!
-Removing intermediate container 96aa8522e543
- ---> 0508e1be3a5f
-Step 9/20 : WORKDIR /tmp/
- ---> Running in 2b47e1aab6f7
-Removing intermediate container 2b47e1aab6f7
- ---> 3ae4b68987f9
-Step 10/20 : RUN wget https://ja.wordpress.org/latest-ja.tar.gz
- ---> Running in e2b1380b43ce
---2020-12-07 15:51:45--  https://ja.wordpress.org/latest-ja.tar.gz
-Resolving ja.wordpress.org... 198.143.164.252
-Connecting to ja.wordpress.org|198.143.164.252|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 13682436 (13M) [application/octet-stream]
-Saving to: `latest-ja.tar.gz'
-
-     0K .......... .......... .......... .......... ..........  0%  157K 85s
- ・
- ・省略
- ・
- 13300K .......... .......... .......... .......... .......... 99%  331M 0s
- 13350K .......... .                                          100%  285M=28s
-
-2020-12-07 15:52:13 (480 KB/s) - `latest-ja.tar.gz' saved [13682436/13682436]
-
-Removing intermediate container e2b1380b43ce
- ---> 232c163fb348
-Step 11/20 : RUN tar xvfz ./latest-ja.tar.gz -C /var/www/html
- ---> Running in 00c2d1df3d35
-wordpress/
-・
-・省略
-・
-Removing intermediate container 00c2d1df3d35
- ---> 3df6cea56fc9
-Step 12/20 : RUN rm -f ./latest-ja.tar.gz
- ---> Running in ebdbac5a426c
-Removing intermediate container ebdbac5a426c
- ---> 801e4aacdde3
-Step 13/20 : RUN cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php
- ---> Running in 9e053d0e55c9
-Removing intermediate container 9e053d0e55c9
- ---> 5f543cbfbfb1
-Step 14/20 : RUN sed -i -e 's/database_name_here/wordpress/g' -e 's/username_here/wordpress/g' -e 's/password_here/wppass/g' /var/www/html/wordpress/wp-config.php
- ---> Running in eb75974f3171
-Removing intermediate container eb75974f3171
- ---> f1f6f69db68f
-Step 15/20 : RUN chown -R apache.apache /var/www/html/
- ---> Running in 99ef16c1907b
-Removing intermediate container 99ef16c1907b
- ---> c630468aaad1
-Step 16/20 : RUN service mysqld start && mysql -u root -e "CREATE DATABASE wordpress; GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wppass'; FLUSH PRIVILEGES;" && service mysqld stop
- ---> Running in b9af5ce8d1af
-Initializing MySQL database:  Installing MySQL system tables...
-OK
-Filling help tables...
-OK
-
-To start mysqld at boot time you have to copy
-support-files/mysql.server to the right place for your system
-
-PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
-To do so, start the server, then issue the following commands:
-
-/usr/bin/mysqladmin -u root password 'new-password'
-/usr/bin/mysqladmin -u root -h b9af5ce8d1af password 'new-password'
-
-Alternatively you can run:
-/usr/bin/mysql_secure_installation
-
-which will also give you the option of removing the test
-databases and anonymous user created by default.  This is
-strongly recommended for production servers.
-
-See the manual for more instructions.
-
-You can start the MySQL daemon with:
-cd /usr ; /usr/bin/mysqld_safe &
-
-You can test the MySQL daemon with mysql-test-run.pl
-cd /usr/mysql-test ; perl mysql-test-run.pl
-
-Please report any problems with the /usr/bin/mysqlbug script!
-
-[  OK  ]
-Starting mysqld:  [  OK  ]
-Stopping mysqld:  [  OK  ]
-Removing intermediate container b9af5ce8d1af
- ---> 74d33bba587e
-Step 17/20 : RUN echo -e "service mysqld start\nservice httpd start\n/bin/bash" > /startService.sh
- ---> Running in ee9ffbb44770
-Removing intermediate container ee9ffbb44770
- ---> 1aa1ff07c681
-Step 18/20 : RUN chmod o+x /startService.sh
- ---> Running in 545880930ad1
-Removing intermediate container 545880930ad1
- ---> 73355f2f7353
-Step 19/20 : EXPOSE 80
- ---> Running in 4a39042256ea
-Removing intermediate container 4a39042256ea
- ---> f4e27ab11efb
-Step 20/20 : CMD /startService.sh
- ---> Running in bc68f69fafba
-Removing intermediate container bc68f69fafba
- ---> 9871ab7f7648
-Successfully built 9871ab7f7648
-Successfully tagged linaction/wordpress:ver1.0</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>コンテナーを起動
-<!-- code -->
-<pre class="pre"><code># docker container run -itd -p 8000:80 --name wordpress01 linaction/wordpress:ver1.0
-528305e21a53f82fbe10581dab4c6774acc92024995966723b4bff467aef234f</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>ブラウザを起動して「http://192.168.56.29:8000/wordpress/」にアクセス</li>
-      </ol>
-
-      <h4 class="h4_title">コンテナーのcommit</h4>
-
-      <ol>
-        <li>コンテナーを停止
-<!-- code -->
-<pre class="pre"><code># docker container stop wordpress01
-wordpress01</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>コンテナーを保存
-<!-- code -->
-<pre class="pre"><code># docker container commit wordpress01 DockerHubアカウント名/wordpress:ver1.0
-sha256:26d72efe4caef325625dd58e770644e8d1df135037c89016ed6a3d9751bd136e</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>コンテナーを保存
-<!-- code -->
-<pre class="pre"><code># docker image ls
-REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
-linaction/wordpress   ver1.0              26d72efe4cae        19 seconds ago      1.07GB
-centos                centos6             d0957ffdf8a2        21 months ago       194MB
-linaction/centos      centos6             6ccd3be87830        5 years ago         191MB</code></pre>
-<!-- /code/ -->
-        </li>
-      </ol>
-
-      <h4 class="h4_title">コンテナーイメージをDocker Hubにpush</h4>
-
-      <ol>
-        <li>Docker Hubにログイン
-<!-- code -->
-<pre class="pre"><code># docker login
+    　　<ol>
+      <li>Docker Hubにログイン
+        <!-- code -->
+        <pre class="pre"><code># docker login
 Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
-Username: linaction
+Username: Docker Hub アカウント
 Password:
 WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
 Configure a credential helper to remove this warning. See
 https://docs.docker.com/engine/reference/commandline/login/#credentials-store
 
-Login Succeeded</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>Docker Hubにコンテナーイメージをpush
-<!-- code -->
-<pre class="pre"><code># docker image push DockerHubアカウント名/wordpress
-The push refers to repository [docker.io/linaction/wordpress]
-cbe43f80a0a4: Pushed
-6c1c6646528d: Pushed
-b30dd18aeb9d: Pushed
-a2e291a3f4a5: Pushed
-b4f1a7bbac9a: Pushed
-6551e1ebdc32: Pushed
-989738e01af9: Pushed
-e036cc3ee71c: Pushed
-06e0f5b4184c: Pushed
-0fadb4f1debb: Pushed
-8a567fa03d52: Pushed
-414565557e6b: Pushed
-3898b251ee18: Pushed
-db2397979f90: Pushed
-1d7e2c80e238: Pushed
-00b598203ee9: Pushed
-39688e4b4e7a: Pushed
-af6bf1987c2e: Layer already exists
-ver1.0: digest: sha256:03cf88d501bc68c32f7b8eeb011ec7d5dd7375ce300c0b5b567403f8d7f7c7f1 size: 4089</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>リポジトリーを確認
-<!-- code -->
-<pre class="pre"><code># docker search DockerHubアカウント名
-NAME                                      DESCRIPTION               STARS               OFFICIAL            AUTOMATED
-linaction/centos                          Sample CentOS6.7(Final)   1
-linaction/wordpress                                                 0
-linaction2017/docker-whale                                          0
-linaction2205/docker-whale                                          0
-linaction/prometheus-handson-web-webapp                             0
-linaction2017/python-hello-world                                    0
-you19920304/linaction                     wordpress                 0</code></pre>
-<!-- /code/ -->
-        </li>
-      </ol>
+Login Succeeded
+</code></pre>
+        <!-- /code/ -->
+        <!-- code -->helloのイメージIDを確認
+        <pre class="pre"><code># docker image ls
+REPOSITORY         TAG                 IMAGE ID       CREATED          SIZE
+hello              latest              cdeb3dda2a29   11 minutes ago   3.3MB
+&lt;none&gt;              &lt;none&gt;             cd58c8f59987   11 minutes ago   372MB
+busybox            latest              a77dce18d0ec   5 days ago       1.24MB
+nginx              latest              ae2feff98a0c   2 weeks ago      133MB
+wordpress          php7.4-apache       bc5f6567b763   3 weeks ago      550MB
+httpd              latest              dd85cdbb9987   3 weeks ago      138MB
+centos             centos7             8652b9f0cb4c   7 weeks ago      204MB
+mysql              8.0.20              be0dbf01a0f3   6 months ago     541MB
+golang             1.14.1-alpine3.11   760fdda71c8f   9 months ago     370MB
+linaction/centos   centos6             6ccd3be87830   5 years ago      191MB</code></pre>
+        <!-- /code/ -->
+        <!-- code -->タグを付与します。
+        <pre class="pre"><code># docker image tag cdeb3dda2a29 Docker Hubアカウント名/hello:1.0</code></pre>
+        <!-- /code/ -->
+        <!-- code -->付与されたことを確認。
+        <pre class="pre"><code># docker image ls
+REPOSITORY         TAG                 IMAGE ID       CREATED          SIZE
+hello              latest              cdeb3dda2a29   15 minutes ago   3.3MB
+linaction/hello    1.0                 cdeb3dda2a29   15 minutes ago   3.3MB
+&lt;none&gt;              &lt;none&gt;              cd58c8f59987   16 minutes ago   372MB
+busybox            latest              a77dce18d0ec   5 days ago       1.24MB
+nginx              latest              ae2feff98a0c   2 weeks ago      133MB
+wordpress          php7.4-apache       bc5f6567b763   3 weeks ago      550MB
+httpd              latest              dd85cdbb9987   3 weeks ago      138MB
+centos             centos7             8652b9f0cb4c   7 weeks ago      204MB
+mysql              8.0.20              be0dbf01a0f3   6 months ago     541MB
+golang             1.14.1-alpine3.11   760fdda71c8f   9 months ago     370MB
+linaction/centos   centos6             6ccd3be87830   5 years ago      191MB
+</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Docker HubにPush
+        <!-- code -->
+        <pre class="pre"><code># docker image push linaction/hello:1.0
+The push refers to repository [docker.io/linaction/hello]
+eec37ef4c8ad: Pushed
+1dad141bdb55: Mounted from library/busybox
+1.0: digest: sha256:08a79fade017741b5e55522e39bcd8c3acc4b70fbed989467810b8843a9fba0d size: 738</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-      <h4 class="h4_title">コンテナの一括削除</h4>
+    <h4 class="h4_title">コンテナの一括削除</h4>
 
-      <ol>
-        <li>停止コンテナの一括削除
-<!-- code -->
-<pre class="pre"><code># docker container prune
+    <ol>
+      <li>コンテナの一括停止
+        <!-- code -->
+        <pre class="pre"><code># docker stop $(docker ps -q)
+7fb48dfad256
+0360db624057
+210127bdcf58
+</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>停止コンテナーの一括削除
+        <!-- code -->
+        <pre class="pre"><code># docker container prune
 WARNING! This will remove all stopped containers.
 Are you sure you want to continue? [y/N] y
 Deleted Containers:
-528305e21a53f82fbe10581dab4c6774acc92024995966723b4bff467aef234f
-76901b6542005e3967ac573842b41a3e2919c03d2413c3aec1280d52d8c7cdb1
+7fb48dfad2562d69542889fd977bf48c3908781832d28e1e18bd73a53c51e8d6
+0360db624057ad66be8bf1b1bfcd9813e22f215230630ddcbc8ea53f67230c52
+210127bdcf58bb6059db5f1a65079f94e5fbf58af3c700fdb0a6aa44037cd3dd
 
-Total reclaimed space: 21.01MB</code></pre>
-<!-- /code/ -->
-
-<!-- code -->
-<pre><code># docker container ls -a
+Total reclaimed space: 42B</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre
+          class="pre"><code># docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</code></pre>
-<!-- /code/ -->
-        </li>
-        <li>イメージの一括削除
-<!-- code -->
-<pre class="pre"><code># docker image prune -a
+        <!-- /code/ -->
+      </li>
+      <li>イメージの一括削除
+        <!-- code -->
+        <pre class="pre"><code># docker image prune -a
 WARNING! This will remove all images without at least one container associated to them.
 Are you sure you want to continue? [y/N] y
 Deleted Images:
-untagged: linaction/wordpress:ver1.0
-untagged: linaction/wordpress@sha256:03cf88d501bc68c32f7b8eeb011ec7d5dd7375ce300c0b5b567403f8d7f7c7f1
-deleted: sha256:26d72efe4caef325625dd58e770644e8d1df135037c89016ed6a3d9751bd136e
-・
-・省略
-・
-deleted: sha256:af6bf1987c2eb07d73f33836b0d8fd825d7c785273526b077e46780e8b4b2ae9
+untagged: linaction/centos:centos6
+untagged: linaction/centos@sha256:759ea478951130a32e9191daaffc9b4e3c5ad089331eccc32112e370bf7c9fb8
+deleted: sha256:6ccd3be878308d49fb42cd47d9f49f29402705e64affae57a65f99cd04616fa2
+deleted: sha256:7f75d454490142c4131d3ca6aedd3a2b19564d96a0fb2ce6547e511edc57b52c
+deleted: sha256:b0bd94a388aad1d084e0e311a4c98097fb38f6ffcbb853ecf72e9514b08015d1
+deleted: sha256:dad13f415d8417662f6a8c0790109106e05601d65651b7a8b4470fb434a83f97
+deleted: sha256:b5471e6ec524d0911384bddc342965d98f164844889e06db5f4976e56e74dbd1
+deleted: sha256:e7973ae3b5b17bb7d5a2acb9a90f52751df60e1ccdf2b85ca90b8640650684f9
+deleted: sha256:0856b2ee9c1a321ee71f5c19cb07aa0a07e11c28fa8f22d867d02a3c79080e36
+deleted: sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+untagged: hello:latest
+untagged: linaction/hello:1.0
+untagged: linaction/hello@sha256:08a79fade017741b5e55522e39bcd8c3acc4b70fbed989467810b8843a9fba0d
+deleted: sha256:cdeb3dda2a299259022e94aee1a768775724d28022917ecb7ed9065b2fded9fa
+deleted: sha256:9f9a1f552d8b4c9fc46b6f3bca3cbff0d084eafabe4956098c19975f319aca88
+deleted: sha256:a9f66d402f8a70fc39263c706e055ce3f5cce9409fab47b6f2db802a72a696b8
+untagged: wordpress:php7.4-apache
+untagged: wordpress@sha256:dadd8e9c2ef6dc2fe146cbc5f2edc0ed8ae1026ae252b52f25791be4d7d16600
+deleted: sha256:bc5f6567b76345eb23d6d0c13a9c4540d9cf754ac536d406d9dbc341147c6c77
+deleted: sha256:ea1f3f5129c0255d874da803c34b08e20d1f49f33bab59c7568d4a34a9d39e38
+deleted: sha256:7ddbcd26cf27d276a144e8cb1b7d5806b50cc8b8ae04f50c1e8fa02690fa978d
+deleted: sha256:85088e3ea785500cd92aa857a45bca61a648196597d9f600ca3dd60d0b0ca3d8
+deleted: sha256:84c43428155e022e75f4b10829d7059a4ac19207f85b570104603018bf68a9a7
+deleted: sha256:8a396e0603d798a58f47422aa29c129384c890afb6284bed782501d49fc176f4
+deleted: sha256:46b5707ed38ae46948af18d87e1d563e1abb982637bb8c5fa4c4e18d55bcb2d0
+deleted: sha256:8b4452d9a86ee23729ecc28980c06efbb051f372354e51e4aed990577397c33f
+deleted: sha256:092caf8621eee90814c9aa724b007c91302d0aae1429906ea1d13a4c798d52b4
+deleted: sha256:f7b0b6034c89578c4b57e731f3985e384cc42dd7d7a7e7540bdd6e215d52781a
+deleted: sha256:3547ba207c92adc841cd8d6df8076e204fd85bb96a416bece1cb3bddbe436208
+deleted: sha256:71ed64c5d6a3b5eb7a5a0d2229bfa0cb93e88f3730bc7867f4ff1fbd64931d84
+deleted: sha256:1070af2779f10067bbd758dd5c6fa8efa51f6f96654f85c1153fe1dd5cf54427
+deleted: sha256:04f8b0f55683dc7a106acf0f44fdd709bbde535889710c877569a9fd1064d39d
+deleted: sha256:2ee746151beb7b0b3ae453bb83c6d0828ee5671a14f60160da05c663f6b4286a
+deleted: sha256:cb7a8356ede0b61bd6f540981c5b1d91b7e5385412e36684f65f904bbf590c92
+deleted: sha256:698904aae259d168b38dad3c8d8c6787b722e92f4b9dfcee0ee8a2ab8240f4c5
+deleted: sha256:a953d04decb53b836e21dfc15a2b8f9bbecaad1085ef606b0d9db21b09078337
+deleted: sha256:8a8f49ca28d2e5ca5aa9455c92331b26ae1e31d2c78a6be0e062429cf3812552
+deleted: sha256:db10680b18837fbef39e1e6452ff5448803e1e7b0c13eda5d53b19743e09d947
+untagged: mysql:8.0.20
+untagged: mysql@sha256:8b7b328a7ff6de46ef96bcf83af048cb00a1c86282bfca0cb119c84568b4caf6
+deleted: sha256:be0dbf01a0f3f46fc8c88b67696e74e7005c3e16d9071032fa0cd89773771576
+deleted: sha256:086d66e8d1cb0d52e9337eabb11fb9b95960e2e1628d90100c62ea5e8bf72306
+deleted: sha256:f37c61ee1973b18c285d0d5fcf02da4bcdb1f3920981499d2a20b2858500a110
+deleted: sha256:e40b8bca7dc63fc8d188a412328e56caf179022f5e5d5b323aae57d233fb1069
+deleted: sha256:339f6b96b27eb035cbedc510adad2560132925a835f0afddbcc1d311c961c14b
+deleted: sha256:d38b06cdb26a5c98857ddbc6ef531d3f57b00e325c0c314600b712efc7ff6ab0
+deleted: sha256:09687cd9cdf4c704fde969fdba370c2d848bc614689712bef1a31d0d581f2007
+deleted: sha256:b704a4a65bf536f82e5d8b86e633d19185e26313de8380162e778feb2852011a
+deleted: sha256:c37206160543786228aa0cce738e85343173851faa44bb4dc07dc9b7dc4ff1c1
+deleted: sha256:12912c9ec523f648130e663d9d4f0a47c1841a0064d4152bcf7b2a97f96326eb
+deleted: sha256:57d29ad88aa49f0f439592755722e70710501b366e2be6125c95accc43464844
+deleted: sha256:b17c024283d0302615c6f0c825137da9db607d49a83d2215a79733afbbaeb7c3
+deleted: sha256:13cb14c2acd34e45446a50af25cb05095a17624678dbafbcc9e26086547c1d74
+untagged: busybox:latest
+untagged: busybox@sha256:49dae530fd5fee674a6b0d3da89a380fc93746095e7eca0f1b70188a95fd5d71
+deleted: sha256:a77dce18d0ecb0c1f368e336528ab8054567a9055269c07c0169cba15aec0291
+deleted: sha256:1dad141bdb55cb5378a5cc3f4e81c10af14b74db9e861e505a3e4f81d99651bf
+untagged: centos:centos7
+untagged: centos@sha256:0f4ec88e21daf75124b8a9e5ca03c37a5e937e0e108a255d890492430789b60e
+deleted: sha256:8652b9f0cb4c0599575e5a003f5906876e10c1ceb2ab9fe1786712dac14a50cf
+deleted: sha256:174f5685490326fc0a1c0f5570b8663732189b327007e47ff13d2ca59673db02
+untagged: httpd:latest
+untagged: httpd@sha256:a3a2886ec250194804974932eaf4a4ba2b77c4e7d551ddb63b01068bf70f4120
+deleted: sha256:dd85cdbb99877b73f0de2053f225af590ab188d79469eebdb23ec2d26d0d10e8
+deleted: sha256:bc2085990715d2d1ac2179131969b293821dbcf7f0538eaeb3bc3bb6d5645a13
+deleted: sha256:a11bf2367d443697ca6267194a18b31289b59b677133e6482779851fa33992df
+deleted: sha256:388a801aa9f7953143fc154e7bc16dd5b696d2f3578a054b0b804557a8d89d74
+deleted: sha256:37495edb13f558e001fba79f653b38ac3cad5e29f189c1e20501f3f6d5326fdc
+untagged: golang:1.14.1-alpine3.11
+untagged: golang@sha256:244a736db4a1d2611d257e7403c729663ce2eb08d4628868f9d9ef2735496659
+untagged: nginx:latest
+untagged: nginx@sha256:4cf620a5c81390ee209398ecc18e5fb9dd0f5155cd82adcbae532fec94006fb9
+deleted: sha256:ae2feff98a0cc5095d97c6c283dcd33090770c76d63877caa99aefbbe4343bdd
+deleted: sha256:782ae030602867e568a53a99643844e8b06702a851c4b0a09c817deae2520b28
+deleted: sha256:8b5b86a154fd4e4098f3f55cd5b71204560cef2e9f50e18e84ada5cb8fb3ae03
+deleted: sha256:528e7c6bece2def770f60aa8722648031a17de5e2df10e776acf955ef8ec90d0
+deleted: sha256:ffb8d6c7eb6938709ca6d1f39f58971ccc5f10372ec3e37e72c7cbc065bbfb57
+deleted: sha256:87c8a1d8f54f3aa4e05569e8919397b65056aa71cdf48b7f061432c98475eee9
+deleted: sha256:cd58c8f59987330d26e69a0578e9318f2b3c2a5706a08eaec8d214c3e1f20c01
+deleted: sha256:b2d6588708aec7de3364d804408c3d6b46874131c48f6a30162de424b45466de
+deleted: sha256:9d173984a11c5b1c735ea168ef23663fc6f0f3c83e2db2ddc9f8df407ad6ebf0
+deleted: sha256:e49eeee7f9d70697e7ef857f0d0dbfb34d507012e7ccd440b49015db028f8fea
+deleted: sha256:760fdda71c8fffbf9c6cb1a6d4a461fafd72eb507a62dc61f6354bb1c98f7ec2
+deleted: sha256:8ba448f3d8b9518ea301d66f09b4c90dc70276c1cdb87ae1b461a61fe0d530d7
+deleted: sha256:879731e07ee181cabadd7d2e6c8870fd4ba544fb05949ce108bd4e5793ab8718
+deleted: sha256:858a35076f544e782ab6422199fe342ca69f14152cd1461f9fc6f4beda9a76bf
+deleted: sha256:393d7bb0808a6378d3ab1074ebc61681e76a3b9414bfe0456afba6da2cb4a743
+deleted: sha256:beee9f30bc1f711043e78d4a2be0668955d4b761d587d6f60c2c8dc081efb203
 
-Total reclaimed space: 1.256GB</code></pre>
-<!-- /code/ -->
-
-<!-- code -->
-<pre><code># docker image ls
+Total reclaimed space: 1.992GB</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># docker image ls
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</code></pre>
-<!-- /code/ -->
-        </li>
-      </ol>
+        <!-- /code/ -->
+      </li>
+    </ol>
 
-      <p class="text_align_center"><a href="../kouki.html">後期演習トップへ戻る</a></p>
-      
-      <p class="text_align_center"><a href="../index.html">トップへ戻る</a></p>
+    <p class="text_align_center"><a href="../kouki.html">後期演習トップへ戻る</a></p>
 
-    </div>
+    <p class="text_align_center"><a href="../index.html">トップへ戻る</a></p>
 
-    <hr>
+  </div>
 
-    <footer id="footer">
-      <footer-content></footer-content>
-    </footer>
+  <hr>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/main.js"></script>
-  </body>
+  <footer id="footer">
+    <footer-content></footer-content>
+  </footer>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+
 </html>
