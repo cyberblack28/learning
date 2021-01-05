@@ -31,447 +31,787 @@
   <div class="contents_area">
     <h2>6.Kubernetes環境構築</h2>
 
-    <h3>2.WordPress環境の構築</h3>
+    <h3>2.kubectlコマンド演習</h3>
 
-    <h4 class="h4_title">Secretの作成</h4>
-
-    <ol>
-      <li>データベースのパスワードを格納する Kubernetes シークレットを作成
-        <!-- code -->
-        <pre class="pre"><code># kubectl create secret generic mysql --from-literal=password=tokyoec@@@
-secret/mysql created</code></pre>
-        <!-- /code/ -->
-      </li>
-    </ol>
-
-    <h4 class="h4_title">MySQLとWordPressのPersistentVolumeとPersistentVolumeClaimの作成</h4>
+    <h4 class="h4_title">Podの作成</h4>
 
     <ol>
-      <li>「mysql-pv.yml」の作成
+      <li>Nginxという名前のNginx Podを作成
         <!-- code -->
-        <pre class="pre"><code># vim mysql-pv.yml
--------------------------------------------------------------
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mysql-pv
-  labels:
-    type: local
-spec:
-  storageClassName: mysql
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: /data/mysql
-------------------------------------------------------------
-Esc + :wq</code></pre>
+        <pre class="pre"><code># kubectl run nginx --image=nginx --restart=Never
+pod/nginx created</code></pre>
         <!-- /code/ -->
       </li>
-      <li>「mysql-pvc.yml」の作成
+      <li>Nginx Podの確認
         <!-- code -->
-        <pre class="pre"><code># vim mysql-pvc.yml
--------------------------------------------------------------
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pvc
-  labels:
-    app: wordpress
-    tier: mysql
-spec:
-  storageClassName: mysql
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 3Gi
-------------------------------------------------------------
-Esc + :wq</code></pre>
+        <pre class="pre"><code># kubectl get pod
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          64s</code></pre>
         <!-- /code/ -->
       </li>
-      <li>pvの作成
+      <li>Nginx PodのClusterIP確認
         <!-- code -->
-        <pre class="pre"><code># kubectl create -f mysql-pv.yml
-persistentvolume/mysql-pv created</code></pre>
+        <pre class="pre"><code># kubectl describe pod nginx | grep IP:
+IP:           10.100.105.3
+  IP:  10.100.105.3</code></pre>
         <!-- /code/ -->
       </li>
-      <li>pvcの作成
+      <li>Nginx Podのアクセス確認
         <!-- code -->
-        <pre class="pre"><code># kubectl create -f mysql-pvc.yml
-persistentvolumeclaim/mysql-pvc created</code></pre>
+        <pre class="pre"><code># kubectl run busybox --image=busybox --restart=Never -it --rm -- sh
+If you don't see a command prompt, try pressing enter.
+/ # wget -O- 10.100.105.3
+Connecting to 10.100.105.3 (10.100.105.3:80)
+writing to stdout
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href="http://nginx.org/"&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href="http://nginx.com/"&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+-                    100% |*************************************************************************************************************|   612  0:00:00 ETA
+written to stdout
+/ # exit
+pod "busybox" deleted</code></pre>
         <!-- /code/ -->
       </li>
-      <li>「wordpress-pv.yml」の作成
+      <li>Nginx Podの削除
         <!-- code -->
-        <pre class="pre"><code># vim wordpress-pv.yml
--------------------------------------------------------------
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: wordpress-pv
-  labels:
-    type: local
-spec:
-  storageClassName: wordpress
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: /data/wordpress
-------------------------------------------------------------
-Esc + :wq</code></pre>
+        <pre class="pre"><code># kubectl delete pod nginx
+pod "nginx" deleted</code></pre>
         <!-- /code/ -->
       </li>
-      <li>「wordpress-pvc.yml」の作成
+      <li>削除されたことを確認
         <!-- code -->
-        <pre class="pre"><code># vim wordpress-pvc.yml
--------------------------------------------------------------
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: wordpress-pvc
-  labels:
-    app: wordpress
-    tier: wordpress
-spec:
-  storageClassName: wordpress
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 3Gi
-------------------------------------------------------------
-Esc + :wq</code></pre>
+        <pre class="pre"><code># kubectl get pod
+No resources found in default namespace.</code></pre>
         <!-- /code/ -->
       </li>
-      <li>pvの作成
-        <!-- code -->
-        <pre class="pre"><code># kubectl create -f wordpress-pv.yml
-persistentvolume/wordpress-pv created</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>pvcの作成
-        <!-- code -->
-        <pre class="pre"><code># kubectl create -f wordpress-pvc.yml
-persistentvolumeclaim/wordpress-pvc created</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>pvとpvcの確認
+      <li>Nginx Podをyamlを生成して、そのyamlから作成
         <!-- code -->
         <pre
-          class="pre"><code># kubectl get pvc,pv
-NAME                                  STATUS   VOLUME         CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-persistentvolumeclaim/mysql-pvc       Bound    mysql-pv       10Gi       RWO            mysql          3m38s
-persistentvolumeclaim/wordpress-pvc   Bound    wordpress-pv   10Gi       RWO            wordpress      27s
-
-NAME                            CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                   STORAGECLASS   REASON   AGE
-persistentvolume/mysql-pv       10Gi       RWO            Retain           Bound    default/mysql-pvc       mysql                   4m14s
-persistentvolume/wordpress-pv   10Gi       RWO            Retain           Bound    default/wordpress-pvc   wordpress               103s</code></pre>
+          class="pre"><code># kubectl run nginx --image=nginx --restart=Never --dry-run=client -o yaml > nginx.yaml</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># cat nginx.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># kubectl create -f nginx.yaml
+pod/nginx created</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod nginx
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          34s</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Nginx Podの詳細確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl describe pod nginx
+Name:         nginx
+Namespace:    default
+Node:         k8s-default-w-edhcavyiihkg-node-0/192.168.0.51
+Start Time:   Tue, 05 Jan 2021 14:23:26 +0900
+Labels:       run=nginx
+Annotations:  &lt;none&gt;
+Status:       Running
+IP:           10.100.105.5
+IPs:
+  IP:  10.100.105.5
+Containers:
+  nginx:
+    Container ID:   docker://0db0f5664ac449533a82a22f7ef85298a0a61f77cd63839f1f4e7630fdd5f02c
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:4cf620a5c81390ee209398ecc18e5fb9dd0f5155cd82adcbae532fec94006fb9
+    Port:           &lt;none&gt;
+    Host Port:      &lt;none&gt;
+    State:          Running
+      Started:      Tue, 05 Jan 2021 14:23:31 +0900
+    Ready:          True
+    Restart Count:  0
+    Environment:    &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-lr99n (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-lr99n:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-lr99n
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  &lt;none&gt;
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                 node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  94s   default-scheduler  Successfully assigned default/nginx to k8s-default-w-edhcavyiihkg-node-0
+  Normal  Pulling    94s   kubelet            Pulling image "nginx"
+  Normal  Pulled     90s   kubelet            Successfully pulled image "nginx"
+  Normal  Created    90s   kubelet            Created container nginx
+  Normal  Started    90s   kubelet            Started container nginx</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Nginx Podの削除
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete pod nginx
+pod "nginx" deleted</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>削除されたことを確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod
+No resources found in default namespace.</code></pre>
         <!-- /code/ -->
       </li>
     </ol>
 
-    <h4 class="h4_title">MySQLのDeploymentとServiceの作成</h4>
+    <h4 class="h4_title">Labelの作成</h4>
 
     <ol>
-      <li>「mysql.yml」の作成
+      <li>nginxという名前でapp=v1というラベルを持つNginx Podを作成
         <!-- code -->
-        <pre class="pre"><code># vim mysql.yml
-----------------------------------------------------------------
+        <pre class="pre"><code># kubectl run nginx --image=nginx --restart=Never --labels=app=v1
+pod/nginx created</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>nginxという名前でapp=v1というラベルを持つNginx Podを作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod --show-labels
+NAME    READY   STATUS    RESTARTS   AGE   LABELS
+nginx   1/1     Running   0          58s   app=v1</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>app=v2にラベル名を変更
+        <!-- code -->
+        <pre class="pre"><code># kubectl label pod nginx app=v2 --overwrite
+pod/nginx labeled</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>appラベルを持つPodのみ確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod -L app
+NAME    READY   STATUS    RESTARTS   AGE     APP
+nginx   1/1     Running   0          2m31s   v2</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>app=v2ラベルを持つPodのみ確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod -l app=v2
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          3m24s</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Nginx Podの削除
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete pod nginx
+pod "nginx" deleted</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>削除されたことを確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod
+No resources found in default namespace.</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
+
+    <h4 class="h4_title">Deployment作成</h4>
+
+    <ol>
+      <li>nginxという名前でバージョン1.19.1のNginx,レプリカ数2のDeploymentの作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl run nginx --image=nginx --restart=Never --labels=app=v1</code></pre>
+        <!-- /code/ -->
+        nginx_dep.yamlのreplicasを1から2へ変更
+        <!-- code -->
+        <pre class="pre"><code># vim nginx_dep.yaml
+------------------------------------------------------------------
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  creationTimestamp: null
   labels:
-    app: mysql
+    app: nginx
+  name: nginx
 spec:
-  replicas: 1
+  replicas: 2 #replicas: 1 から2に変更
   selector:
     matchLabels:
-      app: mysql
+      app: nginx
+  strategy: {}
   template:
     metadata:
+      creationTimestamp: null
       labels:
-        app: mysql
+        app: nginx
     spec:
       containers:
-        - image: mysql:5.6
-          name: mysql
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql
-                  key: password
-          ports:
-            - containerPort: 3306
-              name: mysql
-          volumeMounts:
-            - name: mysql-local-storage
-              mountPath: /var/lib/mysql
-      volumes:
-        - name: mysql-local-storage
-          persistentVolumeClaim:
-            claimName: mysql-pvc
-----------------------------------------------------------------
+      - image: nginx:1.19.1
+        name: nginx
+        resources: {}
+status: {}
+------------------------------------------------------------------
 Esc + :wq</code></pre>
         <!-- /code/ -->
-      </li>
-      <li>MySQLのdeploymentの作成
+        nginx_dep.yamlからDeploymentを作成
         <!-- code -->
-        <pre class="pre"><code># kubectl create -f mysql.yml
-deployment.apps/mysql created</code></pre>
+        <pre class="pre"><code># kubectl create -f nginx_dep.yaml
+deployment.apps/nginx created</code></pre>
         <!-- /code/ -->
       </li>
-      <li>podの確認
-        <!-- code -->
-        <pre class="pre"><code># kubectl get pod -l app=mysql
-NAME                    READY   STATUS    RESTARTS   AGE
-mysql-7dc945f76-grjgp   1/1     Running   0          27s</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>「mysql-service.yml」の作成
-        <!-- code -->
-        <pre class="pre"><code># vim mysql-service.yml
-----------------------------------------------------------------
-apiVersion: v1
-kind: Service
-metadata:
-  name: mysql
-  labels:
-    app: mysql
-spec:
-  type: ClusterIP
-  ports:
-    - port: 3306
-  selector:
-    app: mysql
-----------------------------------------------------------------
-Esc + :wq</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>Serviceの作成
-        <!-- code -->
-        <pre class="pre"><code># kubectl create -f mysql-service.yml
-service/mysql created</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>Serviceの確認
-        <!-- code -->
-        <pre class="pre"><code># kubectl get svc -l app=mysql
-NAME    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-mysql   ClusterIP   10.254.49.181   <none>        3306/TCP   26s</code></pre>
-        <!-- /code/ -->
-      </li>
-    </ol>
-
-    <h4 class="h4_title">WordPressのDeploymentとServiceの作成</h4>
-
-    <ol>
-      <li>「wordpress.yml」の作成
-        <!-- code -->
-        <pre class="pre"><code># vim wordpress.yml
-----------------------------------------------------------------
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: wordpress
-  labels:
-    app: wordpress
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: wordpress
-  template:
-    metadata:
-      labels:
-        app: wordpress
-    spec:
-      containers:
-        - image: wordpress
-          name: wordpress
-          env:
-          - name: WORDPRESS_DB_HOST
-            value: mysql:3306
-          - name: WORDPRESS_DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mysql
-                key: password
-          ports:
-            - containerPort: 80
-              name: wordpress
-          volumeMounts:
-            - name: wordpress-local-storage
-              mountPath: /var/www/html
-      volumes:
-        - name: wordpress-local-storage
-          persistentVolumeClaim:
-            claimName: wordpress-pvc
-----------------------------------------------------------------
-Esc + :wq</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>WordPressのdeploymentの作成
-        <!-- code -->
-        <pre class="pre"><code># kubectl create -f wordpress.yml
-deployment.apps/wordpress created</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>podの確認
-        <!-- code -->
-        <pre class="pre"><code># kubectl get pod -l app=wordpress
-NAME                         READY   STATUS    RESTARTS   AGE
-wordpress-544cfc66bb-dwxrd   1/1     Running   0          26s</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>「wordpress-service.yml」の作成
-        <!-- code -->
-        <pre class="pre"><code># vim wordpress-service.yml
-----------------------------------------------------------------
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: wordpress
-  name: wordpress
-spec:
-  type: LoadBalancer
-  ports:
-    - port: 80
-      targetPort: 80
-      protocol: TCP
-  selector:
-    app: wordpress
-----------------------------------------------------------------
-Esc + :wq</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>Serviceの作成
-        <!-- code -->
-        <pre class="pre"><code># kubectl create -f wordpress-service.yml
-service/wordpress created</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>Serviceの確認
-        <!-- code -->
-        <pre class="pre"><code># kubectl get svc -l app=wordpress
-NAME        TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)        AGE
-wordpress   LoadBalancer   10.254.55.35   115.89.203.131   80:30431/TCP   22s</code></pre>
-        <!-- /code/ -->
-      </li>
-    </ol>
-
-    <h4 class="h4_title">WordPressにアクセス</h4>
-
-    <ol>
-      <li>Choromeブラウザを起動してアクセス<br>http://EXTERNAL-IP/wp-admin/install.php</li>
-    </ol>
-
-    <h4 class="h4_title">Podの自動修復（セルフヒーリング）</h4>
-
-    <ol>
-      <li>WordPressのPod状況を確認
+      <li>Podが2個生成されていることを確認
         <!-- code -->
         <pre class="pre"><code># kubectl get pod
-NAME                         READY   STATUS    RESTARTS   AGE
-mysql-7dc945f76-grjgp        1/1     Running   0          8m12s
-wordpress-544cfc66bb-dwxrd   1/1     Running   0          6m46s</code></pre>
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-676646786c-cjbs7   1/1     Running   0          62s
+nginx-676646786c-qdtgt   1/1     Running   0          62s</code></pre>
         <!-- /code/ -->
       </li>
-      <li>WordPressのPodを削除
-        <!-- code -->
-        <pre class="pre"><code># kubectl delete pod -l app=wordpress
-pod "wordpress-544cfc66bb-dwxrd" deleted</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>WordPressのPod名の確認
+      <li>1podを削除して、セルフヒーリングを確認
         <!-- code -->
         <pre class="pre"><code># kubectl get pod
-NAME                         READY   STATUS    RESTARTS   AGE
-mysql-7dc945f76-grjgp        1/1     Running   0          10m
-wordpress-544cfc66bb-7fshb   1/1     Running   0          78s</code></pre>
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-676646786c-cjbs7   1/1     Running   0          62s
+nginx-676646786c-qdtgt   1/1     Running   0          62s</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete pod nginx-676646786c-cjbs7
+pod "nginx-676646786c-cjbs7" deleted</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-676646786c-8jbtd   1/1     Running   0          21s
+nginx-676646786c-qdtgt   1/1     Running   0          2m42s</code></pre>
         <!-- /code/ -->
       </li>
-    </ol>
-
-    <h4 class="h4_title">クリーンアップ</h4>
-
-    <ol>
+      <li>Nginxを1.19.2にアップデート
+        <!-- code -->
+        <pre class="pre"><code># kubectl set image deployment nginx nginx=nginx:1.19.2
+deployment.apps/nginx image updated</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># kubectl describe deployment nginx
+Name:                   nginx
+Namespace:              default
+CreationTimestamp:      Tue, 05 Jan 2021 14:42:57 +0900
+Labels:                 app=nginx
+Annotations:            deployment.kubernetes.io/revision: 2
+Selector:               app=nginx
+Replicas:               2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=nginx
+  Containers:
+   nginx:
+    Image:        nginx:1.19.2
+    Port:         &lt;none&gt;
+    Host Port:    &lt;none&gt;
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  &lt;none&gt;
+NewReplicaSet:   nginx-57bfdbd96b (2/2 replicas created)
+Events:
+  Type    Reason             Age    From                   Message
+  ----    ------             ----   ----                   -------
+  Normal  ScalingReplicaSet  5m23s  deployment-controller  Scaled up replica set nginx-676646786c to 2
+  Normal  ScalingReplicaSet  55s    deployment-controller  Scaled up replica set nginx-57bfdbd96b to 1
+  Normal  ScalingReplicaSet  41s    deployment-controller  Scaled down replica set nginx-676646786c to 1
+  Normal  ScalingReplicaSet  41s    deployment-controller  Scaled up replica set nginx-57bfdbd96b to 2
+  Normal  ScalingReplicaSet  28s    deployment-controller  Scaled down replica set nginx-676646786c to 0</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Revision内容の確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl rollout history deployment nginx
+deployment.apps/nginx
+REVISION  CHANGE-CAUSE
+1         &lt;none&gt;
+2         &lt;none&gt;</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># kubectl rollout history deployment nginx --revision=1
+deployment.apps/nginx with revision #1
+Pod Template:
+  Labels:       app=nginx
+        pod-template-hash=676646786c
+  Containers:
+   nginx:
+    Image:      nginx:1.19.1
+    Port:       &lt;none&gt;
+    Host Port:  &lt;none&gt;
+    Environment:        &lt;none&gt;
+    Mounts:     &lt;none&gt;
+  Volumes:      &lt;none&gt;</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># kubectl rollout history deployment nginx --revision=2
+deployment.apps/nginx with revision #2
+Pod Template:
+  Labels:       app=nginx
+        pod-template-hash=57bfdbd96b
+  Containers:
+   nginx:
+    Image:      nginx:1.19.2
+    Port:       &lt;none&gt;
+    Host Port:  &lt;none&gt;
+    Environment:        &lt;none&gt;
+    Mounts:     &lt;none&gt;
+  Volumes:      &lt;none&gt;</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Nginxのバージョンを1.19.1にロールバック
+        <!-- code -->
+        <pre class="pre"><code># kubectl rollout undo deployment nginx
+deployment.apps/nginx rolled back</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre
+          class="pre"><code># kubectl describe deployment nginx
+Name:                   nginx
+Namespace:              default
+CreationTimestamp:      Tue, 05 Jan 2021 14:42:57 +0900
+Labels:                 app=nginx
+Annotations:            deployment.kubernetes.io/revision: 3
+Selector:               app=nginx
+Replicas:               2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=nginx
+  Containers:
+   nginx:
+    Image:        nginx:1.19.1
+    Port:         &lt;none&gt;
+    Host Port:    &lt;none&gt;
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  &lt;none&gt;
+NewReplicaSet:   nginx-676646786c (2/2 replicas created)
+Events:
+  Type    Reason             Age                From                   Message
+  ----    ------             ----               ----                   -------
+  Normal  ScalingReplicaSet  7m53s              deployment-controller  Scaled up replica set nginx-57bfdbd96b to 1
+  Normal  ScalingReplicaSet  7m39s              deployment-controller  Scaled down replica set nginx-676646786c to 1
+  Normal  ScalingReplicaSet  7m39s              deployment-controller  Scaled up replica set nginx-57bfdbd96b to 2
+  Normal  ScalingReplicaSet  7m26s              deployment-controller  Scaled down replica set nginx-676646786c to 0
+  Normal  ScalingReplicaSet  33s                deployment-controller  Scaled up replica set nginx-676646786c to 1
+  Normal  ScalingReplicaSet  31s (x2 over 12m)  deployment-controller  Scaled up replica set nginx-676646786c to 2
+  Normal  ScalingReplicaSet  31s                deployment-controller  Scaled down replica set nginx-57bfdbd96b to 1
+  Normal  ScalingReplicaSet  30s                deployment-controller  Scaled down replica set nginx-57bfdbd96b to 0</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Nginxのバージョンを revision 2 の nginx 1.19.2 にロールバック
+        <!-- code -->
+        <pre class="pre"><code># kubectl rollout undo deployment nginx --to-revision=2
+deployment.apps/nginx rolled back</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre
+          class="pre"><code># kubectl describe deployment nginx
+Name:                   nginx
+Namespace:              default
+CreationTimestamp:      Tue, 05 Jan 2021 14:42:57 +0900
+Labels:                 app=nginx
+Annotations:            deployment.kubernetes.io/revision: 4
+Selector:               app=nginx
+Replicas:               2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=nginx
+  Containers:
+   nginx:
+    Image:        nginx:1.19.2
+    Port:         &lt;none&gt;
+    Host Port:    &lt;none&gt;
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  &lt;none&gt;
+NewReplicaSet:   nginx-57bfdbd96b (2/2 replicas created)
+Events:
+  Type    Reason             Age                  From                   Message
+  ----    ------             ----                 ----                   -------
+  Normal  ScalingReplicaSet  3m15s                deployment-controller  Scaled up replica set nginx-676646786c to 1
+  Normal  ScalingReplicaSet  3m13s (x2 over 15m)  deployment-controller  Scaled up replica set nginx-676646786c to 2
+  Normal  ScalingReplicaSet  3m13s                deployment-controller  Scaled down replica set nginx-57bfdbd96b to 1
+  Normal  ScalingReplicaSet  3m12s                deployment-controller  Scaled down replica set nginx-57bfdbd96b to 0
+  Normal  ScalingReplicaSet  33s (x2 over 10m)    deployment-controller  Scaled up replica set nginx-57bfdbd96b to 1
+  Normal  ScalingReplicaSet  31s (x2 over 10m)    deployment-controller  Scaled down replica set nginx-676646786c to 1
+  Normal  ScalingReplicaSet  31s (x2 over 10m)    deployment-controller  Scaled up replica set nginx-57bfdbd96b to 2
+  Normal  ScalingReplicaSet  29s (x2 over 10m)    deployment-controller  Scaled down replica set nginx-676646786c to 0</code></pre>
+        <!-- /code/ -->
+      </li>
       <li>deploymentの削除
         <!-- code -->
-        <pre class="pre"><code># kubectl delete -f wordpress.yml
-deployment.apps "wordpress" deleted</code></pre>
-        <pre class="pre"><code># kubectl delete -f mysql.yml
-deployment.apps "mysql" deleted</code></pre>
+        <pre class="pre"><code># kubectl delete deployment nginx
+deployment.apps "nginx" deleted</code></pre>
         <!-- /code/ -->
       </li>
-      <li>serviceを削除
-        <!-- code -->
-        <pre class="pre"><code># kubectl delete -f wordpress-service.yml
-service "wordpress" deleted</code></pre>
-        <pre class="pre"><code># kubectl delete -f mysql-service.yml
-service "mysql" deleted</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>pvcの削除
-        <!-- code -->
-        <pre class="pre"><code># kubectl delete -f wordpress-pvc.yml
-persistentvolumeclaim "wordpress-pvc" deleted</code></pre>
-        <pre class="pre"><code># kubectl delete -f mysql-pvc.yml
-persistentvolumeclaim "mysql-pvc" deleted</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>pvの削除
-        <!-- code -->
-        <pre class="pre"><code># kubectl delete -f wordpress-pv.yml
-persistentvolume "wordpress-pv" deleted</code></pre>
-        <pre class="pre"><code># kubectl delete -f mysql-pv.yml
-persistentvolume "mysql-pv" deleted</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>podの確認
-        <!-- code -->
-        <pre class="pre"><code># kubectl get pod -l app=wordpress
-No resources found in default namespace.</code></pre>
-        <pre class="pre"><code># kubectl get pod -l app=mysql
-No resources found in default namespace.</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>serviceの確認
-        <!-- code -->
-        <pre class="pre"><code># kubectl get svc -l app=wordpress
-No resources found in default namespace.</code></pre>
-        <pre class="pre"><code># kubectl get svc -l app=mysql
-No resources found in default namespace.</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>pv,pvcの確認
-        <!-- code -->
-        <pre class="pre"><code># kubectl get pvc,pv
-No resources found</code></pre>
-        <!-- /code/ -->
-      </li>
-      <li>DeploymentとServiceの確認
+      <li>deployment削除の確認
         <!-- code -->
         <pre class="pre"><code># kubectl get deployment
 No resources found in default namespace.</code></pre>
-        <pre class="pre"><code># kubectl get service
-NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
-kubernetes   ClusterIP   10.254.0.1   <none>        443/TCP   41m</code></pre>
         <!-- /code/ -->
       </li>
-      <li>Secretの削除と確認
+    </ol>
+
+    <h4 class="h4_title">Service作成</h4>
+
+    <ol>
+      <li>nginxという名前のポッドを作成、ポート80を公開
         <!-- code -->
-        <pre class="pre"><code># kubectl delete secret mysql
-secret "mysql" deleted</code></pre>
-        <pre class="pre"><code># kubectl get secret
-NAME                  TYPE                                  DATA   AGE
-default-token-bxhz2   kubernetes.io/service-account-token   3      42m</code></pre>
+        <pre class="pre"><code># kubectl run nginx --image=nginx --restart=Never --port=80 --expose
+service/nginx created
+pod/nginx created</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>nginx serviceとエンドポイントのIP確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get service nginx
+NAME    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+nginx   ClusterIP   10.254.179.209   &lt;none&gt;        80/TCP    63s</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># kubectl get ep
+NAME         ENDPOINTS                                               AGE
+kubernetes   192.168.0.47:6443,192.168.0.48:6443,192.168.0.49:6443   60m
+nginx        10.100.105.13:80                                        101s</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>busybox podを作成し、busyboxコンテナーからwgetコマンドでnginx serviceを経由したアクセス確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl run busybox --image=busybox --restart=Never --rm -it /bin/sh
+If you don't see a command prompt, try pressing enter.
+/ # wget -O- 10.100.105.13
+Connecting to 10.100.105.13 (10.100.105.13:80)
+writing to stdout
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href="http://nginx.org/"&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href="http://nginx.com/"&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+-                    100% |*************************************************************************************************************|   612  0:00:00 ETA
+written to stdout
+/ # wget -O- 10.100.105.13
+Connecting to 10.100.105.13 (10.100.105.13:80)
+writing to stdout
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href="http://nginx.org/"&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href="http://nginx.com/"&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+-                    100% |*************************************************************************************************************|   612  0:00:00 ETA
+written to stdout
+/ # exit
+pod "busybox" deleted</code></pre>
+        <!-- /code/ -->
+
+      </li>
+      <li>nginx podとnginx serviceの削除
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete pod nginx
+pod "nginx" deleted</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete service nginx
+service "nginx" deleted</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
+
+    <h4 class="h4_title">configmap作成</h4>
+
+    <ol>
+      <li>“var1=docker” “var2=kuberntes”のconfigMap ‘config'を作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl create configmap config --from-literal=var1=docker --from-literal=var2=kubernetes
+configmap/config created</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># kubectl get configmap config
+NAME     DATA   AGE
+config   2      27s</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># kubectl get configmap config -o yaml
+NAME     DATA   AGE
+config   2      27s
+root@k8s:~# kubectl get configmap config -o yaml
+apiVersion: v1
+data:
+  var1: docker
+  var2: kubernetes
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2021-01-05T06:14:13Z"
+  name: config
+  namespace: default
+  resourceVersion: "15864"
+  selfLink: /api/v1/namespaces/default/configmaps/config
+  uid: 46526a42-f9cc-4f01-b39c-14d8a2c1e604</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>configMap ’config’ をenv変数としてnginx podにロード
+        <!-- code -->
+        <pre
+          class="pre"><code># kubectl run --restart=Never nginx --image=nginx -o yaml --dry-run=client > nginx_configmap.yaml</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># vim nginx_configmap.yaml
+----------------------------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: IfNotPresent
+    name: nginx
+    resources: {}
+    envFrom:
+    - configMapRef:
+        name: config
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+----------------------------------------------------------
+Esc + :wq</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Nginx Podの作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl create -f nginx_configmap.yaml
+pod/nginx created</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>環境変数が読み込まれていることを確認 ※var1=docker var2=kubernetesが表示される
+        <!-- code -->
+        <pre class="pre"><code># kubectl exec -it nginx -- env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=nginx
+TERM=xterm
+var2=kubernetes
+var1=docker
+KUBERNETES_SERVICE_PORT=443
+KUBERNETES_SERVICE_PORT_HTTPS=443
+KUBERNETES_PORT=tcp://10.254.0.1:443
+KUBERNETES_PORT_443_TCP=tcp://10.254.0.1:443
+KUBERNETES_PORT_443_TCP_PROTO=tcp
+KUBERNETES_PORT_443_TCP_PORT=443
+KUBERNETES_PORT_443_TCP_ADDR=10.254.0.1
+KUBERNETES_SERVICE_HOST=10.254.0.1
+NGINX_VERSION=1.19.6
+NJS_VERSION=0.5.0
+PKG_RELEASE=1~buster
+HOME=/root</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Nginx podの削除
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete -f nginx_configmap.yaml
+pod "nginx" deleted</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>削除されたことを確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod
+No resources found in default namespace.</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>configmapの削除
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete configmap config
+configmap "config" deleted</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>削除されたことを確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get configmap
+No resources found in default namespace.</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
+
+    <h4 class="h4_title">Multi-container Podの作成</h4>
+
+    <ol>
+      <li>multi.yamlを作成
+        <!-- code -->
+        <pre
+          class="pre"><code># kubectl run hello --image=busybox --restart=Never -o yaml --dry-run=client -- /bin/sh -c 'echo Hello, Docker & Kubernetes !!;sleep 2400' > multi.yaml</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>2つ目のコンテナーを追記
+        <!-- code -->
+        <pre class="pre"><code># vim multi.yaml
+----------------------------------------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: hello
+  name: hello
+spec:
+  containers:
+  - args:
+    - /bin/sh
+    - -c
+    - echo Hello, Docker & Kubernetes !!;sleep 2400
+    image: busybox
+    name: hello
+    resources: {}
+  - args:
+    - /bin/sh
+    - -c
+    - echo Hello, Docker & Kubernetes !!;sleep 2400
+    image: busybox
+    name: hello2
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+----------------------------------------------------------------------
+Esc + :wq</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Pod作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl create -f multi.yaml
+pod/hello created
+</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod
+NAME    READY   STATUS    RESTARTS   AGE
+hello   2/2     Running   0          24s
+</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>2つ目のコンテナーにアクセス
+        <!-- code -->
+        <pre class="pre"><code># kubectl exec -it hello -c hello2 -- /bin/sh
+/ # ls
+bin   dev   etc   home  proc  root  sys   tmp   usr   var
+/ # exit</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Podの削除
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete pod hello
+pod "hello" deleted</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>削除されたことを確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod
+No resources found in default namespace.</code></pre>
         <!-- /code/ -->
       </li>
     </ol>
