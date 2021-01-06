@@ -742,7 +742,10 @@ No resources found in default namespace.</code></pre>
     <h4 class="h4_title">Multi-container Podの作成</h4>
 
     <ol>
-      <li>multi.yamlを作成
+      <li>
+        <p>busyboxイメージを利用して “echo Hello, Docker & Kubernetes !!; sleep 2400”というコマンドを実行する、2つのコンテナーを内包するPodを作成します。
+          2番目のコンテナーに接続して「ls」を実行してみましょう。</p>
+          multi.yamlを作成
         <!-- code -->
         <pre
           class="pre"><code># kubectl run hello --image=busybox --restart=Never -o yaml --dry-run=client -- /bin/sh -c 'echo Hello, Docker & Kubernetes !!;sleep 2400' > multi.yaml</code></pre>

@@ -169,9 +169,9 @@ Client Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.1", GitCom
         <pre class="pre"><code># kubectl get nodes
         NAME                STATUS   ROLES    AGE    VERSION
         k8s-control-plane   Ready    master   142m   v1.19.1
-        k8s-worker          Ready    <none>   141m   v1.19.1
-        k8s-worker2         Ready    <none>   141m   v1.19.1
-        k8s-worker3         Ready    <none>   141m   v1.19.1
+        k8s-worker          Ready    &lt;none&gt;   141m   v1.19.1
+        k8s-worker2         Ready    &lt;none&gt;   141m   v1.19.1
+        k8s-worker3         Ready    &lt;none&gt;   141m   v1.19.1
 </code></pre>
         <!-- /code/ -->
       </li>
@@ -961,6 +961,618 @@ pod "hello" deleted</code></pre>
         <!-- code -->
         <pre class="pre"><code># kubectl get pod
 No resources found in default namespace.</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
+
+    <h5 class="h5_title">WordPress環境の構築</h5>
+
+    <h4 class="h4_title">Secretの作成</h4>
+
+    <ol>
+      <li>データベースのパスワードを格納する Kubernetes シークレットを作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl create secret generic mysql --from-literal=password=JkdJkd123@@@
+secret/mysql created</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
+
+    <h4 class="h4_title">MySQLとWordPressのPersistentVolumeとPersistentVolumeClaimの作成</h4>
+
+    <ol>
+      <li>「mysql-pv.yml」の作成
+        <!-- code -->
+        <pre
+          class="pre"><code># vim mysql-pv.yml
+--------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+  labels:
+    type: local
+spec:
+  storageClassName: mysql
+  capacity:
+    storage: 3Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/mysql
+--------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>「mysql-pvc.yml」の作成
+        <!-- code -->
+        <pre
+          class="pre"><code># vim mysql-pvc.yml
+--------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  labels:
+    app: wordpress
+    tier: mysql
+spec:
+  storageClassName: mysql
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+--------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>pvの作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl create -f mysql-pv.yml
+persistentvolume/mysql-pv created</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>pvcの作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl create -f mysql-pvc.yml
+persistentvolumeclaim/mysql-pvc created</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>「wordpress-pv.yml」の作成
+        <!-- code -->
+        <pre
+          class="pre"><code># vim wordpress-pv.yml
+--------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wordpress-pv
+  labels:
+    type: local
+spec:
+  storageClassName: wordpress
+  capacity:
+    storage: 3Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/wordpress
+--------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>「mysql-pvc.yml」の作成
+        <!-- code -->
+        <pre
+          class="pre"><code># vim mysql-pvc.yml
+--------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wordpress-pvc
+  labels:
+    app: wordpress
+    tier: wordpress
+spec:
+  storageClassName: wordpress
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+--------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>pvの作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl create -f wordpress-pv.yml
+persistentvolume/wordpress-pv created</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>pvcの作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl create -f wordpress-pvc.yml
+persistentvolumeclaim/wordpress-pvc created</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>pvcの作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pvc,pv
+NAME                            CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                   STORAGECLASS   REASON   AGE
+persistentvolume/mysql-pv       3Gi        RWO            Retain           Bound    default/mysql-pvc       mysql                   111s
+persistentvolume/wordpress-pv   3Gi        RWO            Retain           Bound    default/wordpress-pvc   wordpress               14s
+
+NAME                                  STATUS   VOLUME         CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+persistentvolumeclaim/mysql-pvc       Bound    mysql-pv       3Gi        RWO            mysql          86s
+persistentvolumeclaim/wordpress-pvc   Bound    wordpress-pv   3Gi        RWO            wordpress      5s</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
+
+    <h4 class="h4_title">MySQLのDeploymentとServiceの作成</h4>
+
+    <ol>
+      <li>「mysql.yml」の作成
+        <!-- code -->
+        <pre class="pre"><code># vim mysql.yml
+--------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: mysql:5.6
+          name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: password
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts:
+            - name: mysql-local-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-local-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+--------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------
+Esc + :wq</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>MySQLのdeploymentの作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl create -f mysql.yml
+deployment.apps/mysql created</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>podの確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod -l app=mysql
+NAME                    READY   STATUS    RESTARTS   AGE
+mysql-9c9dc94f5-bh976   1/1     Running   0          36s</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>「mysql-service.yml」の作成
+        <!-- code -->
+        <pre class="pre"><code># vim mysql-service.yml
+--------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3306
+  selector:
+    app: mysql
+--------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------
+Esc + :wq</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Serviceの作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl create -f mysql-service.yml
+service/mysql created</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Serviceの確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get svc -l app=mysql
+NAME    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+mysql   ClusterIP   10.96.148.247   &lt;none&gt;        3306/TCP   15s</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
+
+    <h4 class="h4_title">WordPressのDeploymentとServiceの作成</h4>
+
+    <ol>
+      <li>「wordpress.yml」の作成
+        <!-- code -->
+        <pre class="pre"><code># vim wordpress.yml
+--------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+        - image: wordpress
+          name: wordpress
+          env:
+          - name: WORDPRESS_DB_HOST
+            value: mysql:3306
+          - name: WORDPRESS_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql
+                key: password
+          ports:
+            - containerPort: 80
+              name: wordpress
+          volumeMounts:
+            - name: wordpress-local-storage
+              mountPath: /var/www/html
+      volumes:
+        - name: wordpress-local-storage
+          persistentVolumeClaim:
+            claimName: wordpress-pvc
+--------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------
+Esc + :wq</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>WordPressのdeploymentの作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl create -f wordpress.yml
+deployment.apps/wordpress created</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>podの確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod -l app=wordpress
+NAME                         READY   STATUS    RESTARTS   AGE
+wordpress-6b9dd8f4c5-bh46k   1/1     Running   0          118s</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>「wordpress-service.yml」の作成
+        <!-- code -->
+        <pre class="pre"><code># vim wordpress-service.yml
+--------------------------------------------------以下の内容をコピー&ペースト-----------------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: wordpress
+  name: wordpress
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nordPort: 30008
+      protocol: TCP
+  selector:
+    app: wordpress
+--------------------------------------------------[Esc + :wq]で保存終了します。--------------------------------------------------
+Esc + :wq</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Serviceの作成
+        <!-- code -->
+        <pre class="pre"><code># kubectl create -f wordpress-service.yml
+service/wordpress created</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Serviceの確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get svc -l app=wordpress
+NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+wordpress   NodePort   10.96.153.116   &lt;none&gt;        80:30008/TCP   55ms</code></pre>
+        <!-- /code/ -->
+        <!-- code -->
+        <pre class="pre"><code># kubectl run busybox --image=busybox --restart=Never -it --rm -- sh
+If you don't see a command prompt, try pressing enter.
+/ # wget -O- 10.96.153.116
+Connecting to 10.96.153.116 (10.96.153.116:80)
+Connecting to 10.96.153.116 (10.96.153.116:80)
+writing to stdout
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en-US" xml:lang="en-US"&gt;
+&lt;head&gt;
+        &lt;meta name="viewport" content="width=device-width" /&gt;
+        &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+        &lt;meta name="robots" content="noindex,nofollow" /&gt;
+        &lt;title&gt;WordPress &rsaquo; Installation&lt;/title&gt;
+        &lt;link rel='stylesheet' id='dashicons-css'  href='http://10.96.153.116/wp-includes/css/dashicons.min.css?ver=5.6' type='text/css' media='all' /&gt;
+&lt;link rel='stylesheet' id='buttons-css'  href='http://10.96.153.116/wp-includes/css/buttons.min.css?ver=5.6' type='text/css' media='all' /&gt;
+&lt;link rel='stylesheet' id='forms-css'  href='http://10.96.153.116/wp-admin/css/forms.min.css?ver=5.6' type='text/css' media='all' /&gt;
+&lt;link rel='stylesheet' id='l10n-css'  href='http://10.96.153.116/wp-admin/css/l10n.min.css?ver=5.6' type='text/css' media='all' /&gt;
+&lt;link rel='stylesheet' id='install-css'  href='http://10.96.153.116/wp-admin/css/install.min.css?ver=5.6' type='text/css' media='all' /&gt;
+&lt;/head&gt;
+&lt;body class="wp-core-ui language-chooser"&gt;
+&lt;p id="logo"&gt;WordPress&lt;/p&gt;
+
+        &lt;form id="setup" method="post" action="?step=1"&gt;&lt;label class='screen-reader-text' for='language'&gt;Select a default language&lt;/label&gt;
+&lt;select size='14' name='language' id='language'&gt;
+&lt;option value="" lang="en" selected="selected" data-continue="Continue" data-installed="1"&gt;English (United States)&lt;/option&gt;
+&lt;option value="af" lang="af" data-continue="Gaan voort"&gt;Afrikaans&lt;/option&gt;
+&lt;option value="ar" lang="ar" data-continue="????????"&gt;???????&lt;/option&gt;
+&lt;option value="ary" lang="ar" data-continue="????????"&gt;??????? ????????&lt;/option&gt;
+&lt;option value="as" lang="as" data-continue="Continue"&gt;???????&lt;/option&gt;
+&lt;option value="az" lang="az" data-continue="Davam"&gt;Az?rbaycan dili&lt;/option&gt;
+&lt;option value="azb" lang="az" data-continue="Continue"&gt;????? ?????????&lt;/option&gt;
+&lt;option value="bel" lang="be" data-continue="Працягнуць"&gt;Беларуская мова&lt;/option&gt;
+&lt;option value="bg_BG" lang="bg" data-continue="Продължение"&gt;Български&lt;/option&gt;
+&lt;option value="bn_BD" lang="bn" data-continue="????? ??."&gt;?????&lt;/option&gt;
+&lt;option value="bo" lang="bo" data-continue="????????"&gt;???????&lt;/option&gt;
+&lt;option value="bs_BA" lang="bs" data-continue="Nastavi"&gt;Bosanski&lt;/option&gt;
+&lt;option value="ca" lang="ca" data-continue="Continua"&gt;Catala&lt;/option&gt;
+&lt;option value="ceb" lang="ceb" data-continue="Padayun"&gt;Cebuano&lt;/option&gt;
+&lt;option value="cs_CZ" lang="cs" data-continue="Pokra?ovat"&gt;?e?tina&lt;/option&gt;
+&lt;option value="cy" lang="cy" data-continue="Parhau"&gt;Cymraeg&lt;/option&gt;
+&lt;option value="da_DK" lang="da" data-continue="Forts&#230;t"&gt;Dansk&lt;/option&gt;
+&lt;option value="de_DE_formal" lang="de" data-continue="Fortfahren"&gt;Deutsch (Sie)&lt;/option&gt;
+&lt;option value="de_CH_informal" lang="de" data-continue="Weiter"&gt;Deutsch (Schweiz, Du)&lt;/option&gt;
+&lt;option value="de_DE" lang="de" data-continue="Fortfahren"&gt;Deutsch&lt;/option&gt;
+&lt;option value="de_AT" lang="de" data-continue="Weiter"&gt;Deutsch (Osterreich)&lt;/option&gt;
+&lt;option value="de_CH" lang="de" data-continue="Fortfahren"&gt;Deutsch (Schweiz)&lt;/option&gt;
+&lt;option value="dsb" lang="dsb" data-continue="Dalej"&gt;Dolnoserb??ina&lt;/option&gt;
+&lt;option value="dzo" lang="dz" data-continue="Continue"&gt;??????&lt;/option&gt;
+&lt;option value="el" lang="el" data-continue="Συν?χεια"&gt;Ελληνικ?&lt;/option&gt;
+&lt;option value="en_CA" lang="en" data-continue="Continue"&gt;English (Canada)&lt;/option&gt;
+&lt;option value="en_ZA" lang="en" data-continue="Continue"&gt;English (South Africa)&lt;/option&gt;
+&lt;option value="en_GB" lang="en" data-continue="Continue"&gt;English (UK)&lt;/option&gt;
+&lt;option value="en_AU" lang="en" data-continue="Continue"&gt;English (Australia)&lt;/option&gt;
+&lt;option value="en_NZ" lang="en" data-continue="Continue"&gt;English (New Zealand)&lt;/option&gt;
+&lt;option value="eo" lang="eo" data-continue="Da?rigi"&gt;Esperanto&lt;/option&gt;
+&lt;option value="es_MX" lang="es" data-continue="Continuar"&gt;Espanol de Mexico&lt;/option&gt;
+&lt;option value="es_CO" lang="es" data-continue="Continuar"&gt;Espanol de Colombia&lt;/option&gt;
+&lt;option value="es_VE" lang="es" data-continue="Continuar"&gt;Espanol de Venezuela&lt;/option&gt;
+&lt;option value="es_ES" lang="es" data-continue="Continuar"&gt;Espanol&lt;/option&gt;
+&lt;option value="es_EC" lang="es" data-continue="Continuar"&gt;Espanol de Ecuador&lt;/option&gt;
+&lt;option value="es_CL" lang="es" data-continue="Continuar"&gt;Espanol de Chile&lt;/option&gt;
+&lt;option value="es_PE" lang="es" data-continue="Continuar"&gt;Espanol de Peru&lt;/option&gt;
+&lt;option value="es_CR" lang="es" data-continue="Continuar"&gt;Espanol de Costa Rica&lt;/option&gt;
+&lt;option value="es_PR" lang="es" data-continue="Continuar"&gt;Espanol de Puerto Rico&lt;/option&gt;
+&lt;option value="es_UY" lang="es" data-continue="Continuar"&gt;Espanol de Uruguay&lt;/option&gt;
+&lt;option value="es_GT" lang="es" data-continue="Continuar"&gt;Espanol de Guatemala&lt;/option&gt;
+&lt;option value="es_AR" lang="es" data-continue="Continuar"&gt;Espanol de Argentina&lt;/option&gt;
+&lt;option value="et" lang="et" data-continue="Jatka"&gt;Eesti&lt;/option&gt;
+&lt;option value="eu" lang="eu" data-continue="Jarraitu"&gt;Euskara&lt;/option&gt;
+&lt;option value="fa_IR" lang="fa" data-continue="?????"&gt;?????&lt;/option&gt;
+&lt;option value="fi" lang="fi" data-continue="Jatka"&gt;Suomi&lt;/option&gt;
+&lt;option value="fr_FR" lang="fr" data-continue="Continuer"&gt;Francais&lt;/option&gt;
+&lt;option value="fr_BE" lang="fr" data-continue="Continuer"&gt;Francais de Belgique&lt;/option&gt;
+&lt;option value="fr_CA" lang="fr" data-continue="Continuer"&gt;Francais du Canada&lt;/option&gt;
+&lt;option value="fur" lang="fur" data-continue="Continue"&gt;Friulian&lt;/option&gt;
+&lt;option value="gd" lang="gd" data-continue="Lean air adhart"&gt;Gaidhlig&lt;/option&gt;
+&lt;option value="gl_ES" lang="gl" data-continue="Continuar"&gt;Galego&lt;/option&gt;
+&lt;option value="gu" lang="gu" data-continue="???? ??????"&gt;???????&lt;/option&gt;
+&lt;option value="haz" lang="haz" data-continue="?????"&gt;????? ??&lt;/option&gt;
+&lt;option value="he_IL" lang="he" data-continue="??????"&gt;????????&lt;/option&gt;
+&lt;option value="hi_IN" lang="hi" data-continue="????"&gt;??????&lt;/option&gt;
+&lt;option value="hr" lang="hr" data-continue="Nastavi"&gt;Hrvatski&lt;/option&gt;
+&lt;option value="hsb" lang="hsb" data-continue="Dale"&gt;Hornjoserb??ina&lt;/option&gt;
+&lt;option value="hu_HU" lang="hu" data-continue="Tovabb"&gt;Magyar&lt;/option&gt;
+&lt;option value="hy" lang="hy" data-continue="??????????"&gt;???????&lt;/option&gt;
+&lt;option value="id_ID" lang="id" data-continue="Lanjutkan"&gt;Bahasa Indonesia&lt;/option&gt;
+&lt;option value="is_IS" lang="is" data-continue="Afram"&gt;Islenska&lt;/option&gt;
+&lt;option value="it_IT" lang="it" data-continue="Continua"&gt;Italiano&lt;/option&gt;
+&lt;option value="ja" lang="ja" data-continue="続ける"&gt;日本語&lt;/option&gt;
+&lt;option value="jv_ID" lang="jv" data-continue="Nutugne"&gt;Basa Jawa&lt;/option&gt;
+&lt;option value="ka_GE" lang="ka" data-continue="??????????"&gt;???????&lt;/option&gt;
+&lt;option value="kab" lang="kab" data-continue="Continuer"&gt;Taqbaylit&lt;/option&gt;
+&lt;option value="kk" lang="kk" data-continue="Жал?астыру"&gt;?аза? т?л?&lt;/option&gt;
+&lt;option value="km" lang="km" data-continue="????"&gt;?????????&lt;/option&gt;
+&lt;option value="kn" lang="kn" data-continue="??????????"&gt;?????&lt;/option&gt;
+&lt;option value="ko_KR" lang="ko" data-continue="??"&gt;???&lt;/option&gt;
+&lt;option value="ckb" lang="ku" data-continue="?????????? ???"&gt;??????&lt;/option&gt;
+&lt;option value="lo" lang="lo" data-continue="???"&gt;???????&lt;/option&gt;
+&lt;option value="lt_LT" lang="lt" data-continue="T?sti"&gt;Lietuvi? kalba&lt;/option&gt;
+&lt;option value="lv" lang="lv" data-continue="Turpin?t"&gt;Latvie?u valoda&lt;/option&gt;
+&lt;option value="mk_MK" lang="mk" data-continue="Продолжи"&gt;Македонски ?азик&lt;/option&gt;
+&lt;option value="ml_IN" lang="ml" data-continue="??????"&gt;??????&lt;/option&gt;
+&lt;option value="mn" lang="mn" data-continue="?ргэлжл??лэх"&gt;Монгол&lt;/option&gt;
+&lt;option value="mr" lang="mr" data-continue="???? ????"&gt;?????&lt;/option&gt;
+&lt;option value="ms_MY" lang="ms" data-continue="Teruskan"&gt;Bahasa Melayu&lt;/option&gt;
+&lt;option value="my_MM" lang="my" data-continue="??????????????????"&gt;?????&lt;/option&gt;
+&lt;option value="nb_NO" lang="nb" data-continue="Fortsett"&gt;Norsk bokmal&lt;/option&gt;
+&lt;option value="ne_NP" lang="ne" data-continue="?????????? "&gt;??????&lt;/option&gt;
+&lt;option value="nl_NL" lang="nl" data-continue="Doorgaan"&gt;Nederlands&lt;/option&gt;
+&lt;option value="nl_BE" lang="nl" data-continue="Doorgaan"&gt;Nederlands (Belgie)&lt;/option&gt;
+&lt;option value="nl_NL_formal" lang="nl" data-continue="Doorgaan"&gt;Nederlands (Formeel)&lt;/option&gt;
+&lt;option value="nn_NO" lang="nn" data-continue="Hald fram"&gt;Norsk nynorsk&lt;/option&gt;
+&lt;option value="oci" lang="oc" data-continue="Contunhar"&gt;Occitan&lt;/option&gt;
+&lt;option value="pa_IN" lang="pa" data-continue="???? ????"&gt;??????&lt;/option&gt;
+&lt;option value="pl_PL" lang="pl" data-continue="Kontynuuj"&gt;Polski&lt;/option&gt;
+&lt;option value="ps" lang="ps" data-continue="????"&gt;????&lt;/option&gt;
+&lt;option value="pt_PT" lang="pt" data-continue="Continuar"&gt;Portugues&lt;/option&gt;
+&lt;option value="pt_BR" lang="pt" data-continue="Continuar"&gt;Portugues do Brasil&lt;/option&gt;
+&lt;option value="pt_PT_ao90" lang="pt" data-continue="Continuar"&gt;Portugues (AO90)&lt;/option&gt;
+&lt;option value="pt_AO" lang="pt" data-continue="Continuar"&gt;Portugues de Angola&lt;/option&gt;
+&lt;option value="rhg" lang="rhg" data-continue="Continue"&gt;Ruainga&lt;/option&gt;
+&lt;option value="ro_RO" lang="ro" data-continue="Continu?"&gt;Roman?&lt;/option&gt;
+&lt;option value="ru_RU" lang="ru" data-continue="Продолжить"&gt;Русский&lt;/option&gt;
+&lt;option value="sah" lang="sah" data-continue="Сал?аа"&gt;Сахалыы&lt;/option&gt;
+&lt;option value="snd" lang="sd" data-continue="???? ???"&gt;????&lt;/option&gt;
+&lt;option value="si_LK" lang="si" data-continue="????? ????? ????"&gt;?????&lt;/option&gt;
+&lt;option value="sk_SK" lang="sk" data-continue="Pokra?ova?"&gt;Sloven?ina&lt;/option&gt;
+&lt;option value="skr" lang="skr" data-continue="???? ????"&gt;???????&lt;/option&gt;
+&lt;option value="sl_SI" lang="sl" data-continue="Nadaljujte"&gt;Sloven??ina&lt;/option&gt;
+&lt;option value="sq" lang="sq" data-continue="Vazhdo"&gt;Shqip&lt;/option&gt;
+&lt;option value="sr_RS" lang="sr" data-continue="Настави"&gt;Српски ?език&lt;/option&gt;
+&lt;option value="sv_SE" lang="sv" data-continue="Fortsatt"&gt;Svenska&lt;/option&gt;
+&lt;option value="sw" lang="sw" data-continue="Endelea"&gt;Kiswahili&lt;/option&gt;
+&lt;option value="szl" lang="szl" data-continue="K?ntynuowa?"&gt;?l?nsk? g?dka&lt;/option&gt;
+&lt;option value="ta_IN" lang="ta" data-continue="????????"&gt;?????&lt;/option&gt;
+&lt;option value="te" lang="te" data-continue="??????????"&gt;??????&lt;/option&gt;
+&lt;option value="th" lang="th" data-continue="?????"&gt;???&lt;/option&gt;
+&lt;option value="tl" lang="tl" data-continue="Magpatuloy"&gt;Tagalog&lt;/option&gt;
+&lt;option value="tr_TR" lang="tr" data-continue="Devam"&gt;Turkce&lt;/option&gt;
+&lt;option value="tt_RU" lang="tt" data-continue="д?вам ит?"&gt;Татар теле&lt;/option&gt;
+&lt;option value="tah" lang="ty" data-continue="Continue"&gt;Reo Tahiti&lt;/option&gt;
+&lt;option value="ug_CN" lang="ug" data-continue="?????????????"&gt;????????&lt;/option&gt;
+&lt;option value="uk" lang="uk" data-continue="Продовжити"&gt;Укра?нська&lt;/option&gt;
+&lt;option value="ur" lang="ur" data-continue="???? ?????"&gt;????&lt;/option&gt;
+&lt;option value="uz_UZ" lang="uz" data-continue="Продолжить"&gt;O‘zbekcha&lt;/option&gt;
+&lt;option value="vi" lang="vi" data-continue="Ti?p t?c"&gt;Ti?ng Vi?t&lt;/option&gt;
+&lt;option value="zh_TW" lang="zh" data-continue="繼續"&gt;繁體中文&lt;/option&gt;
+&lt;option value="zh_HK" lang="zh" data-continue="繼續"&gt;香港中文版 &lt;/option&gt;
+&lt;option value="zh_CN" lang="zh" data-continue="??"&gt;?体中文&lt;/option&gt;
+&lt;/select&gt;
+&lt;p class="step"&gt;&lt;span class="spinner"&gt;&lt;/span&gt;&lt;input id="language-continue" type="submit" class="button button-primary button-large" value="Continue" /&gt;&lt;/p&gt;&lt;/-                    12151 --:--:-- ETAweblog_title'); if (t){ t.focus(); }&lt;/script&gt;
+        &lt;script type='text/javascript' src='http://10.96.153.116/wp-includes/js/jquery/jquery.min.js?ver=3.5.1' id='jquery-core-js'&gt;&lt;/script&gt;
+&lt;script type='text/javascript' src='http://10.96.153.116/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'&gt;&lt;/script&gt;
+&lt;script type='text/javascript' src='http://10.96.153.116/wp-admin/js/language-chooser.min.js?ver=5.6' id='language-chooser-js'&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+jQuery( function( $ ) {
+        $( '.hide-if-no-js' ).removeClass( 'hide-if-no-js' );
+} );
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+-                    100% |*************************************************************************************************************| 12756  0:00:00 ETA
+written to stdout
+/ # exit
+pod "busybox" deleted</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
+
+    <h4 class="h4_title">Podの自動修復（セルフヒーリング）</h4>
+
+    <ol>
+      <li>WordPressのPod状況を確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod
+NAME                         READY   STATUS    RESTARTS   AGE
+mysql-9c9dc94f5-bh976        1/1     Running   0          78m
+wordpress-6b9dd8f4c5-bh46k   1/1     Running   0          73m</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>WordPressのPodを削除
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete pod -l app=wordpress
+pod "wordpress-6b9dd8f4c5-bh46k" deleted</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>WordPressのPod名の確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod
+NAME                         READY   STATUS    RESTARTS   AGE
+mysql-9c9dc94f5-bh976        1/1     Running   0          79m
+wordpress-6b9dd8f4c5-26w8h   1/1     Running   0          63s</code></pre>
+        <!-- /code/ -->
+      </li>
+    </ol>
+
+    <h4 class="h4_title">クリーンアップ</h4>
+
+    <ol>
+      <li>deploymentの削除
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete -f wordpress.yml
+deployment.apps "wordpress" deleted</code></pre>
+        <pre class="pre"><code># kubectl delete -f mysql.yml
+deployment.apps "mysql" deleted</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>serviceを削除
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete -f wordpress-service.yml
+service "wordpress" deleted</code></pre>
+        <pre class="pre"><code># kubectl delete -f mysql-service.yml
+service "mysql" deleted</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>pvcの削除
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete -f wordpress-pvc.yml
+persistentvolumeclaim "wordpress-pvc" deleted</code></pre>
+        <pre class="pre"><code># kubectl delete -f mysql-pvc.yml
+persistentvolumeclaim "mysql-pvc" deleted</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>pvの削除
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete -f wordpress-pv.yml
+persistentvolume "wordpress-pv" deleted</code></pre>
+        <pre class="pre"><code># kubectl delete -f mysql-pv.yml
+persistentvolume "mysql-pv" deleted</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>podの確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pod -l app=wordpress
+No resources found in default namespace.</code></pre>
+        <pre class="pre"><code># kubectl get pod -l app=mysql
+No resources found in default namespace.</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>serviceの確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get svc -l app=wordpress
+No resources found in default namespace.</code></pre>
+        <pre class="pre"><code># kubectl get svc -l app=mysql
+No resources found in default namespace.</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>pv,pvcの確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get pvc,pv
+No resources found</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>DeploymentとServiceの確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl get deployment
+No resources found in default namespace.</code></pre>
+        <pre class="pre"><code># kubectl get service
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    &lt;none&gt;        443/TCP   128m</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>Secretの削除と確認
+        <!-- code -->
+        <pre class="pre"><code># kubectl delete secret mysql
+secret "mysql" deleted</code></pre>
+        <pre class="pre"><code># kubectl get secret
+NAME                  TYPE                                  DATA   AGE
+default-token-tl72t   kubernetes.io/service-account-token   3      128m</code></pre>
+        <!-- /code/ -->
+      </li>
+      <li>kindクラスタの削除
+        <!-- code -->
+        <pre class="pre"><code># kind delete clusters k8s
+Deleted clusters: ["k8s"]</code></pre>
         <!-- /code/ -->
       </li>
     </ol>
