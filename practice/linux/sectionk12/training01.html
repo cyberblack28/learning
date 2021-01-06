@@ -965,9 +965,9 @@ No resources found in default namespace.</code></pre>
       </li>
     </ol>
 
-    <h5 class="h5_title">WordPress環境の構築</h5>
+    <h4 class="h4_title">WordPress環境の構築</h4>
 
-    <h4 class="h4_title">Secretの作成</h4>
+    <h5 class="h5_title">Secretの作成</h5>
 
     <ol>
       <li>データベースのパスワードを格納する Kubernetes シークレットを作成
@@ -978,7 +978,7 @@ secret/mysql created</code></pre>
       </li>
     </ol>
 
-    <h4 class="h4_title">MySQLとWordPressのPersistentVolumeとPersistentVolumeClaimの作成</h4>
+    <h5 class="h5_title">MySQLとWordPressのPersistentVolumeとPersistentVolumeClaimの作成</h5>
 
     <ol>
       <li>「mysql-pv.yml」の作成
@@ -1107,7 +1107,7 @@ persistentvolumeclaim/wordpress-pvc   Bound    wordpress-pv   3Gi        RWO    
       </li>
     </ol>
 
-    <h4 class="h4_title">MySQLのDeploymentとServiceの作成</h4>
+    <h5 class="h5_title">MySQLのDeploymentとServiceの作成</h5>
 
     <ol>
       <li>「mysql.yml」の作成
@@ -1201,7 +1201,7 @@ mysql   ClusterIP   10.96.148.247   &lt;none&gt;        3306/TCP   15s</code></p
       </li>
     </ol>
 
-    <h4 class="h4_title">WordPressのDeploymentとServiceの作成</h4>
+    <h5 class="h5_title">WordPressのDeploymentとServiceの作成</h5>
 
     <ol>
       <li>「wordpress.yml」の作成
@@ -1467,7 +1467,7 @@ pod "busybox" deleted</code></pre>
       </li>
     </ol>
 
-    <h4 class="h4_title">Podの自動修復（セルフヒーリング）</h4>
+    <h5 class="h5_title">Podの自動修復（セルフヒーリング）</h5>
 
     <ol>
       <li>WordPressのPod状況を確認
@@ -1494,7 +1494,7 @@ wordpress-6b9dd8f4c5-26w8h   1/1     Running   0          63s</code></pre>
       </li>
     </ol>
 
-    <h4 class="h4_title">クリーンアップ</h4>
+    <h5 class="h5_title">クリーンアップ</h5>
 
     <ol>
       <li>deploymentの削除
