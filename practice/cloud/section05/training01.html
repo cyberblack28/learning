@@ -228,15 +228,15 @@ Creating root_wordpress_1 ... done</code></pre>
         <pre class="pre"><code># docker volume ls
 DRIVER              VOLUME NAME
 local               a7ed8567fa175dd6ea30bd45688d10fbb732e9739c186d5828595df75b329e86
-local               build_wordpress_db_data</code></pre>
+local               root_db_data</code></pre>
         <!-- /code/ -->
       </li>
       <li>Linuxホストの以下ディレクトリでtestという空ファイルを作成
         <!-- code -->
-        <pre class="pre"><code># touch /var/lib/docker/volumes/build_wordpress_db_data/_data/test</code></pre>
+        <pre class="pre"><code># touch /var/lib/docker/volumes/root_db_data/_data/test</code></pre>
         <!-- /code/ -->
         <!-- code -->
-        <pre class="pre"><code># ls /var/lib/docker/volumes/build_wordpress_db_data/_data/
+        <pre class="pre"><code># ls /var/lib/docker/volumes/root_db_data/_data/
 auto.cnf         client-key.pem  ib_logfile1         private_key.pem  sys
 ca-key.pem       ib_buffer_pool  ibtmp1              public_key.pem   test
 ca.pem           ibdata1         mysql               server-cert.pem  wordpress
@@ -275,7 +275,7 @@ exit</code></pre>
       </li>
       <li>Linuxホストで確認
         <!-- code -->
-        <pre class="pre"><code># ls /var/lib/docker/volumes/build_wordpress_db_data/_data/
+        <pre class="pre"><code># ls /var/lib/docker/volumes/root_db_data/_data/
 auto.cnf         client-key.pem  ib_logfile1         private_key.pem  sys
 ca-key.pem       ib_buffer_pool  ibtmp1              public_key.pem   test
 ca.pem           ibdata1         mysql               server-cert.pem  test2
