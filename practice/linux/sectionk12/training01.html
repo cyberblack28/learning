@@ -378,7 +378,7 @@ nginx   1/1     Running   0          49s   app=v1
       </li>
       <li>app=v2にラベル名を変更
         <!-- code -->
-        <pre class="pre"><code># kubectl get pod --show-labels
+        <pre class="pre"><code># kubectl label pod nginx app=v2 --overwrite
 pod/nginx labeled</code></pre>
         <!-- /code/ -->
       </li>
@@ -457,8 +457,10 @@ deployment.apps/nginx created</code></pre>
       </li>
       <li>Podが2個生成されていることを確認
         <!-- code -->
-        <pre class="pre"><code># kubectl create -f nginx_dep.yaml
-deployment.apps/nginx created</code></pre>
+        <pre class="pre"><code># kubectl get pod
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-69576c95db-hlm9l   1/1     Running   0          4m46s
+nginx-69576c95db-zrhhc   1/1     Running   0          4m46s</code></pre>
         <!-- /code/ -->
       </li>
       <li>1podを削除して、セルフヒーリングを確認
